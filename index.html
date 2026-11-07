@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12/11~12/13 三天兩夜情侶露營精選提案｜官方訂位・實景圖文・GIS地圖</title>
+  
+  <!-- Leaflet CSS for GIS Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <style>
+    :root {
+      --primary: #2d5a27;
+      --primary-light: #488241;
+      --primary-subtle: #eef6ec;
+      --accent: #d97706;
+      --accent-subtle: #fef3c7;
+      --dark: #1e293b;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --success: #15803d;
+      --hot-water: #b91c1c;
+      --hot-water-subtle: #fee2e2;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background-color: var(--gray-50);
+      color: var(--dark);
+      line-height: 1.6;
+      padding-bottom: 70px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1b3d18 0%, #2d5a27 50%, #406f39 100%);
+      color: white;
+      padding: 38px 20px 28px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge-trip {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      max-width: 840px;
+      margin: 0 auto;
+      font-size: 1.02rem;
+      opacity: 0.92;
+      line-height: 1.6;
+    }
+
+    .req-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .req-item {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 24px 20px;
+    }
+
+    /* GIS Map Section */
+    .gis-section {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 28px;
+      border: 1px solid var(--gray-200);
+    }
+
+    .gis-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .gis-title-group h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gis-title-group p {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      margin-top: 2px;
+    }
+
+    .gis-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--gray-50);
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--gray-200);
+      font-size: 0.82rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-hot {
+      background: var(--hot-water);
+      box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.2);
+    }
+
+    .dot-normal {
+      background: var(--primary);
+      box-shadow: 0 0 0 2px rgba(45, 90, 39, 0.2);
+    }
+
+    .map-wrapper {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    #gisMap {
+      width: 100%;
+      height: 520px;
+      z-index: 10;
+    }
+
+    /* Custom Layer Control Styling */
+    .leaflet-control-layers {
+      border-radius: 8px !important;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15) !important;
+      border: 1px solid var(--gray-200) !important;
+      font-size: 0.85rem !important;
+      padding: 8px 12px !important;
+      background: rgba(255, 255, 255, 0.96) !important;
+      backdrop-filter: blur(4px);
+    }
+
+    .leaflet-control-layers-base label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* Map Corridor Filter Bar */
+    .corridor-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    .corridor-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+
+    .btn-corridor {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      padding: 5px 12px;
+      border-radius: 14px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-corridor:hover {
+      background: var(--gray-200);
+    }
+
+    .btn-corridor.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Custom Leaflet Marker Pins */
+    .custom-pin {
+      width: 34px;
+      height: 34px;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.35);
+      cursor: pointer;
+      border: 2px solid white;
+      transition: transform 0.2s;
+    }
+
+    .custom-pin:hover {
+      transform: rotate(-45deg) scale(1.2);
+    }
+
+    .custom-pin span {
+      transform: rotate(45deg);
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .pin-hot {
+      background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    }
+
+    .pin-normal {
+      background: linear-gradient(135deg, #488241 0%, #1b3d18 100%);
+    }
+
+    /* Popup Styling */
+    .leaflet-popup-content-wrapper {
+      border-radius: 12px;
+      padding: 2px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .popup-card {
+      padding: 8px 6px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      min-width: 250px;
+    }
+
+    .popup-badge {
+      display: inline-block;
+      font-size: 0.74rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .popup-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .popup-desc {
+      font-size: 0.82rem;
+      color: var(--gray-600);
+      margin-bottom: 8px;
+    }
+
+    .popup-attractions {
+      background: #fefce8;
+      border-left: 3px solid var(--accent);
+      padding: 6px 8px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.8rem;
+      color: #78350f;
+      margin-bottom: 10px;
+    }
+
+    .popup-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .popup-btn-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-popup {
+      flex: 1;
+      text-align: center;
+      background: var(--primary);
+      color: white !important;
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-popup:hover {
+      background: var(--primary-light);
+    }
+
+    .btn-popup-booking {
+      background: #ea580c;
+    }
+
+    .btn-popup-booking:hover {
+      background: #c2410c;
+    }
+
+    .btn-popup-nav {
+      background: #0284c7;
+    }
+
+    .btn-popup-nav:hover {
+      background: #0369a1;
+    }
+
+    /* Controls & Filters */
+    .controls-wrapper {
+      background: white;
+      padding: 16px 22px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-right: 4px;
+    }
+
+    .btn-filter {
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      color: var(--dark);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    .btn-filter:hover {
+      background: var(--gray-200);
+    }
+
+    .btn-filter.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-filter.hot-filter.active {
+      background: var(--hot-water);
+      border-color: var(--hot-water);
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 280px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 14px 8px 34px;
+      border: 1px solid var(--gray-200);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      font-size: 0.9rem;
+    }
+
+    /* Camp Cards Grid */
+    .camp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 26px;
+    }
+
+    .camp-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+      position: relative;
+    }
+
+    .camp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .camp-card.highlight-hot {
+      border-top: 4px solid var(--hot-water);
+    }
+
+    .camp-card.focused {
+      animation: pulseBorder 1.6s ease-in-out infinite;
+      box-shadow: 0 0 0 3px rgba(45, 90, 39, 0.4);
+    }
+
+    @keyframes pulseBorder {
+      0% { border-color: var(--primary); }
+      50% { border-color: var(--accent); }
+      100% { border-color: var(--primary); }
+    }
+
+    /* Card Photo Banner */
+    .camp-photo-wrapper {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: #e2e8f0;
+    }
+
+    .camp-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .camp-card:hover .camp-photo {
+      transform: scale(1.05);
+    }
+
+    .photo-overlay-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .photo-price-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(217, 119, 6, 0.95);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .camp-header {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .camp-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .camp-region-badge {
+      font-size: 0.78rem;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    .camp-rank {
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      font-weight: 700;
+    }
+
+    .camp-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .camp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 0.74rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .tag-single {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .tag-hot-water {
+      background: var(--hot-water-subtle);
+      color: var(--hot-water);
+      font-weight: 700;
+    }
+
+    .tag-setup {
+      background: var(--accent-subtle);
+      color: var(--accent);
+    }
+
+    .camp-body {
+      padding: 16px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 10px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .feature-icon {
+      font-size: 1.05rem;
+      line-height: 1.3;
+      flex-shrink: 0;
+      width: 22px;
+      text-align: center;
+    }
+
+    .feature-content strong {
+      color: var(--dark);
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.86rem;
+    }
+
+    .feature-content span {
+      color: var(--gray-600);
+      font-size: 0.86rem;
+    }
+
+    .hot-water-highlight {
+      background: #fff5f5;
+      border: 1px dashed #fca5a5;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .hot-water-highlight strong {
+      color: var(--hot-water);
+    }
+
+    .attraction-box {
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      color: #854d0e;
+    }
+
+    .attraction-box strong {
+      color: #713f12;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .review-quote {
+      background: var(--gray-50);
+      border-left: 3px solid var(--primary-light);
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.84rem;
+      color: var(--gray-600);
+      font-style: italic;
+    }
+
+    /* Card Action Buttons */
+    .camp-actions-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-booking {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: white !important;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(234, 88, 12, 0.25);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-booking:hover {
+      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(234, 88, 12, 0.35);
+    }
+
+    .btn-loc {
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #0369a1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .btn-loc:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+    }
+
+    .camp-footer {
+      padding: 12px 20px;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-select {
+      background: white;
+      border: 1px solid var(--gray-400);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--gray-600);
+      transition: all 0.2s;
+    }
+
+    .btn-select:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-select.selected {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    /* Comparison Table Section */
+    .table-section {
+      margin-top: 40px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      overflow-x: auto;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--dark);
+    }
+
+    .section-desc {
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    th {
+      background: var(--gray-50);
+      font-weight: 700;
+      color: var(--dark);
+      white-space: nowrap;
+    }
+
+    tr:hover {
+      background: #fdfdfd;
+    }
+
+    .check-yes {
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .check-hot {
+      color: var(--hot-water);
+      font-weight: bold;
+    }
+
+    /* Couple Tips Section */
+    .tips-card {
+      margin-top: 36px;
+      background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .tips-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .tip-item {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: #78350f;
+    }
+
+    .tip-item h4 {
+      margin-bottom: 4px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* Selected Drawer / Counter */
+    .my-selection-bar {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--dark);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 30px;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+
+    .badge-count {
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .camp-grid {
+        grid-template-columns: 1fr;
+      }
+      .controls-wrapper, .gis-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box {
+        max-width: 100%;
+      }
+      #gisMap {
+        height: 420px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge-trip">📅 2026/12/11 (五) ～ 12/13 (日) 三天兩夜情侶露營</div>
+    <h1>台中(含)以北・隱私單帳一區 × 免搭帳露營 GIS 精選地圖</h1>
+    <p class="subtitle">已加入每間營區的<strong>實景照片</strong>、<strong>官方訂位系統連結</strong>與<strong>國土測繪中心WMTS底圖</strong>，點擊即可查看官方完整圖文介紹與即時空位！</p>
+    
+    <div class="req-bar">
+      <div class="req-item"><span>🔗</span> 每間皆附官方訂位與即時圖文連結</div>
+      <div class="req-item"><span>🖼️</span> 嵌入高清實景風格意境照</div>
+      <div class="req-item"><span>🗺️</span> 國土測繪中心WMTS / Google地形</div>
+      <div class="req-item"><span>⛺</span> 單帳一區 / 獨立小包區（不被隔壁吵）</div>
+      <div class="req-item"><span>💧</span> 必備冰溫熱飲水機</div>
+      <div class="req-item" style="background: rgba(220, 38, 38, 0.35); border-color: rgba(239, 68, 68, 0.5);"><span>🔥</span> 加分項：水龍頭洗手台有熱水</div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- GIS Map Section -->
+    <div class="gis-section" id="gisSection">
+      <div class="gis-header">
+        <div class="gis-title-group">
+          <h2>🗺️ 露營區地理分布 GIS 地圖（點擊圖釘可直接前往訂位頁）</h2>
+          <p>支援<strong>台灣通用電子地圖</strong>、<strong>Google地形等高線圖</strong>、<strong>國土測繪正射航照影像</strong>，點擊圖釘看周邊景點與官網圖文。</p>
+        </div>
+        <div class="gis-legend">
+          <div class="legend-item">
+            <span class="legend-dot dot-hot"></span>
+            <span>🔥 洗手台有熱水 (5 處)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot dot-normal"></span>
+            <span>⛺ 乾淨優質營地 (5 處)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Display Container -->
+      <div class="map-wrapper">
+        <div id="gisMap"></div>
+      </div>
+
+      <!-- Corridor Shortcut Filter -->
+      <div class="corridor-bar">
+        <span class="corridor-label">景點觀光走廊快選：</span>
+        <button class="btn-corridor active" onclick="filterCorridor('all', this)">全部營區 (10)</button>
+        <button class="btn-corridor" onclick="filterCorridor('尖石五峰', this)">新竹尖石五峰線 (4)</button>
+        <button class="btn-corridor" onclick="filterCorridor('南庄三灣', this)">苗栗南庄三灣線 (3)</button>
+        <button class="btn-corridor" onclick="filterCorridor('泰安大湖', this)">苗栗泰安大湖溫泉線 (2)</button>
+        <button class="btn-corridor" onclick="filterCorridor('台中石岡', this)">台中石岡東勢線 (1)</button>
+        <button class="btn-corridor" onclick="filterCorridor('桃園拉拉山', this)">桃園拉拉山線 (1)</button>
+        <button class="btn-corridor" style="margin-left: auto; color: var(--primary); font-weight: 700;" onclick="resetMapView()">🔄 重置地圖全景</button>
+      </div>
+    </div>
+
+    <!-- Controls & Filters -->
+    <div class="controls-wrapper">
+      <div class="filter-group">
+        <span class="filter-label">縣市快篩：</span>
+        <button class="btn-filter active" onclick="filterRegion('all', this)">全部 (10)</button>
+        <button class="btn-filter" onclick="filterRegion('新竹', this)">新竹 (4)</button>
+        <button class="btn-filter" onclick="filterRegion('苗栗', this)">苗栗 (4)</button>
+        <button class="btn-filter" onclick="filterRegion('台中', this)">台中 (1)</button>
+        <button class="btn-filter" onclick="filterRegion('桃園', this)">桃園 (1)</button>
+      </div>
+
+      <div class="filter-group">
+        <button class="btn-filter hot-filter" id="hotWaterToggle" onclick="toggleHotWater(this)">
+          🔥 只看洗手台有熱水 (5)
+        </button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="搜尋營區、周邊景點..." oninput="handleSearch()">
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="camp-grid" id="campGrid">
+
+      <!-- 1. 新竹尖石 怡然自德 -->
+      <div class="camp-card highlight-hot" id="camp-card-1" data-id="1" data-region="新竹" data-corridor="尖石五峰" data-hot="true" data-name="尖石・怡然自德露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80" alt="尖石怡然自德露營區風格實景" />
+          <span class="photo-overlay-badge">新竹尖石｜海拔 1,050m</span>
+          <span class="photo-price-badge">約 $2,500 ~ $3,600 (含代搭)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#01 首選推薦</span>
+            <span class="camp-rank">露營樂 4.8★</span>
+          </div>
+          <h2 class="camp-title">尖石・怡然自德露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">階梯梯田獨立小區</span>
+            <span class="tag tag-hot-water">🔥 水槽溫水熱水龍頭</span>
+            <span class="tag tag-setup">專人代搭帳＋乳膠床</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>梯田階梯式落差設計，規劃獨立小包區（如雨棚景觀位或少帳區），上下層視野開闊且帳距大，不受隔壁帳走動說話干擾。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>支援全套裝備租借＋營區代搭收服務！可選星火充氣一房一廳或噴火龍帳，內附雙人乳膠床墊、蛋捲桌椅、燈具與卡式爐，直接入住自煮。</span>
+            </div>
+          </div>
+          <div class="feature-item hot-water-highlight">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-content">
+              <strong>加分項：洗手台熱水</strong>
+              <span>露友一致盛讚的招牌亮點！每個分區皆特別配置溫熱水洗手槽，12月寒冬天氣洗碗、洗菜去油完全不凍手，情侶煮飯超幸福。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>飲水機與衛浴清潔</strong>
+              <span>公共區配有冷熱飲水機、冷藏冷凍冰箱。衛浴獲 Google 4.8 星高評價，通風乾燥無異味，水壓穩定強勁。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（尖石線）：</strong>
+            <span>內灣老街 (車程約 25 分)、青蛙石天空步道、宇老觀景台吃臭豆腐、錦屏溫泉。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.easycamp.com.tw/Store_2499.html" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(1)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '尖石・怡然自德')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 2. 苗栗南庄 慢生活露營區 -->
+      <div class="camp-card" id="camp-card-2" data-id="2" data-region="苗栗" data-corridor="南庄三灣" data-hot="false" data-name="南庄・慢生活露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80" alt="南庄慢生活充氣帳風格實景" />
+          <span class="photo-overlay-badge">苗栗南庄｜海拔 300m</span>
+          <span class="photo-price-badge">約 $2,800 ~ $3,800 (充氣帳)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#02</span>
+            <span class="camp-rank">Google 4.7★</span>
+          </div>
+          <h2 class="camp-title">南庄・慢生活露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">D區獨立雨棚雙人專屬</span>
+            <span class="tag tag-setup">Coody科技棉充氣帳免搭</span>
+            <span class="tag">平地近老街補給方便</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>D區專門設有「獨立雙人輕露營帳位（獨立雨棚專用區）」，單帳一區享有私人遮雨空間，不用跟陌生露友擠在一起，私密感極佳。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>直接入住營主搭好的 Coody 8.0 頂級科技棉充氣帳，挑高透氣！附雙人床墊、桌椅、卡式爐、炊具與夜燈，亦可加選官方代搭收帳服務。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>飲水機與衛浴清潔</strong>
+              <span>營本部及D區旁設有賀眾牌冰溫熱飲水機、冷藏冷凍冰箱；衛浴男女分流、寬敞通風，經常打掃，乾淨度在露友間口碑甚高。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（南庄線）：</strong>
+            <span>南庄老街桂花巷 (車程 10 分)、康濟吊橋、南庄蓬萊溪自然生態園區、向天湖。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://slowlifecamp2016.com/" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(2)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">官方網站直營預約</span>
+          <button class="btn-select" onclick="toggleSelect(this, '南庄・慢生活')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 3. 苗栗泰安 日光角落 -->
+      <div class="camp-card highlight-hot" id="camp-card-3" data-id="3" data-region="苗栗" data-corridor="泰安大湖" data-hot="true" data-name="泰安・日光角落露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="泰安日光角落壯麗山景" />
+          <span class="photo-overlay-badge">苗栗泰安｜海拔 830m</span>
+          <span class="photo-price-badge">約 $1,500(營位) + 裝備代搭</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#03</span>
+            <span class="camp-rank">愛露營 4.9★</span>
+          </div>
+          <h2 class="camp-title">泰安・日光角落露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">獨立邊角景觀位</span>
+            <span class="tag tag-hot-water">🔥 全區水槽100%配熱水</span>
+            <span class="tag">Outlet級五星衛浴</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>階梯地形視野無遮蔽，邊角位置可單帳預訂景觀位，背靠山稜、面朝壯闊山景與雲海，無鄰帳對望壓力。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>營區配合專業裝備廠商提供代送代搭收服務，亦有合作之輕裝露營車/輕露營自駕體驗方案，純享自然野趣無需繁瑣動手。</span>
+            </div>
+          </div>
+          <div class="feature-item hot-water-highlight">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-content">
+              <strong>加分項：洗手台熱水</strong>
+              <span>全營區每個洗手台水槽皆接通熱水管線！新開幕營區的高規格硬體，冬天洗菜、洗手甚至刷牙都有溫熱水可用，徹底告別冰水。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>飲水機與衛浴清潔</strong>
+              <span>號稱「露營界的Outlet五星衛浴」，附洗脫烘衣機、雙門大冰箱、賀眾牌冷熱飲水機，乾淨度幾近滿分，情侶來女生保證滿意。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（泰安大湖線）：</strong>
+            <span>清安豆腐街（洗水坑，車程 15 分）、泰安溫泉泡湯、大湖冬季採草莓（12月剛好產季開跑！）。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://m.icamping.app/store/rgjl1119" target="_blank" class="btn-booking">
+              <span>🔗 愛露營訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(3)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">愛露營官方系統</span>
+          <button class="btn-select" onclick="toggleSelect(this, '泰安・日光角落')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 4. 苗栗南庄 搭漾露營區 -->
+      <div class="camp-card highlight-hot" id="camp-card-4" data-id="4" data-region="苗栗" data-corridor="南庄三灣" data-hot="true" data-name="南庄・搭漾露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=800&q=80" alt="南庄搭漾鹿場部落森林意境" />
+          <span class="photo-overlay-badge">苗栗南庄鹿場｜海拔 940m</span>
+          <span class="photo-price-badge">約 $1,400 ~ $2,800 (含協搭)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#04</span>
+            <span class="camp-rank">Facebook 4.9★</span>
+          </div>
+          <h2 class="camp-title">南庄・搭漾露營區 (Tayal)</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">高台景觀單帳獨立區</span>
+            <span class="tag tag-hot-water">🔥 溫水洗手台</span>
+            <span class="tag">日式懷石風衛浴</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>鹿場部落小而美精緻營地，設有專屬獨立高台單帳營位，居高臨下俯瞰山嵐，完全跳脫主活動動線，不受任何鄰帳吵鬧。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>營主備有精選帳篷與充氣睡墊出租，可提前官方 LINE (@893mbesm) 預約請營主協助搭建完成，保留兩人自己煮飯的純粹露營氣氛。</span>
+            </div>
+          </div>
+          <div class="feature-item hot-water-highlight">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-content">
+              <strong>加分項：洗手台熱水</strong>
+              <span>洗手台貼心配置溫熱水供應，高山夜晚氣溫低，洗碗筷或洗臉時溫暖舒服，露友回饋極高。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>飲水機與衛浴清潔</strong>
+              <span>以「懷石風五星級衛浴」名聞遐邇，免治馬桶、品牌洗沐備品與負離子吹風機應有盡有，備有冷熱飲水機與冷藏冷凍設備。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（鹿場線）：</strong>
+            <span>神仙谷瀑布（賽德克巴萊取景地）、鹿場部落、向天湖環湖步道、加里山登山口。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.facebook.com/tayalcamp/" target="_blank" class="btn-booking">
+              <span>🔗 官方粉專圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(4)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">官方 LINE @893mbesm</span>
+          <button class="btn-select" onclick="toggleSelect(this, '南庄・搭漾')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 5. 新竹尖石 老爹打樁 -->
+      <div class="camp-card highlight-hot" id="camp-card-5" data-id="5" data-region="新竹" data-corridor="尖石五峰" data-hot="true" data-name="尖石・老爹打樁露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=800&q=80" alt="尖石老爹打樁雲海景致" />
+          <span class="photo-overlay-badge">新竹尖石｜海拔 1,200m</span>
+          <span class="photo-price-badge">約 $2,800 ~ $3,600 (不打樁屋)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#05</span>
+            <span class="camp-rank">露營樂 4.7★</span>
+          </div>
+          <h2 class="camp-title">尖石・老爹打樁露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">少帳散位/獨立輕裝區</span>
+            <span class="tag tag-hot-water">🔥 洗手台溫熱水供應</span>
+            <span class="tag tag-setup">不打樁輕露營免搭小屋</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>海拔1200公尺，坐擁壯麗雲海，設有獨立輕裝房型與階梯散帳位，兩個人能獨享開闊的山嵐夜景與寧靜空間。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>提供「不打樁輕露營免搭帳小屋」，內建雙人床墊、冷暖氣、桌椅及戶外炊事區，自己準備食材煮火鍋即可，純樸愜意非飯店式。</span>
+            </div>
+          </div>
+          <div class="feature-item hot-water-highlight">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-content">
+              <strong>加分項：洗手台熱水</strong>
+              <span>浴廁區外的洗手台皆配置熱水水龍頭，冬天高山氣溫只有10度上下，能用溫水洗碗備料是一大享受。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（尖石高山線）：</strong>
+            <span>宇老觀景台、凌空廊道、李棟山古堡登山口、秀巒天然野溪溫泉。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://pilingdaddy.com/" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(5)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">官方訂位系統直營</span>
+          <button class="btn-select" onclick="toggleSelect(this, '尖石・老爹打樁')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 6. 新竹五峰 鹿林道 -->
+      <div class="camp-card" id="camp-card-6" data-id="6" data-region="新竹" data-corridor="尖石五峰" data-hot="false" data-name="五峰・鹿林道露營樂園">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" alt="五峰鹿林道杉木林美景" />
+          <span class="photo-overlay-badge">新竹五峰｜海拔 800m</span>
+          <span class="photo-price-badge">約 $2,500 ~ $3,500 (含搭收)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#06</span>
+            <span class="camp-rank">官網系統 4.8★</span>
+          </div>
+          <h2 class="camp-title">五峰・鹿林道露營樂園</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">森林系獨立少帳棧板</span>
+            <span class="tag tag-setup">全套租借代客搭收</span>
+            <span class="tag">乾濕分離免治馬桶</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>被筆直杉木林環抱的森林秘境，設有獨立少帳小區與森林單帳棧板，樹木自然形成屏障，私密感極佳且吸收滿滿芬多精。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>營區官方提供全套露營裝備出租（帳篷、客廳帳、充氣床、桌椅），可提前預約「含專人搭收服務」；另有簡約合掌屋輕露營可選。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>飲水機與衛浴清潔</strong>
+              <span>配置冷熱飲水機與冰箱。衛浴堪稱露營界標竿：乾濕分離獨立淋浴間、免治馬桶、超大風量吹風機，一塵不染。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（五峰清泉線）：</strong>
+            <span>清泉溫泉泡腳池、張學良文化園區故居、三毛夢屋、觀霧國家森林遊樂區方向。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.lulin.com.tw/" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(6)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">鹿林道官方訂位官網</span>
+          <button class="btn-select" onclick="toggleSelect(this, '五峰・鹿林道')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 7. 苗栗三灣 鄉町露營區 -->
+      <div class="camp-card highlight-hot" id="camp-card-7" data-id="7" data-region="苗栗" data-corridor="南庄三灣" data-hot="true" data-name="三灣・鄉町露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80" alt="三灣鄉町厚草皮美景" />
+          <span class="photo-overlay-badge">苗栗三灣｜低海拔平地</span>
+          <span class="photo-price-badge">約 $1,200(營位) + 裝備租借</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#07</span>
+            <span class="camp-rank">露營樂 4.8★</span>
+          </div>
+          <h2 class="camp-title">三灣・鄉町露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">邊角獨立安靜小區</span>
+            <span class="tag tag-hot-water">🔥 早晚洗手台供應熱水</span>
+            <span class="tag">免山路好開・超大草皮</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>佔地廣大的開闊平整草皮，營主嚴格控制帳數不超收，規劃有邊角角落獨立單帳位，保有寬廣活動空間且不怕被吵。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>營區備有帳篷、充氣床墊等裝備租借服務，可事先告知營主協助預先搭設，新手情侶無負擔出遊。</span>
+            </div>
+          </div>
+          <div class="feature-item hot-water-highlight">
+            <span class="feature-icon">🔥</span>
+            <div class="feature-content">
+              <strong>加分項：洗手台熱水</strong>
+              <span>早上刷牙洗臉與晚間沐浴尖峰時段，洗手台管線貼心供應熱水，不用在低溫早晨用冰水凍醒手臉。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（三灣峨眉線）：</strong>
+            <span>峨眉湖環湖步道與細茅埔吊橋、三灣落羽松秘境（12月正紅！）、十二寮休閒農業區。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.easycamp.com.tw/Store_2542.html" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(7)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂官方訂位系統</span>
+          <button class="btn-select" onclick="toggleSelect(this, '三灣・鄉町')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 8. 苗栗泰安 司馬限雲端 -->
+      <div class="camp-card" id="camp-card-8" data-id="8" data-region="苗栗" data-corridor="泰安大湖" data-hot="false" data-name="泰安・司馬限雲端果園">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="泰安司馬限雲端壯觀雲海" />
+          <span class="photo-overlay-badge">苗栗泰安｜海拔 1,200m</span>
+          <span class="photo-price-badge">約 $2,200 ~ $3,200 (含代搭)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#08</span>
+            <span class="camp-rank">官方系統 4.6★</span>
+          </div>
+          <h2 class="camp-title">泰安・司馬限雲端果園</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">雲海第一排單帳包區</span>
+            <span class="tag tag-setup">全套設備出租可代搭</span>
+            <span class="tag">高海拔壯闊美景</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>階梯地形順山勢分佈，橘區與李區規劃有多處 1~2 帳即可包區的獨立小台地（如橘1A等），無鄰帳視線，雲海就在眼前翻湧。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>官網明定完整裝備出租清單（帳篷、客廳帳、充氣床墊、桌椅），入營前5~7天預約，可由營方工作人員協助搭設與撤收。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（雪見大湖線）：</strong>
+            <span>雪霸國家公園雪見遊憩區、司馬限林道、大湖採草莓吃草莓香腸、清安豆腐街。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://sihmasian.com/" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(8)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">司馬限雲端官方預約</span>
+          <button class="btn-select" onclick="toggleSelect(this, '泰安・司馬限雲端')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 9. 台中石岡 九甲林 -->
+      <div class="camp-card" id="camp-card-9" data-id="9" data-region="台中" data-corridor="台中石岡" data-hot="false" data-name="石岡・九甲林露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80" alt="台中九甲林南非狩獵帳實景意境" />
+          <span class="photo-overlay-badge">台中石岡｜海拔 450m</span>
+          <span class="photo-price-badge">約 $3,200 ~ $4,200 (狩獵帳)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#09</span>
+            <span class="camp-rank">露營樂 4.6★</span>
+          </div>
+          <h2 class="camp-title">石岡・九甲林露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">獨立木平台前庭</span>
+            <span class="tag tag-setup">南非狩獵帳免搭輕露營</span>
+            <span class="tag">自煮炊事・非飯店Glamping</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>林木茂密的森林景觀，狩獵帳依地勢錯落分佈，每帳均擁有專屬高架木平台與遮雨前庭，綠樹隔絕鄰近視線，情侶獨享私密小院。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>固定搭建好的南非狩獵帳，帳內附舒適床墊寢具、照明與桌椅，自備食材使用卡式爐煮食，保留真實野炊樂趣，非昂貴飯店包餐。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（台中石岡線）：</strong>
+            <span>東豐自行車綠廊騎單車、石岡水庫、東勢客家文化園區、五福臨門神木、新社景觀餐廳。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.easycamp.com.tw/Store_2384.html" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(9)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '石岡・九甲林')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 10. 桃園復興 拉拉山天恩農場 -->
+      <div class="camp-card" id="camp-card-10" data-id="10" data-region="桃園" data-corridor="桃園拉拉山" data-hot="false" data-name="拉拉山・天恩農場露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1537905569824-f89f14cceb68?auto=format&fit=crop&w=800&q=80" alt="拉拉山高海拔山脈景觀" />
+          <span class="photo-overlay-badge">桃園復興｜海拔 1,550m</span>
+          <span class="photo-price-badge">約 $3,000 ~ $4,000 (狩獵帳)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#10</span>
+            <span class="camp-rank">露營樂 4.6★</span>
+          </div>
+          <h2 class="camp-title">拉拉山・天恩農場露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">高海拔雲海・獨立外推前庭</span>
+            <span class="tag tag-setup">輕奢狩獵帳・每帳專用水槽</span>
+            <span class="tag">純淨自煮・乾濕分離</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃</strong>
+              <span>位於拉拉山高海拔稜線，狩獵帳規劃寬闊，各帳皆配有延伸的獨立遮雨棚前庭與獨立活動動線，保有良好的私密對話空間。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>免搭帳狩獵帳房型，帳內配置雙人床墊寢具與風扇，前庭備妥4人桌椅、卡式爐（自備瓦斯罐）與不沾鍋，輕鬆自煮不用扛大裝備。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（拉拉山北橫線）：</strong>
+            <span>拉拉山巨木群神木步道、巴陵古道生態園區、巴陵鐵線橋、羅浮泰雅溫泉公園。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://www.easycamp.com.tw/Store_2368.html" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(10)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '拉拉山・天恩農場')">收藏評估</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="table-section">
+      <div class="section-title">📊 10 大營區綜合條件快速比對表</div>
+      <p class="section-desc">橫向比對各營區的硬體配置、熱水水龍頭加分項及官方圖文系統，助你快速篩選最合拍的營地：</p>
+      <table>
+        <thead>
+          <tr>
+            <th>營區名稱</th>
+            <th>地區/海拔</th>
+            <th>單帳隱私度</th>
+            <th>免搭帳模式</th>
+            <th>飲水機</th>
+            <th>水龍頭熱水 (加分項)</th>
+            <th>官方訂位與圖文</th>
+            <th>定位</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>尖石・怡然自德</strong></td>
+            <td>新竹尖石 (1050m)</td>
+            <td>梯田階梯獨立少帳區</td>
+            <td>裝備出租＋專人代搭收</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td class="check-hot">🔥 各區專屬熱水水槽</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2499.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(1)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>南庄・慢生活</strong></td>
+            <td>苗栗南庄 (300m)</td>
+            <td>D區獨立雨棚單帳專屬</td>
+            <td>現成Coody充氣帳免搭</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td>衛浴區有溫水龍頭</td>
+            <td><a href="https://slowlifecamp2016.com/" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方訂位網</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(2)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>泰安・日光角落</strong></td>
+            <td>苗栗泰安 (830m)</td>
+            <td>邊角景觀獨立位</td>
+            <td>露營車/配合裝備代搭</td>
+            <td class="check-yes">✔ 賀眾牌冷熱</td>
+            <td class="check-hot">🔥 全區水槽100%配熱水</td>
+            <td><a href="https://m.icamping.app/store/rgjl1119" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(3)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>南庄・搭漾</strong></td>
+            <td>苗栗南庄 (940m)</td>
+            <td>高台景觀單帳位</td>
+            <td>裝備出租可協同搭設</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td class="check-hot">🔥 洗手台溫熱水</td>
+            <td><a href="https://www.facebook.com/tayalcamp/" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方粉專網</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(4)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>尖石・老爹打樁</strong></td>
+            <td>新竹尖石 (1200m)</td>
+            <td>獨立輕裝小屋/階梯位</td>
+            <td>不打樁免搭帳木屋</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td class="check-hot">🔥 浴廁外水槽有熱水</td>
+            <td><a href="https://pilingdaddy.com/" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方訂位網</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(5)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>五峰・鹿林道</strong></td>
+            <td>新竹五峰 (800m)</td>
+            <td>杉木林獨立少帳棧板</td>
+            <td>全套出租＋專人代搭收</td>
+            <td class="check-yes">✔ 多區飲水機</td>
+            <td>衛浴洗臉台有溫水</td>
+            <td><a href="https://www.lulin.com.tw/" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方訂位網</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(6)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>三灣・鄉町</strong></td>
+            <td>苗栗三灣 (100m)</td>
+            <td>厚草皮邊角獨立位</td>
+            <td>帳篷睡墊出租代搭</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td class="check-hot">🔥 早晚時段供應熱水</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2542.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(7)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>泰安・司馬限雲端</strong></td>
+            <td>苗栗泰安 (1200m)</td>
+            <td>橘1A等1~2帳獨立階梯</td>
+            <td>官網租借代搭代收</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td>衛浴洗臉台有溫水</td>
+            <td><a href="https://sihmasian.com/" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方訂位網</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(8)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>石岡・九甲林</strong></td>
+            <td>台中石岡 (450m)</td>
+            <td>樹林錯落木平台前庭</td>
+            <td>南非狩獵帳自煮免搭</td>
+            <td class="check-yes">✔ 專屬飲水機</td>
+            <td>衛浴區有穩定熱水</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2384.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(9)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>拉拉山・天恩農場</strong></td>
+            <td>桃園復興 (1550m)</td>
+            <td>獨立雨棚前庭動線</td>
+            <td>狩獵帳附卡式爐鍋具</td>
+            <td class="check-yes">✔ 公共飲水機</td>
+            <td>淋浴熱水強/水槽常溫</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2368.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(10)">📍 導航定位</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 12月冬季情侶露營貼士 -->
+    <div class="tips-card">
+      <div class="tips-title">💡 12/11~12/13 三天兩夜・冬季情侶露營必備錦囊</div>
+      <p style="font-size: 0.9rem; color: #78350f;">12 月中旬山區早晚溫差顯著（高海拔入夜低於 10~13°C），出發前注意以下 4 大細節，能讓女友的露營體驗大大加分：</p>
+      
+      <div class="tips-grid">
+        <div class="tip-item">
+          <h4>1. 寢具保暖是第一要務</h4>
+          <p>租借睡墊多為充氣床或乳膠墊，但地氣冰冷！建議自備鋪在床墊上的<strong>絨毛毛毯或電熱毯</strong>（營區多有插座），搭配 0~5°C 舒適溫標睡袋或厚羽絨被。</p>
+        </div>
+        <div class="tip-item">
+          <h4>2. 洗碗防凍小神器</h4>
+          <p>若挑選之營位洗碗水槽無熱水，請務必幫女友準備一雙<strong>內刷毛洗碗橡膠手套</strong>！去油洗碗不凍傷，絕對是體貼入微的大加分舉動。</p>
+        </div>
+        <div class="tip-item">
+          <h4>3. 暖胃自煮菜單規劃</h4>
+          <p>免搭帳多附有卡式爐或桌椅。三天兩夜非常推薦第一晚準備<strong>酸菜白肉鍋或剝皮辣椒雞湯</strong>；低溫下一般丁烷瓦斯罐易氣化不足，建議帶<strong>高山高丙烷瓦斯罐</strong>。</p>
+        </div>
+        <div class="tip-item">
+          <h4>4. 提早確認「代搭」預約</h4>
+          <p>營區的「裝備租借＋代搭收服務」多由營主親自服務或特約廠商配送，需於<strong>入住前 3~7 天提前致電或私訊粉專確認匯款</strong>，現場臨時加訂通常無法受理喔！</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Selection Counter Badge -->
+  <div class="my-selection-bar" id="selectionBar" style="display: none;">
+    <span>已收藏候選營區：<span class="badge-count" id="selectedCount">0</span> 個</span>
+    <button onclick="alertSelected()" style="background: var(--primary); color: white; border: none; padding: 4px 12px; border-radius: 14px; cursor: pointer; font-size: 0.82rem;">查看清單</button>
+  </div>
+
+  <!-- Leaflet JS for GIS Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // 10 Camps Geographic, Attribute & Booking Data
+    const campData = [
+      {
+        id: 1,
+        name: "尖石・怡然自德露營區",
+        lat: 24.668466,
+        lng: 121.17331,
+        region: "新竹",
+        corridor: "尖石五峰",
+        altitude: "1,050m",
+        hasHotWater: true,
+        singleZone: "梯田獨立小包區",
+        setup: "專人代搭帳＋乳膠床",
+        attractions: "內灣老街、青蛙石天空步道、宇老臭豆腐",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2499.html",
+        rating: "4.8 ★",
+        rank: "#01 首選推薦"
+      },
+      {
+        id: 2,
+        name: "南庄・慢生活露營區",
+        lat: 24.616477,
+        lng: 121.018915,
+        region: "苗栗",
+        corridor: "南庄三灣",
+        altitude: "300m",
+        hasHotWater: false,
+        singleZone: "D區獨立雨棚雙人專屬",
+        setup: "Coody科技棉充氣帳免搭",
+        attractions: "南庄老街桂花巷、康濟吊橋、蓬萊溪護魚步道",
+        bookingUrl: "https://slowlifecamp2016.com/",
+        rating: "4.7 ★",
+        rank: "#02"
+      },
+      {
+        id: 3,
+        name: "泰安・日光角落露營區",
+        lat: 24.4842,
+        lng: 120.9165,
+        region: "苗栗",
+        corridor: "泰安大湖",
+        altitude: "830m",
+        hasHotWater: true,
+        singleZone: "邊角景觀獨立位",
+        setup: "特約裝備代搭/輕露營車",
+        attractions: "清安豆腐街、泰安溫泉泡湯、大湖冬季採草莓",
+        bookingUrl: "https://m.icamping.app/store/rgjl1119",
+        rating: "4.9 ★",
+        rank: "#03"
+      },
+      {
+        id: 4,
+        name: "南庄・搭漾露營區 (Tayal)",
+        lat: 24.5273,
+        lng: 121.0372,
+        region: "苗栗",
+        corridor: "南庄三灣",
+        altitude: "940m",
+        hasHotWater: true,
+        singleZone: "高台景觀單帳獨立區",
+        setup: "裝備出租可協同搭設",
+        attractions: "神仙谷瀑布、鹿場部落、向天湖",
+        bookingUrl: "https://www.facebook.com/tayalcamp/",
+        rating: "4.9 ★",
+        rank: "#04"
+      },
+      {
+        id: 5,
+        name: "尖石・老爹打樁露營區",
+        lat: 24.6732,
+        lng: 121.2584,
+        region: "新竹",
+        corridor: "尖石五峰",
+        altitude: "1,200m",
+        hasHotWater: true,
+        singleZone: "獨立階梯輕裝區/少帳散位",
+        setup: "不打樁輕露營免搭小屋",
+        attractions: "宇老觀景台、凌空廊道、李棟山古堡",
+        bookingUrl: "https://pilingdaddy.com/",
+        rating: "4.7 ★",
+        rank: "#05"
+      },
+      {
+        id: 6,
+        name: "五峰・鹿林道露營樂園",
+        lat: 24.56069,
+        lng: 121.10186,
+        region: "新竹",
+        corridor: "尖石五峰",
+        altitude: "800m",
+        hasHotWater: false,
+        singleZone: "森林系獨立少帳棧板",
+        setup: "全套出租＋專人代搭收",
+        attractions: "清泉溫泉、張學良故居、三毛夢屋",
+        bookingUrl: "https://www.lulin.com.tw/",
+        rating: "4.8 ★",
+        rank: "#06"
+      },
+      {
+        id: 7,
+        name: "三灣・鄉町露營區",
+        lat: 24.6782,
+        lng: 120.9854,
+        region: "苗栗",
+        corridor: "南庄三灣",
+        altitude: "100m",
+        hasHotWater: true,
+        singleZone: "厚草皮邊角獨立位",
+        setup: "帳篷睡墊出租代搭",
+        attractions: "峨眉湖細茅埔吊橋、三灣落羽松、十二寮休閒區",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2542.html",
+        rating: "4.8 ★",
+        rank: "#07"
+      },
+      {
+        id: 8,
+        name: "泰安・司馬限雲端果園",
+        lat: 24.40583,
+        lng: 120.94828,
+        region: "苗栗",
+        corridor: "泰安大湖",
+        altitude: "1,200m",
+        hasHotWater: false,
+        singleZone: "橘1A等1~2帳獨立階梯包區",
+        setup: "官網明定出租可代搭收",
+        attractions: "雪見遊憩區、大湖草莓園、清安豆腐街",
+        bookingUrl: "https://sihmasian.com/",
+        rating: "4.6 ★",
+        rank: "#08"
+      },
+      {
+        id: 9,
+        name: "石岡・九甲林露營區",
+        lat: 24.2693,
+        lng: 120.8172,
+        region: "台中",
+        corridor: "台中石岡",
+        altitude: "450m",
+        hasHotWater: false,
+        singleZone: "樹林錯落木平台前庭",
+        setup: "南非狩獵帳自煮免搭",
+        attractions: "東豐自行車綠廊、石岡水庫、新社景觀餐廳",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2384.html",
+        rating: "4.6 ★",
+        rank: "#09"
+      },
+      {
+        id: 10,
+        name: "拉拉山・天恩農場露營區",
+        lat: 24.6975,
+        lng: 121.4112,
+        region: "桃園",
+        corridor: "桃園拉拉山",
+        altitude: "1,550m",
+        hasHotWater: false,
+        singleZone: "獨立雨棚前庭動線",
+        setup: "輕奢狩獵帳(附卡式爐/鍋具)",
+        attractions: "拉拉山巨木群步道、巴陵古道、羅浮溫泉",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2368.html",
+        rating: "4.6 ★",
+        rank: "#10"
+      }
+    ];
+
+    let map;
+    let markers = {};
+    let markerLayerGroup;
+    let currentRegion = 'all';
+    let currentCorridor = 'all';
+    let onlyHotWater = false;
+    let selectedCamps = new Set();
+
+    // Initialize GIS Map with NLSC WMTS & Google Maps Layers
+    function initMap() {
+      // 1. 內政部國土測繪中心 (NLSC) 台灣通用電子地圖 (WMTS) - 預設底圖
+      const nlscEmap = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank">內政部國土測繪中心 (台灣通用電子地圖)</a>'
+      });
+
+      // 2. Google 地形等高線底圖 (Terrain - 露營必備山區立體等高線)
+      const googleTerrain = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+        maxZoom: 19,
+        attribution: '&copy; Google 地形圖 (Terrain)'
+      });
+
+      // 3. Google 標準街道地圖 (Roadmap)
+      const googleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 19,
+        attribution: '&copy; Google 街道圖'
+      });
+
+      // 4. 內政部國土測繪中心 衛星正射影像圖 (PHOTO_MIX)
+      const nlscPhoto = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/PHOTO_MIX/default/GoogleMapsCompatible/{z}/{y}/{x}', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank">國土測繪中心 (正射影像)</a>'
+      });
+
+      // 5. CartoDB Voyager 備援底圖 (商用免費，穩定不擋 Referrer)
+      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+        attribution: '&copy; CartoDB Voyager'
+      });
+
+      // Create Leaflet Map with NLSC Taiwan e-Map as Default
+      map = L.map('gisMap', {
+        center: [24.54, 121.10],
+        zoom: 10,
+        layers: [nlscEmap],
+        scrollWheelZoom: true
+      });
+
+      // Add Base Layer Switcher Controller (右上角可隨意切換底圖)
+      const baseMaps = {
+        "🗺️ 國土測繪中心 (台灣通用電子地圖)": nlscEmap,
+        "⛰️ Google 地形等高線圖 (露營推薦)": googleTerrain,
+        "🚗 Google 標準街道圖": googleRoad,
+        "🛰️ 國土測繪中心 (正射航照影像)": nlscPhoto,
+        "🧭 CartoDB 探險旅遊底圖": cartoVoyager
+      };
+
+      L.control.layers(baseMaps, null, { position: 'topright', collapsed: false }).addTo(map);
+
+      markerLayerGroup = L.layerGroup().addTo(map);
+
+      // Create Custom Pins for each camp
+      campData.forEach(camp => {
+        const pinClass = camp.hasHotWater ? 'pin-hot' : 'pin-normal';
+        const iconHtml = `<div class="custom-pin ${pinClass}"><span>${camp.hasHotWater ? '🔥' : '⛺'}</span></div>`;
+
+        const customIcon = L.divIcon({
+          className: 'leaflet-data-marker',
+          html: iconHtml,
+          iconSize: [34, 34],
+          iconAnchor: [17, 34],
+          popupAnchor: [0, -32]
+        });
+
+        const popupContent = `
+          <div class="popup-card">
+            <span class="popup-badge" style="background: ${camp.hasHotWater ? '#fee2e2; color: #b91c1c;' : '#eef6ec; color: #2d5a27;'}">
+              ${camp.region}｜海拔 ${camp.altitude} ${camp.hasHotWater ? '｜🔥有熱水' : ''}
+            </span>
+            <div class="popup-title">${camp.name}</div>
+            <div class="popup-desc">
+              ⛺ <strong>${camp.singleZone}</strong><br>
+              🛠️ ${camp.setup}
+            </div>
+            <div class="popup-attractions">
+              <strong>📍 順遊走廊：</strong>${camp.attractions}
+            </div>
+            <div class="popup-actions">
+              <a href="${camp.bookingUrl}" target="_blank" class="btn-popup btn-popup-booking">🔗 官方訂位圖文介紹</a>
+              <div class="popup-btn-row">
+                <a href="#camp-card-${camp.id}" class="btn-popup" onclick="highlightCard(${camp.id})">檢視評鑑</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=${camp.lat},${camp.lng}" target="_blank" class="btn-popup btn-popup-nav">Google 導航</a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        const marker = L.marker([camp.lat, camp.lng], { icon: customIcon })
+          .bindPopup(popupContent);
+
+        markerLayerGroup.addLayer(marker);
+        markers[camp.id] = marker;
+      });
+    }
+
+    // Reset Map View to encompass all markers
+    function resetMapView() {
+      const bounds = L.latLngBounds(campData.map(c => [c.lat, c.lng]));
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+
+    // Corridor Filter from Map Bar
+    function filterCorridor(corridor, btn) {
+      currentCorridor = corridor;
+      document.querySelectorAll('.corridor-bar .btn-corridor').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const matchedCamps = campData.filter(c => corridor === 'all' || c.corridor === corridor);
+      
+      // Filter Markers on map
+      markerLayerGroup.clearLayers();
+      const activeLatLngs = [];
+
+      matchedCamps.forEach(c => {
+        if (!onlyHotWater || c.hasHotWater) {
+          markerLayerGroup.addLayer(markers[c.id]);
+          activeLatLngs.push([c.lat, c.lng]);
+        }
+      });
+
+      if (activeLatLngs.length > 0) {
+        map.fitBounds(L.latLngBounds(activeLatLngs), { padding: [50, 50], maxZoom: 12 });
+      }
+
+      // Also filter the card list
+      applyFilters();
+    }
+
+    // Locate and focus on a single camp from button
+    function focusOnCamp(id) {
+      const camp = campData.find(c => c.id === id);
+      if (!camp) return;
+
+      // Scroll smoothly to GIS Map
+      document.getElementById('gisSection').scrollIntoView({ behavior: 'smooth' });
+
+      setTimeout(() => {
+        map.setView([camp.lat, camp.lng], 13, { animate: true });
+        markers[id].openPopup();
+      }, 350);
+
+      highlightCard(id);
+    }
+
+    function highlightCard(id) {
+      document.querySelectorAll('.camp-card').forEach(c => c.classList.remove('focused'));
+      const card = document.getElementById(`camp-card-${id}`);
+      if (card) {
+        card.classList.add('focused');
+        setTimeout(() => card.classList.remove('focused'), 4000);
+      }
+    }
+
+    // Filter by Region
+    function filterRegion(region, btn) {
+      currentRegion = region;
+      document.querySelectorAll('.filter-group .btn-filter:not(.hot-filter)').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    // Toggle Hot Water
+    function toggleHotWater(btn) {
+      onlyHotWater = !onlyHotWater;
+      btn.classList.toggle('active', onlyHotWater);
+      applyFilters();
+    }
+
+    function handleSearch() {
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.camp-card');
+      const visibleLatLngs = [];
+
+      cards.forEach(card => {
+        const id = parseInt(card.getAttribute('data-id'));
+        const region = card.getAttribute('data-region');
+        const corridor = card.getAttribute('data-corridor');
+        const hasHot = card.getAttribute('data-hot') === 'true';
+        const text = card.innerText.toLowerCase();
+
+        const matchRegion = (currentRegion === 'all' || region === currentRegion);
+        const matchCorridor = (currentCorridor === 'all' || corridor === currentCorridor);
+        const matchHot = (!onlyHotWater || hasHot);
+        const matchKeyword = (!keyword || text.includes(keyword));
+
+        if (matchRegion && matchCorridor && matchHot && matchKeyword) {
+          card.style.display = 'flex';
+          if (markers[id]) {
+            if (!markerLayerGroup.hasLayer(markers[id])) {
+              markerLayerGroup.addLayer(markers[id]);
+            }
+            const cInfo = campData.find(c => c.id === id);
+            if (cInfo) visibleLatLngs.push([cInfo.lat, cInfo.lng]);
+          }
+        } else {
+          card.style.display = 'none';
+          if (markers[id] && markerLayerGroup.hasLayer(markers[id])) {
+            markerLayerGroup.removeLayer(markers[id]);
+          }
+        }
+      });
+
+      if (visibleLatLngs.length > 0) {
+        map.fitBounds(L.latLngBounds(visibleLatLngs), { padding: [40, 40], maxZoom: 12 });
+      }
+    }
+
+    // Selection Handling
+    function toggleSelect(btn, campName) {
+      if (selectedCamps.has(campName)) {
+        selectedCamps.delete(campName);
+        btn.classList.remove('selected');
+        btn.innerText = '收藏評估';
+      } else {
+        selectedCamps.add(campName);
+        btn.classList.add('selected');
+        btn.innerText = '已收藏 ✓';
+      }
+      updateSelectionBar();
+    }
+
+    function updateSelectionBar() {
+      const bar = document.getElementById('selectionBar');
+      const countSpan = document.getElementById('selectedCount');
+      countSpan.innerText = selectedCamps.size;
+      if (selectedCamps.size > 0) {
+        bar.style.display = 'flex';
+      } else {
+        bar.style.display = 'none';
+      }
+    }
+
+    function alertSelected() {
+      if (selectedCamps.size === 0) return;
+      const list = Array.from(selectedCamps).join('\\n• ');
+      alert('【已收藏的候選營區】\\n• ' + list + '\\n\\n可利用地圖查看彼此距離或周邊景點，規劃順遊路線！');
+    }
+
+    // Window Onload
+    window.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      resetMapView();
+    });
+  </script>
+</body>
+</html>
