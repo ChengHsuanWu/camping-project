@@ -75,7 +75,7 @@
     }
 
     .subtitle {
-      max-width: 860px;
+      max-width: 880px;
       margin: 0 auto;
       font-size: 1.02rem;
       opacity: 0.92;
@@ -88,7 +88,7 @@
       justify-content: center;
       gap: 10px;
       margin-top: 16px;
-      max-width: 1050px;
+      max-width: 1080px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -884,14 +884,15 @@
   <header>
     <div class="badge-trip">📅 2026/12/11 (五) ～ 12/13 (日) 三天兩夜情侶露營</div>
     <h1>台中(含)以北・獨立單帳一區 × 輕露營免搭帳 GIS 精選提案</h1>
-    <p class="subtitle">依據上一趟<strong>「桃園復興沒搞頭G區」</strong>的絕佳大空間景觀體驗，精準篩選<strong>真・一帳包區、絕美大景、專人代搭/免搭帳、必備飲水機、衛浴乾淨無異味</strong>的 8 大嚴選營區！</p>
+    <p class="subtitle">已嚴格排除<strong>週五公休營區</strong>與<strong>簡陋衛浴</strong>！精選<strong>12/11正常營業、視野開闊大景、五星飯店級乾淨衛浴、真・一帳獨立包區、必備飲水機</strong>的 8 大頂級營地！</p>
     
     <div class="req-bar">
-      <div class="benchmark-badge"><span>📍</span> 參考基準：桃園復興沒搞頭露營區 G區 (大空間景觀)</div>
+      <div class="benchmark-badge"><span>📅</span> 12/11 (五) 正常營業確認</div>
+      <div class="req-item"><span>🏞️</span> 開闊無敵視野（雲海／夕陽晚霞／百萬夜景）</div>
+      <div class="req-item"><span>🚿</span> 衛浴極淨五星級（乾濕分離／乾爽無異味／絕不簡陋）</div>
       <div class="req-item"><span>⛺</span> 真・獨立單帳一區（徹底杜絕擁擠營位）</div>
-      <div class="req-item"><span>🏞️</span> 開闊百萬大景（雲海／日落／夜景第一排）</div>
-      <div class="req-item"><span>🛠️</span> 免搭帳／全套代搭收自煮輕露營</div>
-      <div class="req-item"><span>💧</span> 必備冷熱飲水機與高評價衛浴</div>
+      <div class="req-item"><span>🛠️</span> 免搭帳／裝備出租代搭自煮輕露營</div>
+      <div class="req-item"><span>💧</span> 必備冷熱飲水機</div>
       <div class="req-item" style="background: rgba(220, 38, 38, 0.35); border-color: rgba(239, 68, 68, 0.5);"><span>🔥</span> 加分項：洗手台有溫熱水</div>
     </div>
   </header>
@@ -912,7 +913,7 @@
           </div>
           <div class="legend-item">
             <span class="legend-dot dot-normal"></span>
-            <span>⛺ 獨立一帳包區景觀營地 (6 處)</span>
+            <span>⛺ 頂級景觀單帳營地 (6 處)</span>
           </div>
         </div>
       </div>
@@ -926,10 +927,9 @@
       <div class="corridor-bar">
         <span class="corridor-label">景點觀光走廊快選：</span>
         <button class="btn-corridor active" onclick="filterCorridor('all', this)">全部營區 (8)</button>
-        <button class="btn-corridor" onclick="filterCorridor('尖石五峰', this)">新竹尖石五峰線 (4)</button>
+        <button class="btn-corridor" onclick="filterCorridor('尖石五峰', this)">新竹尖石五峰線 (5)</button>
         <button class="btn-corridor" onclick="filterCorridor('南庄鹿場', this)">苗栗南庄鹿場線 (2)</button>
         <button class="btn-corridor" onclick="filterCorridor('泰安大湖', this)">苗栗泰安大湖線 (1)</button>
-        <button class="btn-corridor" onclick="filterCorridor('桃園復興', this)">桃園復興羅馬線 (1)</button>
         <button class="btn-corridor" style="margin-left: auto; color: var(--primary); font-weight: 700;" onclick="resetMapView()">🔄 重置地圖全景</button>
       </div>
     </div>
@@ -939,9 +939,8 @@
       <div class="filter-group">
         <span class="filter-label">縣市快篩：</span>
         <button class="btn-filter active" onclick="filterRegion('all', this)">全部 (8)</button>
-        <button class="btn-filter" onclick="filterRegion('新竹', this)">新竹 (4)</button>
+        <button class="btn-filter" onclick="filterRegion('新竹', this)">新竹 (5)</button>
         <button class="btn-filter" onclick="filterRegion('苗栗', this)">苗栗 (3)</button>
-        <button class="btn-filter" onclick="filterRegion('桃園', this)">桃園 (1)</button>
       </div>
 
       <div class="filter-group">
@@ -983,7 +982,7 @@
             <span class="feature-icon">🛡️</span>
             <div class="feature-content">
               <strong>單帳/隱私規劃</strong>
-              <span>梯田階梯式落差設計，規劃獨立小包區，上下層視野開闊且帳距大，不受隔壁帳走動說話干擾。</span>
+              <span>梯田階梯式落差設計，規劃獨立小包區，上下層視野開闊且帳距大，不受隔壁帳走動說話干擾，週五正常營業。</span>
             </div>
           </div>
           <div class="feature-item">
@@ -1140,74 +1139,16 @@
         </div>
       </div>
 
-      <!-- 4. 苗栗泰安 司馬限山嵐 (全新推薦：司馬限雲端正上方，同山稜180度雲海第一排) -->
-      <div class="camp-card" id="camp-card-4" data-id="4" data-region="苗栗" data-corridor="泰安大湖" data-hot="false" data-name="泰安・司馬限山嵐露營區">
-        <div class="camp-photo-wrapper">
-          <img class="camp-photo" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="司馬限稜線180度雲海山景" />
-          <span class="photo-overlay-badge">苗栗泰安｜海拔 1,240m</span>
-          <span class="photo-price-badge">約 $1,200 ~ $3,000 (可特約代搭)</span>
-        </div>
-        <div class="camp-header">
-          <div class="camp-top-row">
-            <span class="camp-region-badge">#04 雲端同款新選</span>
-            <span class="camp-rank">愛露營 4.7★</span>
-          </div>
-          <h2 class="camp-title">泰安・司馬限山嵐露營區</h2>
-          <div class="camp-tags">
-            <span class="tag tag-single">司馬限最高雲海第1排梯田包區</span>
-            <span class="tag tag-setup">特約代搭帳／自煮賞雲海</span>
-            <span class="tag">夕陽日落雲瀑聖地</span>
-          </div>
-        </div>
-        <div class="camp-body">
-          <div class="feature-item">
-            <span class="feature-icon">🛡️</span>
-            <div class="feature-content">
-              <strong>單帳/隱私規劃（對標司馬限雲端）</strong>
-              <span>您很喜歡但已額滿的「司馬限雲端」正上方同山稜最高峰！階梯式景觀梯田，高低落差形成獨立視角，坐在帳前即享 180 度無死角山巒與翻騰雲海，隱私絕佳。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">⛺</span>
-            <div class="feature-content">
-              <strong>免搭帳與裝備服務</strong>
-              <span>配合特約露營裝備出租商（新竹/苗栗區代搭送達服務），提早向營主或特約店家預訂即可享有代搭收服務，輕鬆入住自煮。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">🚿</span>
-            <div class="feature-content">
-              <strong>飲水機與衛浴配置</strong>
-              <span>配有冷熱飲水機、大冰箱。24小時瓦斯與儲熱熱水強勁洗澡舒服，設有山嵐柑仔店販售泡麵瓦斯等補給。</span>
-            </div>
-          </div>
-          <div class="attraction-box">
-            <strong>📍 順遊景點推薦（泰安大湖線）：</strong>
-            <span>司馬限林道、雪霸雪見遊憩區、大湖冬季採草莓、清安豆腐老街吃黑豆干。</span>
-          </div>
-          <div class="camp-actions-row">
-            <a href="https://m.icamping.app/store/smhck263" target="_blank" class="btn-booking">
-              <span>🔗 官方訂位圖文介紹</span>
-            </a>
-            <button class="btn-loc" onclick="focusOnCamp(4)">📍 地圖定位</button>
-          </div>
-        </div>
-        <div class="camp-footer">
-          <span style="font-size: 0.82rem; color: var(--gray-600);">愛露營系統即時空位</span>
-          <button class="btn-select" onclick="toggleSelect(this, '泰安・司馬限山嵐')">收藏評估</button>
-        </div>
-      </div>
-
-      <!-- 5. 苗栗南庄 喝納灣 (全新推薦：加里山鹿場真一帳包區秘境) -->
-      <div class="camp-card" id="camp-card-5" data-id="5" data-region="苗栗" data-corridor="南庄鹿場" data-hot="false" data-name="南庄・喝納灣人文咖啡露營區">
+      <!-- 4. 苗栗南庄 喝納灣 -->
+      <div class="camp-card" id="camp-card-4" data-id="4" data-region="苗栗" data-corridor="南庄鹿場" data-hot="false" data-name="南庄・喝納灣人文咖啡露營區">
         <div class="camp-photo-wrapper">
           <img class="camp-photo" src="https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80" alt="加里山下原始杉林秘境" />
           <span class="photo-overlay-badge">苗栗南庄｜海拔 1,000m</span>
-          <span class="photo-price-badge">約 $1,200 ~ $2,800 (代搭方案)</span>
+          <span class="photo-price-badge">約 $1,300 ~ $2,800 (代搭方案)</span>
         </div>
         <div class="camp-header">
           <div class="camp-top-row">
-            <span class="camp-region-badge">#05 森林秘境新選</span>
+            <span class="camp-region-badge">#04 森林秘境</span>
             <span class="camp-rank">愛露營 4.8★</span>
           </div>
           <h2 class="camp-title">南庄・喝納灣人文咖啡露營區</h2>
@@ -1222,7 +1163,7 @@
             <span class="feature-icon">🛡️</span>
             <div class="feature-content">
               <strong>單帳/隱私規劃（深山不擁擠）</strong>
-              <span>位於南庄鹿場部落、加里山登山口下，被整片翠綠高聳杉木林包圍。全區採「極低密度」規劃，設有貨真價實的「單帳獨立大木棧平台」，完全無鄰帳干擾。</span>
+              <span>位於南庄鹿場部落、加里山登山口下，被整片翠綠高聳杉木林包圍。全區採「極低密度」規劃，森林1~3區與D區為貨真價實的「單帳獨立大木棧平台」，完全無鄰帳干擾。</span>
             </div>
           </div>
           <div class="feature-item">
@@ -1247,7 +1188,7 @@
             <a href="https://m.icamping.app/store/hnw713" target="_blank" class="btn-booking">
               <span>🔗 官方訂位圖文介紹</span>
             </a>
-            <button class="btn-loc" onclick="focusOnCamp(5)">📍 地圖定位</button>
+            <button class="btn-loc" onclick="focusOnCamp(4)">📍 地圖定位</button>
           </div>
         </div>
         <div class="camp-footer">
@@ -1256,118 +1197,176 @@
         </div>
       </div>
 
-      <!-- 6. 桃園復興 樂見山 (全新推薦：對標「沒搞頭G區」！桃園復興同鄉同款景觀大空間) -->
-      <div class="camp-card" id="camp-card-6" data-id="6" data-region="桃園" data-corridor="桃園復興" data-hot="false" data-name="復興・樂見山露營區">
+      <!-- 5. 新竹尖石 六號花園 (花現營地) -->
+      <div class="camp-card highlight-hot" id="camp-card-5" data-id="5" data-region="新竹" data-corridor="尖石五峰" data-hot="true" data-name="尖石・六號花園露營區">
         <div class="camp-photo-wrapper">
-          <img class="camp-photo" src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?auto=format&fit=crop&w=800&q=80" alt="桃園復興開闊山谷水庫景觀" />
-          <span class="photo-overlay-badge">桃園復興｜海拔 850m</span>
-          <span class="photo-price-badge">約 $2,800 ~ $4,000 (狩獵帳/鐘型帳)</span>
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="尖石六號花園開闊山嵐與玻璃屋" />
+          <span class="photo-overlay-badge">新竹尖石｜海拔 800m</span>
+          <span class="photo-price-badge">約 $1,200 ~ $3,500 (木屋/免搭)</span>
         </div>
         <div class="camp-header">
           <div class="camp-top-row">
-            <span class="camp-region-badge">#06 對標沒搞頭G區首推</span>
-            <span class="camp-rank">愛露營 4.8★</span>
+            <span class="camp-region-badge">#05 開闊大景＆頂級衛浴</span>
+            <span class="camp-rank">Google 4.8★</span>
           </div>
-          <h2 class="camp-title">復興・樂見山露營區</h2>
+          <h2 class="camp-title">尖石・六號花園露營區 (花現營地)</h2>
           <div class="camp-tags">
-            <span class="tag tag-single">A區-1帳獨立包區 (車停帳邊)</span>
-            <span class="tag tag-setup">免搭南非狩獵帳／鐘型帳自煮</span>
-            <span class="tag">石門水庫山嵐絕美視野</span>
-          </div>
-        </div>
-        <div class="camp-body">
-          <div class="feature-item">
-            <span class="feature-icon">🎯</span>
-            <div class="feature-content">
-              <strong>完美對標「沒搞頭露營區 G區」</strong>
-              <span>同在桃園復興鄉，專門規劃 <strong>A 區 1 帳專屬獨立包區</strong>，愛車直接停在帳旁卸裝備超方便！坐擁俯瞰石門水庫與青山環抱的開闊大視野，空間感與隱私度完全再現沒搞頭 G 區的頂級體驗。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">⛺</span>
-            <div class="feature-content">
-              <strong>免搭帳與裝備服務</strong>
-              <span>提供南非狩獵帳與浪漫鐘型帳自煮免搭方案，帳內備有厚實雙人床墊、冷暖設備與室外休閒桌椅，只需自帶食材卡式爐即可野炊。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">🚿</span>
-            <div class="feature-content">
-              <strong>飲水機與衛浴配置</strong>
-              <span>設有冰溫熱飲水機、冷藏冷凍大冰箱。衛浴獲多位網紅好評，淋浴水壓強勁水溫穩定，清潔維護水準極高。</span>
-            </div>
-          </div>
-          <div class="attraction-box">
-            <strong>📍 順遊景點推薦（桃園復興羅馬線）：</strong>
-            <span>石門水庫阿姆坪遊艇碼頭、羅馬公路景觀咖啡、角板山行館公園、小烏來天空步道。</span>
-          </div>
-          <div class="camp-actions-row">
-            <a href="https://m.icamping.app/store/ljs761" target="_blank" class="btn-booking">
-              <span>🔗 官方訂位圖文介紹</span>
-            </a>
-            <button class="btn-loc" onclick="focusOnCamp(6)">📍 地圖定位</button>
-          </div>
-        </div>
-        <div class="camp-footer">
-          <span style="font-size: 0.82rem; color: var(--gray-600);">愛露營系統即時空位</span>
-          <button class="btn-select" onclick="toggleSelect(this, '復興・樂見山')">收藏評估</button>
-        </div>
-      </div>
-
-      <!-- 7. 新竹五峰 B612夕淞度日 (全新推薦：獨享單帳包區、夜景×日落雲海、洗手台溫熱水) -->
-      <div class="camp-card highlight-hot" id="camp-card-7" data-id="7" data-region="新竹" data-corridor="尖石五峰" data-hot="true" data-name="五峰・B612夕淞度日生態露營場">
-        <div class="camp-photo-wrapper">
-          <img class="camp-photo" src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80" alt="B612夕陽晚霞與百萬夜景" />
-          <span class="photo-overlay-badge">新竹五峰｜海拔 1,050m</span>
-          <span class="photo-price-badge">約 $2,800 ~ $4,200 (輕裝小屋/免搭)</span>
-        </div>
-        <div class="camp-header">
-          <div class="camp-top-row">
-            <span class="camp-region-badge">#07 溫水大景新選</span>
-            <span class="camp-rank">愛露營 4.8★</span>
-          </div>
-          <h2 class="camp-title">五峰・B612夕淞度日生態露營場</h2>
-          <div class="camp-tags">
-            <span class="tag tag-single">獨享單帳包區景觀草皮</span>
-            <span class="tag tag-hot-water">🔥 浴廁洗手台專門供應溫熱水</span>
-            <span class="tag tag-setup">免搭星空輕裝小屋／鐘型帳</span>
+            <span class="tag tag-single">VIP獨立1帳包區 (獨享專屬景觀衛浴)</span>
+            <span class="tag tag-hot-water">🔥 水槽冬天專門供應熱水洗碗</span>
+            <span class="tag tag-setup">乾濕分離超五星衛浴</span>
           </div>
         </div>
         <div class="camp-body">
           <div class="feature-item">
             <span class="feature-icon">🛡️</span>
             <div class="feature-content">
-              <strong>單帳/隱私規劃（大景天花板）</strong>
-              <span>座落於五峰高山平台，特設「獨享單帳包區」位，視野遼闊無任何遮蔽物，正面迎向竹東百萬璀璨夜景與壯麗夕陽雲海！</span>
+              <strong>單帳/隱私規劃（開闊大景無死角）</strong>
+              <span>被譽為全台最夢幻的高山森林營地！特設 VIP 獨立 1 帳包區（獨享專屬景觀衛浴小屋）與 S1 單帳景觀位，正面迎向層層山巒大景與壯麗雲海，帳距超大絕不密集，週五 12/11 正常營業！</span>
             </div>
           </div>
           <div class="feature-item hot-water-highlight">
             <span class="feature-icon">🔥</span>
             <div class="feature-content">
               <strong>招牌加分項：洗手台溫熱水</strong>
-              <span>特別設置有溫熱水供應的洗手台！寒冬早晚洗臉、刷牙、清洗食材油污皆有溫暖熱水，不用在低溫中瑟瑟發抖。</span>
+              <span>露友一致狂讚的超貼心設計！洗碗洗手槽在冬季專門供應熱水，寒冬洗碗去油完全不凍手，舒適感滿分。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>衛浴乾淨度（五星飯店級乾濕分離）</strong>
+              <span>露友公認全台衛浴前三名！全區採用乾濕分離設計，一塵不染無異味，通風乾爽且水壓極為強勁穩定。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與設備</strong>
+              <span>提供免搭帳輕裝小木屋與裝備租借代搭方案；營區備有冷熱飲水機、大冷藏冷凍櫃與絕美景觀玻璃屋餐廳。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（尖石五峰線）：</strong>
+            <span>園區浪漫玻璃屋咖啡館、內灣老街、北得拉曼巨木步道、尖石美人湯。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://garden6th.pixnet.net/blog" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(5)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">官方系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '尖石・六號花園')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 6. 新竹五峰 戀戀天湖 -->
+      <div class="camp-card" id="camp-card-6" data-id="6" data-region="新竹" data-corridor="尖石五峰" data-hot="false" data-name="五峰・戀戀天湖露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="戀戀天湖高海拔雲海山景" />
+          <span class="photo-overlay-badge">新竹五峰｜海拔 1,000m</span>
+          <span class="photo-price-badge">約 $1,200 ~ $2,800 (免搭輕露營)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#06 獨立區＆高海拔雲海</span>
+            <span class="camp-rank">露營樂 4.7★</span>
+          </div>
+          <h2 class="camp-title">五峰・戀戀天湖露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">獨立區-1帳專屬包區 (專用水槽/冰箱)</span>
+            <span class="tag tag-setup">雙人輕露營A免搭帳</span>
+            <span class="tag">天湖部落雲海日出</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃（高海拔遼闊視野）</strong>
+              <span>坐落五峰天湖部落稜線，海拔 1,000m 視野一望無際無任何遮擋！特別規劃「獨立區-1帳包區」，專門享有自己獨立的水槽與專屬冰箱，不被打擾，週一至週日無公休，12/11 正常開放！</span>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">⛺</span>
             <div class="feature-content">
               <strong>免搭帳與裝備服務</strong>
-              <span>提供「星空輕裝小木屋」與免裝備風格鐘型帳自煮方案，免搭帳省時省力，坐在大木棧平台享受冬夜星空。</span>
+              <span>提供「雙人輕露營A」免搭帳房型（內建雙人床墊、風扇、專屬休閒桌椅），自備棉被即可入住自煮，輕鬆享受高山露營野炊樂趣。</span>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">🚿</span>
             <div class="feature-content">
-              <strong>飲水機與衛浴配置</strong>
-              <span>配備高品質冰溫熱飲水機、雙門冷藏冷凍冰箱。浴廁採日式乾濕分離設計，評價極佳無異味。</span>
+              <strong>衛浴乾淨度與飲水機</strong>
+              <span>分區衛浴乾淨乾爽，露營樂 331 則好評推薦；24小時熱水強勁穩定；公共區設有冷熱飲水機與各區獨立冷藏冷凍設備。</span>
             </div>
           </div>
           <div class="attraction-box">
             <strong>📍 順遊景點推薦（尖石五峰線）：</strong>
-            <span>羅山林道漫步、清泉張學良園區、山上人家高山茶園、白蘭部落。</span>
+            <span>天湖部落巡禮、清泉溫泉、張學良故居園區、山上人家茶園。</span>
           </div>
           <div class="camp-actions-row">
-            <a href="https://m.icamping.app/store/b612" target="_blank" class="btn-booking">
+            <a href="https://www.easycamp.com.tw/Store_2444.html" target="_blank" class="btn-booking">
+              <span>🔗 官方訂位圖文介紹</span>
+            </a>
+            <button class="btn-loc" onclick="focusOnCamp(6)">📍 地圖定位</button>
+          </div>
+        </div>
+        <div class="camp-footer">
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '五峰・戀戀天湖')">收藏評估</button>
+        </div>
+      </div>
+
+      <!-- 7. 苗栗泰安 目上景 -->
+      <div class="camp-card" id="camp-card-7" data-id="7" data-region="苗栗" data-corridor="泰安大湖" data-hot="false" data-name="泰安・目上景露營區">
+        <div class="camp-photo-wrapper">
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=80" alt="厚實翠綠草皮與開闊群山" />
+          <span class="photo-overlay-badge">苗栗泰安｜海拔 850m</span>
+          <span class="photo-price-badge">約 $1,200 ~ $3,000 (特約代搭)</span>
+        </div>
+        <div class="camp-header">
+          <div class="camp-top-row">
+            <span class="camp-region-badge">#07 泰安大景首推</span>
+            <span class="camp-rank">愛露營 4.7★</span>
+          </div>
+          <h2 class="camp-title">泰安・目上景露營區</h2>
+          <div class="camp-tags">
+            <span class="tag tag-single">C1區-真1帳包區 (車停帳邊)</span>
+            <span class="tag tag-setup">厚實高爾夫草皮・獨立衛浴</span>
+            <span class="tag">鷂婆山大景・冬季翻騰雲海</span>
+          </div>
+        </div>
+        <div class="camp-body">
+          <div class="feature-item">
+            <span class="feature-icon">🛡️</span>
+            <div class="feature-content">
+              <strong>單帳/隱私規劃（視野極度開闊）</strong>
+              <span>泰安一級露戰區的景觀王者！正對雄偉的鷂婆山無敵大景，厚實柔軟草皮如綠毯，冬季翻騰雲海與落日晚霞極為震撼！特別推薦 <strong>C1 區一帳包區</strong>，車停帳邊，享受整片開闊山景且享有專屬獨立衛浴動線，週五 12/11 正常營業！</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與裝備服務</strong>
+              <span>配合特約裝備出租廠商代搭送達服務，提前向營區預約即可專人代搭帳篷，自煮炊事欣賞雲海夕陽。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🚿</span>
+            <div class="feature-content">
+              <strong>衛浴乾淨度與飲水機</strong>
+              <span>營主黃媽媽維護一塵不染，衛浴極乾淨乾爽無異味，水壓水溫充足穩定；備有冷熱飲水機、冷藏冷凍大冰箱。</span>
+            </div>
+          </div>
+          <div class="attraction-box">
+            <strong>📍 順遊景點推薦（泰安大湖線）：</strong>
+            <span>鷂婆山登山步道、泰安溫泉泡湯、大湖冬季採草莓、清安豆腐老街。</span>
+          </div>
+          <div class="camp-actions-row">
+            <a href="https://m.icamping.app/store/msj348" target="_blank" class="btn-booking">
               <span>🔗 官方訂位圖文介紹</span>
             </a>
             <button class="btn-loc" onclick="focusOnCamp(7)">📍 地圖定位</button>
@@ -1375,65 +1374,65 @@
         </div>
         <div class="camp-footer">
           <span style="font-size: 0.82rem; color: var(--gray-600);">愛露營系統即時空位</span>
-          <button class="btn-select" onclick="toggleSelect(this, '五峰・B612夕淞度日')">收藏評估</button>
+          <button class="btn-select" onclick="toggleSelect(this, '泰安・目上景')">收藏評估</button>
         </div>
       </div>
 
-      <!-- 8. 新竹尖石 雲淡風清 (全新推薦：F/G區真一帳獨立大草地包區長達9-10米) -->
-      <div class="camp-card" id="camp-card-8" data-id="8" data-region="新竹" data-corridor="尖石五峰" data-hot="false" data-name="尖石・雲淡風清露營區">
+      <!-- 8. 新竹尖石 景色天地 -->
+      <div class="camp-card" id="camp-card-8" data-id="8" data-region="新竹" data-corridor="尖石五峰" data-hot="false" data-name="尖石・景色天地露營區">
         <div class="camp-photo-wrapper">
-          <img class="camp-photo" src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=800&q=80" alt="開闊綠草皮獨立營位" />
-          <span class="photo-overlay-badge">新竹尖石｜海拔 700m</span>
-          <span class="photo-price-badge">約 $1,000 ~ $2,500 (可租帳代搭)</span>
+          <img class="camp-photo" src="https://images.unsplash.com/photo-1517824806704-9040b037703b?auto=format&fit=crop&w=800&q=80" alt="尖石景色天地百萬夜景與開闊山嵐" />
+          <span class="photo-overlay-badge">新竹尖石｜海拔 950m</span>
+          <span class="photo-price-badge">約 $1,200 ~ $3,200 (免搭輕露營)</span>
         </div>
         <div class="camp-header">
           <div class="camp-top-row">
-            <span class="camp-region-badge">#08 大草皮一帳包區新選</span>
-            <span class="camp-rank">愛露營 4.8★</span>
+            <span class="camp-region-badge">#08 飯店級乾濕分離衛浴</span>
+            <span class="camp-rank">Google 4.8★</span>
           </div>
-          <h2 class="camp-title">尖石・雲淡風清露營區</h2>
+          <h2 class="camp-title">尖石・景色天地露營區</h2>
           <div class="camp-tags">
-            <span class="tag tag-single">F區/G區 真正1帳獨立大草地包區</span>
-            <span class="tag tag-setup">全套帳篷出租＋預約營主代搭</span>
-            <span class="tag">9~10米大空間・杜絕密集營位</span>
+            <span class="tag tag-single">D區-1帳包區/單飛專屬 (車停帳邊)</span>
+            <span class="tag tag-setup">全乾濕分離豪華衛浴</span>
+            <span class="tag">950m百萬夜景・免搭帳輕露營</span>
           </div>
         </div>
         <div class="camp-body">
           <div class="feature-item">
             <span class="feature-icon">🛡️</span>
             <div class="feature-content">
-              <strong>單帳/隱私規劃（大空間大草皮）</strong>
-              <span>特別針對您厭惡的「密集營位」精挑細選！F 區與 G 區為全獨立單帳草地包區，腹身長達 9~10 米，單層只收您一帳，愛車停旁邊，享受完全不被鄰帳視線干擾的悠閒自在。</span>
-            </div>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">⛺</span>
-            <div class="feature-content">
-              <strong>免搭帳與裝備服務</strong>
-              <span>營主提供全套露營帳篷與寢具出租服務，可提前預約營主協助搭建，自煮炊事免搭大帳。</span>
+              <strong>單帳/隱私規劃（視野極度開闊）</strong>
+              <span>海拔 950m 絕佳視野，入夜飽覽新竹百萬城市璀璨夜景與日落雲霧遼繞！專門規劃 <strong>D 區 1 帳包區 / 單飛專屬位</strong>，車停帳邊，腹地完整獨立，不與大群帳混雜，週五 12/11 正常營業！</span>
             </div>
           </div>
           <div class="feature-item">
             <span class="feature-icon">🚿</span>
             <div class="feature-content">
-              <strong>飲水機與衛浴配置</strong>
-              <span>配有冰溫熱飲水機、冷藏冷凍冰箱。衛浴環境獲露友狂讚「像家一樣乾淨」，乾濕分離、熱水穩定充足。</span>
+              <strong>衛浴乾淨度（全乾濕分離飯店級豪華衛浴）</strong>
+              <span>露友一致讚嘆「好像住飯店」！全區配備乾濕分離淋浴間，寬敞、明亮、極度乾淨通風無異味，熱水強勁洗澡極度舒服。</span>
+            </div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">⛺</span>
+            <div class="feature-content">
+              <strong>免搭帳與設備</strong>
+              <span>提供免搭帳輕露營系列與全套裝備出租代搭；設有冷熱飲水機、冷藏冷凍大冰箱、販賣部。</span>
             </div>
           </div>
           <div class="attraction-box">
             <strong>📍 順遊景點推薦（尖石五峰線）：</strong>
-            <span>梅花瀑布、錦屏美人湯溫泉、內灣老街、尖石岩。</span>
+            <span>馬胎古道健行、青蛙石天空步道、內灣老街、錦屏美人湯。</span>
           </div>
           <div class="camp-actions-row">
-            <a href="https://m.icamping.app/store/ydfc769" target="_blank" class="btn-booking">
+            <a href="https://www.easycamp.com.tw/Store_2609.html" target="_blank" class="btn-booking">
               <span>🔗 官方訂位圖文介紹</span>
             </a>
             <button class="btn-loc" onclick="focusOnCamp(8)">📍 地圖定位</button>
           </div>
         </div>
         <div class="camp-footer">
-          <span style="font-size: 0.82rem; color: var(--gray-600);">愛露營系統即時空位</span>
-          <button class="btn-select" onclick="toggleSelect(this, '尖石・雲淡風清')">收藏評估</button>
+          <span style="font-size: 0.82rem; color: var(--gray-600);">露營樂系統即時空位</span>
+          <button class="btn-select" onclick="toggleSelect(this, '尖石・景色天地')">收藏評估</button>
         </div>
       </div>
 
@@ -1441,8 +1440,8 @@
 
     <!-- Comparison Table -->
     <div class="table-section">
-      <div class="section-title">📊 8 大精選營區綜合條件快速比對表</div>
-      <p class="section-desc">已排除額滿（日光角落、搭漾、司馬限雲端）、太過密集（鄉町）及無單帳包區之營地；精選 8 大真・一帳獨立景觀營地：</p>
+      <div class="section-title">📊 8 大頂級營區綜合條件快速比對表</div>
+      <p class="section-desc">已嚴格排除週五公休（司馬限山嵐、樂見山、B612夕淞度日）與衛浴簡陋（雲淡風清）之營地；精選 8 大 12/11 正常營業、視野開闊、衛浴乾淨五星的真・一帳獨立景觀營地：</p>
       <table>
         <thead>
           <tr>
@@ -1488,16 +1487,6 @@
             <td><button class="btn-loc" onclick="focusOnCamp(3)">📍 導航定位</button></td>
           </tr>
           <tr>
-            <td><strong>泰安・司馬限山嵐</strong></td>
-            <td>苗栗泰安 (1,240m)</td>
-            <td>司馬限最高雲海第1排梯田包區</td>
-            <td>配合特約裝備代搭</td>
-            <td class="check-yes">✔ 冷熱飲水機</td>
-            <td>24H強勁熱水/柑仔店</td>
-            <td><a href="https://m.icamping.app/store/smhck263" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
-            <td><button class="btn-loc" onclick="focusOnCamp(4)">📍 導航定位</button></td>
-          </tr>
-          <tr>
             <td><strong>南庄・喝納灣</strong></td>
             <td>苗栗南庄 (1,000m)</td>
             <td>真・一帳包區森林神仙秘境</td>
@@ -1505,36 +1494,46 @@
             <td class="check-yes">✔ 冷熱飲水機</td>
             <td>洗臉台有溫水/手沖咖啡</td>
             <td><a href="https://m.icamping.app/store/hnw713" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
+            <td><button class="btn-loc" onclick="focusOnCamp(4)">📍 導航定位</button></td>
+          </tr>
+          <tr>
+            <td><strong>尖石・六號花園</strong></td>
+            <td>新竹尖石 (800m)</td>
+            <td>VIP獨立1帳包區(景觀衛浴)/S1</td>
+            <td>免搭小木屋/租借代搭</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td class="check-hot">🔥 水槽冬天專供熱水洗碗</td>
+            <td><a href="https://garden6th.pixnet.net/blog" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 官方部落格</a></td>
             <td><button class="btn-loc" onclick="focusOnCamp(5)">📍 導航定位</button></td>
           </tr>
           <tr>
-            <td><strong>復興・樂見山</strong></td>
-            <td>桃園復興 (850m)</td>
-            <td>A區-1帳獨立包區(車停帳邊)</td>
-            <td>南非狩獵帳/鐘型帳免搭自煮</td>
+            <td><strong>五峰・戀戀天湖</strong></td>
+            <td>新竹五峰 (1,000m)</td>
+            <td>獨立區-1帳專屬(獨立水槽/冰箱)</td>
+            <td>雙人輕露營A免搭帳方案</td>
             <td class="check-yes">✔ 冰溫熱飲水機</td>
-            <td>衛浴熱水強勁穩定</td>
-            <td><a href="https://m.icamping.app/store/ljs761" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
+            <td>分區乾淨乾爽衛浴無異味</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2444.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
             <td><button class="btn-loc" onclick="focusOnCamp(6)">📍 導航定位</button></td>
           </tr>
           <tr>
-            <td><strong>五峰・B612夕淞度日</strong></td>
-            <td>新竹五峰 (1,050m)</td>
-            <td>獨享單帳包區景觀草皮</td>
-            <td>免搭星空輕裝小屋/免裝備自煮</td>
-            <td class="check-yes">✔ 冰溫熱飲水機</td>
-            <td class="check-hot">🔥 浴廁洗手台供應溫熱水</td>
-            <td><a href="https://m.icamping.app/store/b612" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
+            <td><strong>泰安・目上景</strong></td>
+            <td>苗栗泰安 (850m)</td>
+            <td>C1區-真1帳包區(草皮車停帳邊)</td>
+            <td>配合特約裝備代搭自煮</td>
+            <td class="check-yes">✔ 冷熱飲水機</td>
+            <td>專屬獨立乾淨衛浴動線</td>
+            <td><a href="https://m.icamping.app/store/msj348" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
             <td><button class="btn-loc" onclick="focusOnCamp(7)">📍 導航定位</button></td>
           </tr>
           <tr>
-            <td><strong>尖石・雲淡風清</strong></td>
-            <td>新竹尖石 (700m)</td>
-            <td>F/G區 真正1帳獨立大草地包區</td>
-            <td>全套出租＋預約營主代搭</td>
+            <td><strong>尖石・景色天地</strong></td>
+            <td>新竹尖石 (950m)</td>
+            <td>D區-1帳包區/單飛專屬(車停帳邊)</td>
+            <td>免搭帳輕露營系列/全套出租代搭</td>
             <td class="check-yes">✔ 冰溫熱飲水機</td>
-            <td>衛浴乾濕分離一塵不染</td>
-            <td><a href="https://m.icamping.app/store/ydfc769" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 愛露營頁面</a></td>
+            <td>全乾濕分離飯店級豪華衛浴</td>
+            <td><a href="https://www.easycamp.com.tw/Store_2609.html" target="_blank" style="color: #ea580c; font-weight: bold; text-decoration: none;">🔗 露營樂頁面</a></td>
             <td><button class="btn-loc" onclick="focusOnCamp(8)">📍 導航定位</button></td>
           </tr>
         </tbody>
@@ -1630,22 +1629,6 @@
       },
       {
         id: 4,
-        name: "泰安・司馬限山嵐露營區",
-        lat: 24.4065,
-        lng: 120.9490,
-        region: "苗栗",
-        corridor: "泰安大湖",
-        altitude: "1,240m",
-        hasHotWater: false,
-        singleZone: "司馬限最高雲海第1排梯田包區",
-        setup: "特約裝備出租代搭",
-        attractions: "司馬限林道、雪見遊憩區、大湖採草莓",
-        bookingUrl: "https://m.icamping.app/store/smhck263",
-        rating: "4.7 ★",
-        rank: "#04 雲端同款"
-      },
-      {
-        id: 5,
         name: "南庄・喝納灣人文咖啡露營區",
         lat: 24.5367,
         lng: 121.0361,
@@ -1658,55 +1641,71 @@
         attractions: "加里山登山步道、鹿場部落、神仙谷瀑布",
         bookingUrl: "https://m.icamping.app/store/hnw713",
         rating: "4.8 ★",
-        rank: "#05 靜謐神仙境"
+        rank: "#04 靜謐神仙境"
+      },
+      {
+        id: 5,
+        name: "尖石・六號花園露營區",
+        lat: 24.7186,
+        lng: 121.2542,
+        region: "新竹",
+        corridor: "尖石五峰",
+        altitude: "800m",
+        hasHotWater: true,
+        singleZone: "VIP獨立1帳包區 (景觀衛浴)/S1單帳",
+        setup: "免搭小木屋/租借代搭",
+        attractions: "玻璃屋景觀咖啡館、內灣老街、北得拉曼巨木群",
+        bookingUrl: "https://garden6th.pixnet.net/blog",
+        rating: "4.8 ★",
+        rank: "#05 頂級衛浴"
       },
       {
         id: 6,
-        name: "復興・樂見山露營區",
-        lat: 24.8142,
-        lng: 121.3125,
-        region: "桃園",
-        corridor: "桃園復興",
-        altitude: "850m",
+        name: "五峰・戀戀天湖露營區",
+        lat: 24.6468,
+        lng: 121.1601,
+        region: "新竹",
+        corridor: "尖石五峰",
+        altitude: "1,000m",
         hasHotWater: false,
-        singleZone: "A區-1帳獨立包區(車停帳邊)",
-        setup: "免搭南非狩獵帳/鐘型帳自煮",
-        attractions: "石門水庫、羅馬公路、角板山、小烏來天空步道",
-        bookingUrl: "https://m.icamping.app/store/ljs761",
-        rating: "4.8 ★",
-        rank: "#06 對標沒搞頭G區"
+        singleZone: "獨立區-1帳專屬(專屬水槽/冰箱)",
+        setup: "雙人輕露營A免搭帳方案",
+        attractions: "天湖部落景觀線、清泉溫泉、張學良故居",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2444.html",
+        rating: "4.7 ★",
+        rank: "#06 高山雲海"
       },
       {
         id: 7,
-        name: "五峰・B612夕淞度日生態露營場",
-        lat: 24.6185,
-        lng: 121.1342,
-        region: "新竹",
-        corridor: "尖石五峰",
-        altitude: "1,050m",
-        hasHotWater: true,
-        singleZone: "獨享單帳包區景觀草皮",
-        setup: "免搭星空輕裝小屋/免裝備鐘型帳",
-        attractions: "羅山林道、清泉溫泉、張學良園區、山上人家",
-        bookingUrl: "https://m.icamping.app/store/b612",
-        rating: "4.8 ★",
-        rank: "#07 夜景溫水"
+        name: "泰安・目上景露營區",
+        lat: 24.4421,
+        lng: 120.9168,
+        region: "苗栗",
+        corridor: "泰安大湖",
+        altitude: "850m",
+        hasHotWater: false,
+        singleZone: "C1區-真1帳包區(草皮車停帳邊)",
+        setup: "配合特約裝備出租代搭自煮",
+        attractions: "鷂婆山大景、泰安溫泉、大湖冬季採草莓",
+        bookingUrl: "https://m.icamping.app/store/msj348",
+        rating: "4.7 ★",
+        rank: "#07 鷂婆山大景"
       },
       {
         id: 8,
-        name: "尖石・雲淡風清露營區",
-        lat: 24.7128,
-        lng: 121.1894,
+        name: "尖石・景色天地露營區",
+        lat: 24.7061,
+        lng: 121.1965,
         region: "新竹",
         corridor: "尖石五峰",
-        altitude: "700m",
+        altitude: "950m",
         hasHotWater: false,
-        singleZone: "F/G區 真正1帳獨立大草地包區",
-        setup: "全套帳篷出租＋預約營主代搭",
-        attractions: "梅花瀑布、錦屏美人湯溫泉、內灣老街",
-        bookingUrl: "https://m.icamping.app/store/ydfc769",
+        singleZone: "D區-1帳包區/單飛專屬(車停帳邊)",
+        setup: "免搭帳輕露營系列/全套出租代搭",
+        attractions: "950m百萬夜景、青蛙石天空步道、內灣老街",
+        bookingUrl: "https://www.easycamp.com.tw/Store_2609.html",
         rating: "4.8 ★",
-        rank: "#08 大草皮獨立"
+        rank: "#08 飯店級乾濕分離"
       }
     ];
 
