@@ -1904,12 +1904,12 @@
     let onlyHotWater = false;
     let selectedCamps = new Set();
 
-    // Initialize GIS Map with NLSC WMTS & Google Maps Layers
+    // Initialize GIS Map with Google Maps & NLSC WMTS Layers
     function initMap() {
-      // 1. 內政部國土測繪中心 (NLSC) 台灣通用電子地圖 (WMTS) - 預設底圖
-      const nlscEmap = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}', {
+      // 1. Google 標準街道地圖 (Roadmap) - 預設底圖
+      const googleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank">內政部國土測繪中心 (台灣通用電子地圖)</a>'
+        attribution: '&copy; Google 街道圖'
       });
 
       // 2. Google 地形等高線底圖 (Terrain - 露營必備山區立體等高線)
@@ -1918,10 +1918,10 @@
         attribution: '&copy; Google 地形圖 (Terrain)'
       });
 
-      // 3. Google 標準街道地圖 (Roadmap)
-      const googleRoad = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      // 3. 內政部國土測繪中心 (NLSC) 台灣通用電子地圖 (WMTS)
+      const nlscEmap = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}', {
         maxZoom: 19,
-        attribution: '&copy; Google 街道圖'
+        attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank">內政部國土測繪中心 (台灣通用電子地圖)</a>'
       });
 
       // 4. 內政部國土測繪中心 衛星正射影像圖 (PHOTO_MIX)
@@ -1930,27 +1930,27 @@
         attribution: '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank">國土測繪中心 (正射影像)</a>'
       });
 
-      // 5. CartoDB Voyager 備援底圖 (商用免費，穩定不擋 Referrer)
-      const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      // 5. OpenStreetMap 開放街圖 (全球通用免費開源圖資，無金鑰與跨域限制)
+      const osmLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; CartoDB Voyager'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> 貢獻者'
       });
 
-      // Create Leaflet Map with NLSC Taiwan e-Map as Default
+      // Create Leaflet Map with Google Roadmap as Default
       map = L.map('gisMap', {
         center: [24.54, 121.10],
         zoom: 10,
-        layers: [nlscEmap],
+        layers: [googleRoad],
         scrollWheelZoom: true
       });
 
       // Add Base Layer Switcher Controller (右上角可隨意切換底圖)
       const baseMaps = {
-        "🗺️ 國土測繪中心 (台灣通用電子地圖)": nlscEmap,
+        "🚗 Google 標準街道圖 (預設)": googleRoad,
         "⛰️ Google 地形等高線圖 (露營推薦)": googleTerrain,
-        "🚗 Google 標準街道圖": googleRoad,
+        "🗺️ 國土測繪中心 (台灣通用電子地圖)": nlscEmap,
         "🛰️ 國土測繪中心 (正射航照影像)": nlscPhoto,
-        "🧭 CartoDB 探險旅遊底圖": cartoVoyager
+        "🌍 OpenStreetMap 開放街圖": osmLayer
       };
 
       L.control.layers(baseMaps, null, { position: 'topright', collapsed: false }).addTo(map);
