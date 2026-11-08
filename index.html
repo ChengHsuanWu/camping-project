@@ -287,11 +287,11 @@
       <p>專屬推薦：真・1帳包區 ✕ 開闊山嵐雲海 ✕ 乾淨如飯店衛浴（12/11週五正常營業）</p>
     </div>
 
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCamps('all')">全部營地 (8)</button>
-      <button class="filter-btn" onclick="filterCamps('hotwater')">🔥水槽熱水 (2)</button>
-      <button class="filter-btn" onclick="filterCamps('dispenser')">💧有飲水機 (6)</button>
-      <button class="filter-btn" onclick="filterCamps('easycamp')">🏕️露營樂獨露精選 (3)</button>
+        <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCamps('all')">全部營地 (12)</button>
+      <button class="filter-btn" onclick="filterCamps('hotwater')">🔥水槽溫熱水 (2)</button>
+      <button class="filter-btn" onclick="filterCamps('dispenser')">💧有飲水機 (11)</button>
+      <button class="filter-btn" onclick="filterCamps('highalt')">🏔️800m+高空大景 (10)</button>
     </div>
 
     <div id="camp-list"></div>
@@ -307,7 +307,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
-    const camps = [{"id": 1, "name": "尖石・怡然自德露營區", "lat": 24.668466, "lng": 121.17331, "region": "新竹縣尖石鄉", "altitude": "1,050m", "corridor": "新竹尖石五峰線", "single_zone_type": "梯田獨立小包區 (專屬獨立分層，隱私度極高)", "view_quality": "高海拔開闊視野，坐擁新竹夜景與翻騰山嵐雲海", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主每日定時清潔消毒，衛浴空間明亮潔淨無異味", "setup_mode": "專人代搭帳＋乳膠床墊 (星火充氣帳/噴火龍帳代搭服務)", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 各分區皆配置專屬獨立溫熱水水槽，冬日洗碗洗菜不凍手", "rating": "4.8", "special_notes": "★ 梯田分層隱密獨立，專人代搭收省時省力；12/11週五正常營業。", "attractions": "內灣老街、青蛙石天空步道、宇老觀景台、錦屏美人湯", "booking_url": "https://www.easycamp.com.tw/Store_2499.html", "price_range": "約 NT$ 2,500 ~ 3,600 (含代搭免搭服務)"}, {"id": 2, "name": "南庄・慢生活露營區", "lat": 24.616477, "lng": 121.018915, "region": "苗栗縣南庄鄉", "altitude": "300m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "D區獨立大雨棚雙人專屬營位 (全區最獨立私密空間)", "view_quality": "清澈野溪流淌環抱、天然森林環繞，遠離塵囂綠意盎然", "bathroom": "⭐️⭐️⭐️⭐️ 衛浴明亮乾淨，熱水穩定充足", "setup_mode": "現場已搭設好頂級 Coody 8.0 科技棉充氣雙人帳，免搭收超輕鬆", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴區設有專用溫水龍頭可盛裝取用", "rating": "4.7", "special_notes": "★ D區獨立大雨棚專用，Coody 科技棉充氣帳免搭收超省心；12/11週五正常營業。", "attractions": "南庄老街桂花巷、康濟吊橋、蓬萊溪自然生態園區、向天湖", "booking_url": "https://slowlifecamp2016.com/", "price_range": "約 NT$ 2,800 ~ 3,800 (免裝備充氣帳方案)"}, {"id": 3, "name": "五峰・鹿林道露營樂園", "lat": 24.56069, "lng": 121.10186, "region": "新竹縣五峰鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "杉木森林系獨立少帳木棧板位 (森林包圍獨享清幽)", "view_quality": "高聳柳杉人造林沉浸體驗，清晨霧氣飄渺宛若精靈國度", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主隨時巡視維持五星級潔淨水準，浴室乾爽無水漬", "setup_mode": "全套露營設備出租＋專人代搭收服務，完全不沾手", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴室內洗臉台配有溫熱水", "rating": "4.8", "special_notes": "★ 森林芬多精包覆，少帳木棧板極度幽靜；12/11週五正常營業。", "attractions": "清泉溫泉、張學良故居、三毛夢屋、霞喀羅古道", "booking_url": "https://www.lulin.com.tw/", "price_range": "約 NT$ 2,500 ~ 3,500 (全套出租代搭)"}, {"id": 4, "name": "南庄・喝納灣人文咖啡露營區 (Hnwan)", "lat": 24.5367, "lng": 121.0361, "region": "苗栗縣南庄鄉", "altitude": "1,000m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "真・一帳包區森林神仙秘境 (森林1~3區/D區獨立位)", "view_quality": "加里山鹿場深谷山嵐，原始松針林靜謐幽美，天然芬多精充盈", "bathroom": "⭐️⭐️⭐️⭐️ 原木乾淨衛浴，24小時充足熱水、乾淨整潔無異味", "setup_mode": "營區備有帳篷充氣床墊出租，可提前預約營主代搭收", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時供應熱水；洗臉台有溫水龍頭", "rating": "4.8", "special_notes": "★ 真正的森林一帳包區神仙位，帳棚可租借代搭；12/11週五正常營業。", "attractions": "加里山登山步道、鹿場部落、神仙谷瀑布、向天湖", "booking_url": "https://m.icamping.app/store/hnw713", "price_range": "約 NT$ 1,300 ~ 2,800"}, {"id": 5, "name": "尖石・六號花園露營區 (花現營地)", "lat": 24.7186, "lng": 121.2542, "region": "新竹縣尖石鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "VIP獨立1帳包區 / O1~O3單帳景觀位 (居高臨下視野極佳)", "view_quality": "群山環繞開闊山谷雲海、原始山林綠意，山嵐繚繞美不勝收", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 露營界精品衛浴，採乾濕分離設計、磁磚貼面極致乾淨", "setup_mode": "森林免搭帳輕裝小木屋／可租借裝備代搭", "water_dispenser": false, "sink_hot_water": true, "hot_water_note": "🔥 洗手台冬天專門供應溫熱水龍頭洗碗！", "rating": "4.8", "special_notes": "★ 營位動態：目前 O1~O3 尚有位！居高臨下風景視野極好。<br>⚠️ 注意事項：無獨立洗手台（共用水槽），但洗手台有熱水洗碗；營區無飲水機，請務必自備足量飲用水。", "attractions": "園區絕美玻璃屋景觀咖啡館、內灣老街、北得拉曼巨木群", "booking_url": "https://garden6th.pixnet.net/blog", "price_range": "約 NT$ 1,200 ~ 3,500"}, {"id": 6, "name": "復興・拉拉山木村的家露營區", "lat": 24.688407, "lng": 121.4091326, "region": "桃園市復興區", "altitude": "1,400m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "木屋前景觀區 (棧板 6.5Mx4.5M) / B1、B4 (草皮碎石 5Mx8M) / B2 (木棧板 3.8Mx5M)", "view_quality": "1,400m 超高海拔無遮蔽大景！坐擁拉拉山群山雲海、日落晚霞、無光害百萬星空銀河", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 分區衛浴，24小時熱水穩定，附吹風機與衛生紙，露友評為小而美超乾淨", "setup_mode": "自備帳篷 / 現場裝備出租 / 可車露，營主熱心親切", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【冰溫熱飲水機】、冷藏冷凍、脫水機、洗衣機、電動車充電樁！", "rating": "4.4 (75則好評)", "special_notes": "★ 與「沒搞頭」同在桃園復興鄉，海拔高達1,400m更勝一籌！有多達4個專屬獨立單帳區（推薦木屋前景觀區視野最佳，或B1/B4草皮碎石）。12/11週五正常營業（支援夜衝半價）。", "attractions": "拉拉山巨木群神木步道、巴陵古道、上巴陵觀景台、北橫公路景點", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/674", "price_range": "約 NT$ 1,100 ~ 1,300"}, {"id": 7, "name": "復興・拉拉山夢想家園露營區", "lat": 24.685639, "lng": 121.39725, "region": "桃園市復興區", "altitude": "1,250m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "仁愛區 (雨棚棧板 3.5Mx7M，獨立1帳包區首選) / 高架區 (雨棚棧板 4Mx6M)", "view_quality": "1,250m 中高海拔群山環抱，帳前飽覽壯麗雲海與迷人夜景，附活動透明帆布防風擋雨不遮景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 男女衛浴分開，乾淨明亮，提供沐浴乳、洗髮精、吹風機、幼兒澡盆與24小時熱水", "setup_mode": "挑高雨棚營位（自搭或免裝備輕露營），每帳附照明、插座及一桌四椅", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水；仁愛區附專屬獨立水槽與電箱；全區備有【冰溫熱飲水機】、冷藏冷凍、洗衣機脫水機！", "rating": "4.7 (36則好評)", "special_notes": "★ 露營樂推薦社恐1帳包區：【仁愛區】為專屬單帳雨棚位，車停帳邊，步行5-10分鐘即達巴陵商圈與小七，兼具絕景與生活機能！12/11週五正常營業（夜衝700元）。", "attractions": "拉拉山巨木群、巴陵鐵塔夜景（步行10分）、巴陵古道生態館、嘎拉賀溫泉", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/661", "price_range": "約 NT$ 1,400 ~ 1,500 (雨棚營位含桌椅)"}, {"id": 8, "name": "泰安・馬嘟溪露營基地", "lat": 24.4438808, "lng": 120.9165064, "region": "苗栗縣泰安鄉", "altitude": "350-500m", "corridor": "苗栗泰安洗水坑線 (露營樂社恐獨露精選)", "single_zone_type": "五葉松區 (草皮 1 帳包區) / 香蕉區 (草皮 1 帳包區)", "view_quality": "森林系分層分區規劃，各區之間互不相連，保有極高的私密空間與幽靜山巒環抱", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 園區設有B至E多棟分區衛浴，乾淨整潔用心維護，熱水水量充足穩定、附吹風機", "setup_mode": "自搭草皮露營 / 提供專屬搬運車協助載運裝備 / 可租借裝備", "water_dispenser": false, "sink_hot_water": false, "hot_water_note": "24小時穩定供應水電；五葉松區與香蕉區皆配置專屬獨立水槽與電箱；需自備飲用水（備有冷藏冰箱）", "rating": "4.7 (201則好評)", "special_notes": "★ 露營樂推薦社恐1帳包區：【五葉松區】與【香蕉區】皆為純1帳包區，獨立不相連，免受鄰帳干擾；有專屬搬運車免徒手扛裝備！12/11週五正常營業（夜衝600元）。", "attractions": "泰安溫泉、洗水坑豆腐街、清安豆腐老街、烏嘎彥竹林隧道", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/974", "price_range": "約 NT$ 1,100"}];
+    const camps = [{"id": 1, "name": "尖石・怡然自德露營區", "lat": 24.668466, "lng": 121.17331, "region": "新竹縣尖石鄉", "altitude": "1,050m", "corridor": "新竹尖石五峰線", "single_zone_type": "梯田獨立小包區 (專屬獨立分層，隱私度極高)", "view_quality": "高海拔開闊視野，坐擁新竹夜景與翻騰山嵐雲海", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主每日定時清潔消毒，衛浴空間明亮潔淨無異味", "setup_mode": "專人代搭帳＋乳膠床墊 (星火充氣帳/噴火龍帳代搭服務)", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 各分區皆配置專屬獨立溫熱水水槽，冬日洗碗洗菜不凍手", "rating": "4.8", "special_notes": "★ 梯田分層隱密獨立，專人代搭收省時省力；12/11週五正常營業。", "attractions": "內灣老街、青蛙石天空步道、宇老觀景台、錦屏美人湯", "booking_url": "https://www.easycamp.com.tw/Store_2499.html", "price_range": "約 NT$ 2,500 ~ 3,600 (含代搭免搭服務)"}, {"id": 2, "name": "南庄・慢生活露營區", "lat": 24.616477, "lng": 121.018915, "region": "苗栗縣南庄鄉", "altitude": "300m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "D區獨立大雨棚雙人專屬營位 (全區最獨立私密空間)", "view_quality": "清澈野溪流淌環抱、天然森林環繞，遠離塵囂綠意盎然", "bathroom": "⭐️⭐️⭐️⭐️ 衛浴明亮乾淨，熱水穩定充足", "setup_mode": "現場已搭設好頂級 Coody 8.0 科技棉充氣雙人帳，免搭收超輕鬆", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴區設有專用溫水龍頭可盛裝取用", "rating": "4.7", "special_notes": "★ D區獨立大雨棚專用，Coody 科技棉充氣帳免搭收超省心；12/11週五正常營業。", "attractions": "南庄老街桂花巷、康濟吊橋、蓬萊溪自然生態園區、向天湖", "booking_url": "https://slowlifecamp2016.com/", "price_range": "約 NT$ 2,800 ~ 3,800 (免裝備充氣帳方案)"}, {"id": 3, "name": "五峰・鹿林道露營樂園", "lat": 24.56069, "lng": 121.10186, "region": "新竹縣五峰鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "杉木森林系獨立少帳木棧板位 (森林包圍獨享清幽)", "view_quality": "高聳柳杉人造林沉浸體驗，清晨霧氣飄渺宛若精靈國度", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主隨時巡視維持五星級潔淨水準，浴室乾爽無水漬", "setup_mode": "全套露營設備出租＋專人代搭收服務，完全不沾手", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴室內洗臉台配有溫熱水", "rating": "4.8", "special_notes": "★ 森林芬多精包覆，少帳木棧板極度幽靜；12/11週五正常營業。", "attractions": "清泉溫泉、張學良故居、三毛夢屋、霞喀羅古道", "booking_url": "https://www.lulin.com.tw/", "price_range": "約 NT$ 2,500 ~ 3,500 (全套出租代搭)"}, {"id": 4, "name": "南庄・喝納灣人文咖啡露營區 (Hnwan)", "lat": 24.5367, "lng": 121.0361, "region": "苗栗縣南庄鄉", "altitude": "1,000m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "真・一帳包區森林神仙秘境 (森林1~3區/D區獨立位)", "view_quality": "加里山鹿場深谷山嵐，原始松針林靜謐幽美，天然芬多精充盈", "bathroom": "⭐️⭐️⭐️⭐️ 原木乾淨衛浴，24小時充足熱水、乾淨整潔無異味", "setup_mode": "營區備有帳篷充氣床墊出租，可提前預約營主代搭收", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時供應熱水；洗臉台有溫水龍頭", "rating": "4.8", "special_notes": "★ 真正的森林一帳包區神仙位，帳棚可租借代搭；12/11週五正常營業。", "attractions": "加里山登山步道、鹿場部落、神仙谷瀑布、向天湖", "booking_url": "https://m.icamping.app/store/hnw713", "price_range": "約 NT$ 1,300 ~ 2,800"}, {"id": 5, "name": "尖石・六號花園露營區 (花現營地)", "lat": 24.7186, "lng": 121.2542, "region": "新竹縣尖石鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "VIP獨立1帳包區 / O1~O3單帳景觀位 (居高臨下視野極佳)", "view_quality": "群山環繞開闊山谷雲海、原始山林綠意，山嵐繚繞美不勝收", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 露營界精品衛浴，採乾濕分離設計、磁磚貼面極致乾淨", "setup_mode": "森林免搭帳輕裝小木屋／可租借裝備代搭", "water_dispenser": false, "sink_hot_water": true, "hot_water_note": "🔥 洗手台冬天專門供應溫熱水龍頭洗碗！", "rating": "4.8", "special_notes": "★ 營位動態：目前 O1~O3 尚有位！居高臨下風景視野極好。<br>⚠️ 注意事項：無獨立洗手台（共用水槽），但洗手台有熱水洗碗；營區無飲水機，請務必自備足量飲用水。", "attractions": "園區絕美玻璃屋景觀咖啡館、內灣老街、北得拉曼巨木群", "booking_url": "https://garden6th.pixnet.net/blog", "price_range": "約 NT$ 1,200 ~ 3,500"}, {"id": 6, "name": "復興・拉拉山木村的家露營區", "lat": 24.688407, "lng": 121.4091326, "region": "桃園市復興區", "altitude": "1,400m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "木屋前景觀區 (棧板 6.5Mx4.5M) / B1、B4 (草皮碎石 5Mx8M) / B2 (木棧板 3.8Mx5M)", "view_quality": "1,400m 超高海拔無遮蔽大景！坐擁拉拉山群山雲海、日落晚霞、無光害百萬星空銀河", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 分區衛浴，24小時熱水穩定，附吹風機與衛生紙，露友評為小而美超乾淨", "setup_mode": "自備帳篷 / 現場裝備出租 / 可車露，營主熱心親切", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【冰溫熱飲水機】、冷藏冷凍、脫水機、洗衣機、電動車充電樁！", "rating": "4.4 (75則好評)", "special_notes": "★ 與「沒搞頭」同在桃園復興鄉，海拔高達1,400m更勝一籌！有多達4個專屬獨立單帳區（推薦木屋前景觀區視野最佳，或B1/B4草皮碎石）。12/11週五正常營業（支援夜衝半價）。", "attractions": "拉拉山巨木群神木步道、巴陵古道、上巴陵觀景台、北橫公路景點", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/674", "price_range": "約 NT$ 1,100 ~ 1,300"}, {"id": 7, "name": "復興・拉拉山夢想家園露營區", "lat": 24.685639, "lng": 121.39725, "region": "桃園市復興區", "altitude": "1,250m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "仁愛區 (雨棚棧板 3.5Mx7M，獨立1帳包區首選) / 高架區 (雨棚棧板 4Mx6M)", "view_quality": "1,250m 中高海拔群山環抱，帳前飽覽壯麗雲海與迷人夜景，附活動透明帆布防風擋雨不遮景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 男女衛浴分開，乾淨明亮，提供沐浴乳、洗髮精、吹風機、幼兒澡盆與24小時熱水", "setup_mode": "挑高雨棚營位（自搭或免裝備輕露營），每帳附照明、插座及一桌四椅", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水；仁愛區附專屬獨立水槽與電箱；全區備有【冰溫熱飲水機】、冷藏冷凍、洗衣機脫水機！", "rating": "4.7 (36則好評)", "special_notes": "★ 露營樂推薦社恐1帳包區：【仁愛區】為專屬單帳雨棚位，車停帳邊，步行5-10分鐘即達巴陵商圈與小七，兼具絕景與生活機能！12/11週五正常營業（夜衝700元）。", "attractions": "拉拉山巨木群、巴陵鐵塔夜景（步行10分）、巴陵古道生態館、嘎拉賀溫泉", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/661", "price_range": "約 NT$ 1,400 ~ 1,500 (雨棚營位含桌椅)"}, {"id": 8, "name": "五峰・輪園秘境露營區", "lat": 24.6581, "lng": 121.1612, "region": "新竹縣五峰鄉", "altitude": "1,000m", "corridor": "新竹五峰天湖線 (露營樂社恐獨露精選)", "single_zone_type": "星空B區 (草皮 7.5Mx7.5Mx8M，開闊視野1帳包區) / 杉林A區 (草皮碎石 4.2Mx8M) / 杉林D區 (碎石 6.3Mx6.3M)", "view_quality": "天湖部落高海拔山稜制高點！視野開闊無遮蔽，秋冬壯麗雲海、日落晚霞與滿天星斗璀璨夜景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 集中衛浴配置乾濕分離衛浴且【配備免治馬桶】！單獨浴室極乾淨，熱水電力24小時穩定", "setup_mode": "自搭草皮碎石營位 / 星空B區車停專區近帳邊 / 亦有杉林輕露營", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；星空B區配置專屬水槽與電箱；備有冷凍、冷藏、吹風機、免治馬桶！", "rating": "4.7 (71則好評)", "special_notes": "★ 露營樂推薦社恐1帳包區：【星空B區】為大空間草皮純1帳包區，視野居高臨下俯瞰山谷夜景與雲海，且衛浴配備超加分免治馬桶！12/11週五正常營業（平日進場）。", "attractions": "天湖部落、梅后蔓瀑布步道、花園國小、內灣老街風景區", "booking_url": "https://www.easycamp.com.tw/Store_2496.html", "price_range": "約 NT$ 1,500"}, {"id": 9, "name": "泰安・露也楓情露營區", "lat": 24.4376, "lng": 120.9123, "region": "苗栗縣泰安鄉", "altitude": "750~830m", "corridor": "苗栗泰安大興高熊卡線", "single_zone_type": "羽楓專屬區-1帳包區 (大草皮獨立位，車停帳邊) / 羽松專屬C區-1帳包區 (絕美雲海視野)", "view_quality": "苗栗泰安大景王者！面向鷂婆山大景與大安溪深谷，秋冬磅礴雲海翻湧、日落晚霞第一排無敵景觀", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 衛浴設備乾淨整潔、水壓強勁充足、熱水穩定、打掃勤快細緻", "setup_mode": "自搭草地營位 / 專屬區車輛可停帳邊獨門獨戶", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "熱水穩定供應至23:00；羽楓專屬區附獨立水槽與插座電箱；備有冷藏冷凍冰箱", "rating": "4.6 (172則好評)", "special_notes": "★ 泰安高海拔景觀第一排！【羽楓專屬區】與【羽松專屬C區】皆為純1帳包區，車停帳邊極具私密性，直面群山雲海大景；12/11週五正常營業（支援週五夜衝）。", "attractions": "泰安溫泉風景區、鷂婆山步道、洗水坑豆腐街、烏嘎彥竹林秘境", "booking_url": "https://www.luyefcamping.com/camp/index.php", "price_range": "約 NT$ 1,200 ~ 2,000"}, {"id": 10, "name": "五峰・雲山休閒露營區", "lat": 24.5825, "lng": 121.0965, "region": "新竹縣五峰鄉", "altitude": "900m", "corridor": "新竹五峰大隘大鹿林道線", "single_zone_type": "B區-1帳包區 (草地 1 帳包區，獨立分層不被打擾)", "view_quality": "直面雪山山系與五峰壯闊深谷山巒，視野層次開闊豐富，清晨山谷雲海繚繞、夕照晚霞滿天", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 2025全新打造衛浴，明亮乾爽無異味，熱水強勁穩定、環境打掃超用心", "setup_mode": "自搭草皮營位 / 一帳配一專屬車位", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "熱水供應16:00~23:00；B區專屬獨立水槽與電箱；備有冷藏冷凍冰箱", "rating": "4.6 (五峰鄉露營協會推薦)", "special_notes": "★ 梯田分層隱密配置，【B區】為純草皮1帳包區，獨享居高臨下開闊山谷與雲海景觀；12/11週五正常營業（開放週五夜衝半價）。", "attractions": "五峰大隘部落、張學良故居園區、清泉吊橋、觀霧國家森林遊樂區", "booking_url": "https://m.icamping.app/store/ys773", "price_range": "約 NT$ 1,000 ~ 1,200"}, {"id": 11, "name": "復興・嘎色鬧蜻蜓露營區", "lat": 24.7892, "lng": 121.3148, "region": "桃園市復興區", "altitude": "800m", "corridor": "桃園復興奎輝羅馬公路線", "single_zone_type": "蜻蜓D區-1帳包區 (專屬獨立草皮，整層一帳專用)", "view_quality": "與您曾去過的「沒搞頭」同在復興山林！座落部落高處，開闊俯瞰大漢溪谷山巒，清晨雲霧山嵐繚繞", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主夫婦親力親為維持潔淨，公廁衛浴整潔衛生、24小時熱水充足穩定", "setup_mode": "自搭草皮營位 / 裝備好卸、車停專屬位", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時免費熱水供應；蜻蜓D區設有專屬水槽及插座；備有公用冷藏冰箱", "rating": "4.5 (275則好評)", "special_notes": "★ 完美呼應您喜愛的「復興沒搞頭G區」風格！同在復興高地，【蜻蜓D區】為專屬單帳草地包區，空間大、開闊俯瞰山谷風景；12/11週五正常營業（夜衝半價）。", "attractions": "嘎色鬧獵人學校、奎輝部落、羅馬公路景觀點、石門水庫阿姆坪", "booking_url": "https://m.icamping.app/store/qtgsn148", "price_range": "約 NT$ 1,000 ~ 1,200"}, {"id": 12, "name": "泰安・的貴露營區", "lat": 24.3435, "lng": 120.9562, "region": "苗栗縣泰安鄉", "altitude": "780m", "corridor": "苗栗泰安象鼻士林線", "single_zone_type": "紅彩木區-1帳包區 (草皮 1 帳包區) / 獨立區 (木棧板 1 帳)", "view_quality": "高踞泰安象鼻部落上方，面對大安溪上游壯闊峽谷與雪山山脈連峰，視野開闊無遮蔽、秋冬雲海翻湧", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營區衛浴乾淨明亮，沐浴間24小時免費熱水供應，熱水水壓穩定充足", "setup_mode": "自搭草地/棧板營位，車停帳邊專用車位", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時沐浴熱水；各區配置水槽與電箱；備有冷藏冰箱", "rating": "4.7 (象鼻部落優質景觀營區)", "special_notes": "★ 象鼻部落峽谷高處大景，【紅彩木區】為純1帳草皮包區，面對雪山連峰峽谷開闊壯麗；12/11週五正常營業（平日進場/夜衝半價）。", "attractions": "象鼻吊橋、士林水壩、達見部落、雪霸國家公園雪見遊憩區", "booking_url": "https://m.icamping.app/store/dg535", "price_range": "約 NT$ 1,000 ~ 1,200"}];
 
     // Initialize Map with Google Standard Roadmap
     const googleRoadmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -321,8 +321,7 @@
     });
 
     const map = L.map('map', {
-      center: [24.62, 121.14],
-      zoom: 11,
+      center: [24.58, 121.16], zoom: 10,
       layers: [googleRoadmap]
     });
 
@@ -341,14 +340,17 @@
 
     const markers = {};
 
-    function renderCampList(filter = 'all') {
+        function renderCampList(filter = 'all') {
       const listContainer = document.getElementById('camp-list');
       listContainer.innerHTML = '';
 
       camps.forEach(camp => {
         if (filter === 'hotwater' && !camp.sink_hot_water) return;
         if (filter === 'dispenser' && !camp.water_dispenser) return;
-        if (filter === 'easycamp' && camp.id < 6) return;
+        if (filter === 'highalt') {
+          const altNum = parseInt(camp.altitude.replace(/[^0-9]/g, ''));
+          if (altNum < 800) return;
+        }
 
         const card = document.createElement('div');
         card.className = `camp-card ${camp.id === 5 ? 'card-highlight' : ''}`;
@@ -360,24 +362,26 @@
           specialNoteHtml = `<div class="callout-box"><i class="fa-solid fa-circle-exclamation"></i> ${camp.special_notes}</div>`;
         }
 
+        const idFormatted = camp.id < 10 ? '0' + camp.id : camp.id;
+
         card.innerHTML = `
           <div class="card-top">
-            <div class="card-title">#0${camp.id} ${camp.name}</div>
+            <div class="card-title">#${idFormatted} ${camp.name}</div>
             <span class="badge-alt">${camp.altitude}</span>
           </div>
           <div class="tags">
             ${camp.sink_hot_water ? '<span class="tag tag-hotwater"><i class="fa-solid fa-fire"></i> 水槽溫熱水</span>' : ''}
             ${camp.water_dispenser ? '<span class="tag tag-dispenser"><i class="fa-solid fa-droplet"></i> 飲水機</span>' : ''}
-            ${camp.id >= 6 ? '<span class="tag tag-easycamp"><i class="fa-solid fa-campground"></i> 露營樂獨露</span>' : ''}
-            <span class="tag tag-view"><i class="fa-solid fa-eye"></i> 開闊視野</span>
-            <span class="tag tag-setup"><i class="fa-solid fa-bed"></i> 乾淨衛浴</span>
+            <span class="tag tag-easycamp"><i class="fa-solid fa-campground"></i> 真・1帳包區</span>
+            <span class="tag tag-view"><i class="fa-solid fa-mountain"></i> 開闊視野</span>
+            <span class="tag tag-setup"><i class="fa-solid fa-bath"></i> 極淨衛浴</span>
           </div>
           <div class="card-info">
             <div><i class="fa-solid fa-location-dot"></i> <strong>位置：</strong>${camp.region} (${camp.corridor})</div>
             <div><i class="fa-solid fa-campground"></i> <strong>包區特性：</strong>${camp.single_zone_type}</div>
             <div><i class="fa-solid fa-mountain"></i> <strong>視野景觀：</strong>${camp.view_quality}</div>
             <div><i class="fa-solid fa-bath"></i> <strong>衛浴設施：</strong>${camp.bathroom}</div>
-            <div><i class="fa-solid fa-circle-info"></i> <strong>水槽熱水：</strong>${camp.hot_water_note}</div>
+            <div><i class="fa-solid fa-circle-info"></i> <strong>熱水水電：</strong>${camp.hot_water_note}</div>
           </div>
           ${specialNoteHtml}
           <div class="card-actions">
@@ -409,7 +413,7 @@
 
         const popupHtml = `
           <div class="popup-container">
-            <div class="popup-title">#0${camp.id} ${camp.name}</div>
+            <div class="popup-title">#${camp.id < 10 ? "0" + camp.id : camp.id} ${camp.name}</div>
             <div class="popup-row"><i class="fa-solid fa-mountain"></i> <strong>海拔：</strong>${camp.altitude}</div>
             <div class="popup-row"><i class="fa-solid fa-campground"></i> <strong>包區：</strong>${camp.single_zone_type}</div>
             <div class="popup-row"><i class="fa-solid fa-bath"></i> <strong>衛浴：</strong>${camp.bathroom}</div>
