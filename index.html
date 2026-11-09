@@ -607,6 +607,8 @@
       #map-container { height: 45%; }
     }
   </style>
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -615,11 +617,14 @@
       <h1><i class="fa-solid fa-mountain-sun"></i> 2026/12/11~12/13 露營精選</h1>
       <p>專屬推薦：真・1帳包區 ✕ 開闊山嵐雲海 ✕ 乾淨如飯店衛浴（12/11週五正常營業）</p>
       <div class="header-actions">
-        <button class="header-btn btn-export" onclick="copyAllReviewSummary()">
-          <i class="fa-solid fa-clipboard-check"></i> 一鍵複製所有筆記摘要
+        <button class="header-btn btn-export" onclick="copyAllReviewSummary()" title="將所有已評估營地與心得排版複製到剪貼簿">
+          <i class="fa-solid fa-clipboard-check"></i> 一鍵複製摘要
         </button>
-        <button class="header-btn" onclick="toggleBackupModal()">
-          <i class="fa-solid fa-file-export"></i> 筆記備份/還原
+        <button class="header-btn btn-sync" onclick="openSyncModal()" title="免匯入匯出！掃描 QR Code 或複製網址即可跨手機/平板同步">
+          <i class="fa-solid fa-mobile-screen-button"></i> 📱 跨裝置同步
+        </button>
+        <button class="header-btn" onclick="toggleBackupModal()" title="JSON文字備份">
+          <i class="fa-solid fa-file-export"></i> 備份/還原
         </button>
       </div>
     </div>
@@ -645,6 +650,28 @@
 
   <!-- Toast Notification -->
   <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已自動儲存筆記</span></div>
+
+  <!-- Cross Device Sync Modal with QR Code -->
+  <div class="modal-overlay" id="sync-modal" onclick="if(event.target === this) closeSyncModal()">
+    <div class="modal-content" style="max-width: 420px; text-align: center;">
+      <div class="modal-title">
+        <span><i class="fa-solid fa-mobile-screen-button"></i> 📱 跨裝置無縫同步 (傳至手機/平板)</span>
+        <button onclick="closeSyncModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer; color:#64748b;">&times;</button>
+      </div>
+      <div class="modal-desc" style="text-align: left; margin-bottom: 14px;">
+        <strong>完全不用手動匯出匯入！</strong><br>
+        用手機相機掃描下方 QR Code，或複製連結傳到 LINE 打開，手機就會<strong>自動載入所有評估心得、備註與首選狀態</strong>：
+      </div>
+      <div id="qrcode-container" style="display: inline-flex; justify-content: center; align-items: center; background: #fff; padding: 14px; border: 2px dashed #cbd5e1; border-radius: 12px; margin-bottom: 14px; min-width: 180px; min-height: 180px;"></div>
+      <div style="margin-bottom: 14px;">
+        <input type="text" id="sync-url-input" readonly style="width: 100%; font-size: 0.72rem; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; color: #334155; font-family: monospace; outline: none; cursor: pointer;" onclick="this.select()">
+      </div>
+      <div class="modal-btns" style="justify-content: center; gap: 10px;">
+        <button class="modal-btn modal-btn-cancel" onclick="closeSyncModal()">完成關閉</button>
+        <button class="modal-btn modal-btn-primary" onclick="copySyncUrl()" style="background: #1b4d3e;"><i class="fa-solid fa-copy"></i> 複製同步網址</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Backup & Restore Modal -->
   <div class="modal-overlay" id="backup-modal" onclick="if(event.target === this) toggleBackupModal()">
@@ -1180,7 +1207,92 @@
       renderCampList(type);
     }
 
+
+    // Cross Device Sync Helpers
+    function utf8ToBase64(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
+    }
+
+    function base64ToUtf8(str) {
+      return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+
+    function generateSyncUrl() {
+      const reviews = getReviews();
+      const jsonStr = JSON.stringify(reviews);
+      const b64Data = utf8ToBase64(jsonStr);
+      return window.location.origin + window.location.pathname + '#sync=' + b64Data;
+    }
+
+    let qrcodeInstance = null;
+    function openSyncModal() {
+      const modal = document.getElementById('sync-modal');
+      const qrContainer = document.getElementById('qrcode-container');
+      const input = document.getElementById('sync-url-input');
+      const syncUrl = generateSyncUrl();
+
+      input.value = syncUrl;
+      qrContainer.innerHTML = '';
+      qrcodeInstance = new QRCode(qrContainer, {
+        text: syncUrl,
+        width: 180,
+        height: 180,
+        colorDark: "#1b4d3e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      modal.classList.add('active');
+    }
+
+    function closeSyncModal() {
+      const modal = document.getElementById('sync-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function copySyncUrl() {
+      const input = document.getElementById('sync-url-input');
+      input.select();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(input.value).then(() => {
+          showToast('🎉 已複製同步專屬網址！可貼到 LINE 傳給自己手機打開！');
+        }).catch(() => {
+          fallbackCopyText(input.value);
+        });
+      } else {
+        fallbackCopyText(input.value);
+      }
+    }
+
+    function checkUrlSync() {
+      if (window.location.hash && window.location.hash.startsWith('#sync=')) {
+        try {
+          const rawBase64 = window.location.hash.substring(6);
+          const jsonStr = base64ToUtf8(rawBase64);
+          const incomingReviews = JSON.parse(jsonStr);
+          if (incomingReviews && typeof incomingReviews === 'object') {
+            const existing = getReviews();
+            const merged = { ...existing, ...incomingReviews };
+            saveAllReviews(merged);
+            // Clean up hash without reloading page
+            history.replaceState(null, null, window.location.pathname);
+            setTimeout(() => {
+              renderCampList(currentFilter);
+              showToast('🎉 跨裝置同步成功！已成功載入所有評估心得與狀態！');
+            }, 300);
+          }
+        } catch (e) {
+          console.error('Failed to parse sync data from URL hash', e);
+        }
+      }
+    }
+
     // Init
+    checkUrlSync();
     renderCampList('all');
     createMarkers();
   </script>
