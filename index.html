@@ -28,8 +28,8 @@
       color: #333;
     }
     #sidebar {
-      width: 440px;
-      min-width: 440px;
+      width: 470px;
+      min-width: 470px;
       height: 100%;
       background: #ffffff;
       box-shadow: 2px 0 12px rgba(0,0,0,0.08);
@@ -39,40 +39,78 @@
       transition: transform 0.3s ease;
     }
     .header {
-      padding: 18px 20px 14px;
+      padding: 16px 18px 14px;
       background: linear-gradient(135deg, #1b4d3e 0%, #2e7d32 100%);
       color: white;
     }
     .header h1 {
-      font-size: 1.18rem;
+      font-size: 1.15rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .header p {
-      font-size: 0.8rem;
-      margin-top: 5px;
+      font-size: 0.78rem;
+      margin-top: 4px;
       opacity: 0.92;
       line-height: 1.4;
     }
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .header-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 6px;
+      color: white;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .header-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+    .header-btn.btn-export {
+      background: #f59e0b;
+      border-color: #d97706;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    .header-btn.btn-export:hover {
+      background: #fbbf24;
+    }
+
     .filter-bar {
-      padding: 10px 18px;
+      padding: 8px 14px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
-      gap: 6px;
+      gap: 5px;
       flex-wrap: wrap;
     }
     .filter-btn {
-      padding: 5px 11px;
-      border-radius: 16px;
-      font-size: 0.74rem;
+      padding: 4px 9px;
+      border-radius: 14px;
+      font-size: 0.72rem;
       font-weight: 500;
       border: 1px solid #cbd5e1;
       background: white;
       cursor: pointer;
       transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .filter-btn:hover {
       background: #e2e8f0;
@@ -82,18 +120,33 @@
       color: white;
       border-color: #1b4d3e;
     }
+
     #camp-list {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 16px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+    .empty-state i {
+      font-size: 2rem;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      display: block;
+    }
+
     .camp-card {
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 14px;
+      padding: 13px;
       background: #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       cursor: pointer;
@@ -110,17 +163,55 @@
       border-left: 5px solid #2e7d32;
       background: #fbfdfb;
     }
+
+    /* Card Status Styles */
+    .camp-card.status-favorite {
+      border: 2px solid #f59e0b;
+      background: #fffdf5;
+    }
+    .camp-card.status-considering {
+      border: 2px solid #38bdf8;
+      background: #f8fafc;
+    }
+    .camp-card.status-rejected {
+      opacity: 0.55;
+      background: #f9f9f9;
+      border-color: #cbd5e1;
+    }
+    .camp-card.status-rejected:hover {
+      opacity: 0.92;
+    }
+
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 6px;
     }
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
     .card-title {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: #1b4d3e;
     }
+    .user-status-badge {
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .badge-fav { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+    .badge-consider { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+    .badge-reject { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+
     .badge-alt {
       background: #e8f5e9;
       color: #1b4d3e;
@@ -170,6 +261,146 @@
       color: #614a00;
       line-height: 1.4;
     }
+
+    /* User Review Box */
+    .user-review-box {
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 10px;
+      transition: all 0.2s;
+    }
+    .user-review-box:focus-within {
+      border-color: #2e7d32;
+      background: #ffffff;
+      box-shadow: 0 0 0 2px rgba(46,125,50,0.12);
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .review-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-pills {
+      display: flex;
+      gap: 3px;
+    }
+    .status-pill {
+      border: 1px solid #cbd5e1;
+      background: white;
+      border-radius: 12px;
+      padding: 2px 6px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #475569;
+    }
+    .status-pill:hover {
+      background: #f1f5f9;
+    }
+    .status-pill.active[data-status="none"] {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      font-weight: bold;
+    }
+    .status-pill.active[data-status="favorite"] {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #b45309;
+      font-weight: bold;
+    }
+    .status-pill.active[data-status="considering"] {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+    }
+    .status-pill.active[data-status="rejected"] {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    .review-textarea {
+      width: 100%;
+      min-height: 58px;
+      max-height: 180px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      background: white;
+      color: #1e293b;
+      transition: border-color 0.2s;
+    }
+    .review-textarea:focus {
+      border-color: #2e7d32;
+    }
+
+    .review-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5px;
+    }
+    .save-indicator {
+      font-size: 0.68rem;
+      color: #16a34a;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-weight: 500;
+    }
+    .save-indicator.saving {
+      color: #d97706;
+    }
+    .review-footer-btns {
+      display: flex;
+      gap: 5px;
+    }
+    .btn-note-action {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: white;
+      transition: all 0.2s;
+    }
+    .btn-save-quick {
+      background: #f0fdf4;
+      color: #166534;
+      border-color: #bbf7d0;
+    }
+    .btn-save-quick:hover {
+      background: #dcfce7;
+    }
+    .btn-clear-quick {
+      color: #94a3b8;
+    }
+    .btn-clear-quick:hover {
+      color: #ef4444;
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
     .card-actions {
       margin-top: 10px;
       display: flex;
@@ -272,10 +503,108 @@
       color: #2e7d32;
     }
 
-    @media (max-width: 820px) {
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(20, 48, 38, 0.95);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 99999;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal for Backup / Restore */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .modal-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1b4d3e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-desc {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+    .modal-textarea {
+      width: 100%;
+      height: 130px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .modal-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .modal-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .modal-btn-cancel {
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: #475569;
+    }
+    .modal-btn-primary {
+      border: none;
+      background: #1b4d3e;
+      color: white;
+    }
+
+    @media (max-width: 860px) {
       body { flex-direction: column-reverse; }
-      #sidebar { width: 100%; min-width: 100%; height: 50%; }
-      #map-container { height: 50%; }
+      #sidebar { width: 100%; min-width: 100%; height: 55%; }
+      #map-container { height: 45%; }
     }
   </style>
 </head>
@@ -285,13 +614,23 @@
     <div class="header">
       <h1><i class="fa-solid fa-mountain-sun"></i> 2026/12/11~12/13 露營精選</h1>
       <p>專屬推薦：真・1帳包區 ✕ 開闊山嵐雲海 ✕ 乾淨如飯店衛浴（12/11週五正常營業）</p>
+      <div class="header-actions">
+        <button class="header-btn btn-export" onclick="copyAllReviewSummary()">
+          <i class="fa-solid fa-clipboard-check"></i> 一鍵複製所有筆記摘要
+        </button>
+        <button class="header-btn" onclick="toggleBackupModal()">
+          <i class="fa-solid fa-file-export"></i> 筆記備份/還原
+        </button>
+      </div>
     </div>
 
-        <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterCamps('all')">全部營地 (12)</button>
-      <button class="filter-btn" onclick="filterCamps('hotwater')">🔥水槽溫熱水 (2)</button>
-      <button class="filter-btn" onclick="filterCamps('dispenser')">💧有飲水機 (11)</button>
-      <button class="filter-btn" onclick="filterCamps('highalt')">🏔️800m+高空大景 (10)</button>
+    <div class="filter-bar">
+      <button class="filter-btn active" id="filter-btn-all" onclick="filterCamps('all')">全部營地 (10)</button>
+      <button class="filter-btn" id="filter-btn-favorite" onclick="filterCamps('favorite')">🌟 首選 (<span id="count-fav">0</span>)</button>
+      <button class="filter-btn" id="filter-btn-hasnotes" onclick="filterCamps('hasnotes')">📝 有筆記 (<span id="count-notes">0</span>)</button>
+      <button class="filter-btn" id="filter-btn-hotwater" onclick="filterCamps('hotwater')">🔥水槽溫熱水 (2)</button>
+      <button class="filter-btn" id="filter-btn-dispenser" onclick="filterCamps('dispenser')">💧有飲水機 (9)</button>
+      <button class="filter-btn" id="filter-btn-highalt" onclick="filterCamps('highalt')">🏔️800m+大景 (8)</button>
     </div>
 
     <div id="camp-list"></div>
@@ -304,10 +643,319 @@
     <div id="map"></div>
   </div>
 
+  <!-- Toast Notification -->
+  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已自動儲存筆記</span></div>
+
+  <!-- Backup & Restore Modal -->
+  <div class="modal-overlay" id="backup-modal" onclick="if(event.target === this) toggleBackupModal()">
+    <div class="modal-content">
+      <div class="modal-title">
+        <span><i class="fa-solid fa-floppy-disk"></i> 評估筆記資料備份與還原</span>
+        <button onclick="toggleBackupModal()" style="border:none; background:none; font-size:1.1rem; cursor:pointer;">&times;</button>
+      </div>
+      <div class="modal-desc">
+        您輸入的所有心得備註與評估狀態均儲存在您的瀏覽器本機端中（重整或關閉分頁不遺失）。您也可以在此複製 JSON 備份或貼上還原：
+      </div>
+      <textarea class="modal-textarea" id="backup-json-textarea"></textarea>
+      <div class="modal-btns">
+        <button class="modal-btn modal-btn-cancel" onclick="toggleBackupModal()">關閉</button>
+        <button class="modal-btn modal-btn-primary" onclick="restoreFromModalJson()">匯入還原筆記</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     const camps = [{"id": 1, "name": "尖石・怡然自德露營區", "lat": 24.668466, "lng": 121.17331, "region": "新竹縣尖石鄉", "altitude": "1,050m", "corridor": "新竹尖石五峰線", "single_zone_type": "梯田獨立小包區 (專屬獨立分層，隱私度極高)", "view_quality": "高海拔開闊視野，坐擁新竹夜景與翻騰山嵐雲海", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主每日定時清潔消毒，衛浴空間明亮潔淨無異味", "setup_mode": "專人代搭帳＋乳膠床墊 (星火充氣帳/噴火龍帳代搭服務)", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 各分區皆配置專屬獨立溫熱水水槽，冬日洗碗洗菜不凍手", "rating": "4.8", "special_notes": "★ 梯田分層隱密獨立，專人代搭收省時省力；12/11週五正常營業。", "attractions": "內灣老街、青蛙石天空步道、宇老觀景台、錦屏美人湯", "booking_url": "https://www.easycamp.com.tw/Store_2499.html", "price_range": "約 NT$ 2,500 ~ 3,600 (含代搭免搭服務)"}, {"id": 2, "name": "南庄・慢生活露營區", "lat": 24.616477, "lng": 121.018915, "region": "苗栗縣南庄鄉", "altitude": "300m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "D區獨立大雨棚雙人專屬營位 (全區最獨立私密空間)", "view_quality": "清澈野溪流淌環抱、天然森林環繞，遠離塵囂綠意盎然", "bathroom": "⭐️⭐️⭐️⭐️ 衛浴明亮乾淨，熱水穩定充足", "setup_mode": "現場已搭設好頂級 Coody 8.0 科技棉充氣雙人帳，免搭收超輕鬆", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴區設有專用溫水龍頭可盛裝取用", "rating": "4.7", "special_notes": "★ D區獨立大雨棚專用，Coody 科技棉充氣帳免搭收超省心；12/11週五正常營業。", "attractions": "南庄老街桂花巷、康濟吊橋、蓬萊溪自然生態園區、向天湖", "booking_url": "https://slowlifecamp2016.com/", "price_range": "約 NT$ 2,800 ~ 3,800 (免裝備充氣帳方案)"}, {"id": 3, "name": "五峰・鹿林道露營樂園", "lat": 24.56069, "lng": 121.10186, "region": "新竹縣五峰鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "杉木森林系獨立少帳木棧板位 (森林包圍獨享清幽)", "view_quality": "高聳柳杉人造林沉浸體驗，清晨霧氣飄渺宛若精靈國度", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主隨時巡視維持五星級潔淨水準，浴室乾爽無水漬", "setup_mode": "全套露營設備出租＋專人代搭收服務，完全不沾手", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴室內洗臉台配有溫熱水", "rating": "4.8", "special_notes": "★ 森林芬多精包覆，少帳木棧板極度幽靜；12/11週五正常營業。", "attractions": "清泉溫泉、張學良故居、三毛夢屋、霞喀羅古道", "booking_url": "https://www.lulin.com.tw/", "price_range": "約 NT$ 2,500 ~ 3,500 (全套出租代搭)"}, {"id": 4, "name": "南庄・喝納灣人文咖啡露營區 (Hnwan)", "lat": 24.5367, "lng": 121.0361, "region": "苗栗縣南庄鄉", "altitude": "1,000m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "真・一帳包區森林神仙秘境 (森林1~3區/D區獨立位)", "view_quality": "加里山鹿場深谷山嵐，原始松針林靜謐幽美，天然芬多精充盈", "bathroom": "⭐️⭐️⭐️⭐️ 原木乾淨衛浴，24小時充足熱水、乾淨整潔無異味", "setup_mode": "營區備有帳篷充氣床墊出租，可提前預約營主代搭收", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時供應熱水；洗臉台有溫水龍頭", "rating": "4.8", "special_notes": "★ 真正的森林一帳包區神仙位，帳棚可租借代搭；12/11週五正常營業。", "attractions": "加里山登山步道、鹿場部落、神仙谷瀑布、向天湖", "booking_url": "https://m.icamping.app/store/hnw713", "price_range": "約 NT$ 1,300 ~ 2,800"}, {"id": 5, "name": "尖石・六號花園露營區 (花現營地)", "lat": 24.7186, "lng": 121.2542, "region": "新竹縣尖石鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "VIP獨立1帳包區 / O1~O3單帳景觀位 (居高臨下視野極佳)", "view_quality": "群山環繞開闊山谷雲海、原始山林綠意，山嵐繚繞美不勝收", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 露營界精品衛浴，採乾濕分離設計、磁磚貼面極致乾淨", "setup_mode": "森林免搭帳輕裝小木屋／可租借裝備代搭", "water_dispenser": false, "sink_hot_water": true, "hot_water_note": "🔥 洗手台冬天專門供應溫熱水龍頭洗碗！", "rating": "4.8", "special_notes": "★ 營位動態：目前 O1~O3 尚有位！居高臨下風景視野極好。<br>⚠️ 注意事項：無獨立洗手台（共用水槽），但洗手台有熱水洗碗；營區無飲水機，請務必自備足量飲用水。", "attractions": "園區絕美玻璃屋景觀咖啡館、內灣老街、北得拉曼巨木群", "booking_url": "https://garden6th.pixnet.net/blog", "price_range": "約 NT$ 1,200 ~ 3,500"}, {"id": 6, "name": "復興・拉拉山木村的家露營區", "lat": 24.688407, "lng": 121.4091326, "region": "桃園市復興區", "altitude": "1,400m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "木屋前景觀區 (棧板 6.5Mx4.5M) / B1 (草皮碎石 5Mx8M) / B2 (木棧板 3.8Mx5M)", "view_quality": "1,400m 超高海拔無遮蔽大景！坐擁拉拉山群山雲海、日落晚霞、無光害百萬星空銀河", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 分區衛浴，24小時熱水穩定，附吹風機與衛生紙，露友評為小而美超乾淨", "setup_mode": "自備帳篷 / 現場裝備出租 / 可車露，營主熱心親切", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【冰溫熱飲水機】、冷藏冷凍、脫水機、洗衣機、電動車充電樁！", "rating": "4.4 (75則好評)", "special_notes": "★ <strong>營友實測筆記：</strong>B1區蠻大的（空間寬敞好搭），B2木棧板較小但上面有樹遮蔭。<br>🎥 推薦參考影片：<a href='https://youtu.be/zakIQvSODB8?si=lFvAfMDHLZLmOmqa' target='_blank'>開箱影片1</a> 及 <a href='https://youtu.be/T3mbiY3Qtu8?si=Loja-BFD71eykLso' target='_blank'>開箱影片2 (7:07特別清楚)</a>。<br>★ 12/11週五正常營業（支援夜衝半價）。", "attractions": "拉拉山巨木群神木步道、巴陵古道、上巴陵觀景台、北橫公路景點", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/674", "price_range": "約 NT$ 1,100 ~ 1,300"}, {"id": 7, "name": "復興・拉拉山夢想家園露營區", "lat": 24.685639, "lng": 121.39725, "region": "桃園市復興區", "altitude": "1,250m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "仁愛區 (雨棚棧板 3.5Mx7M，獨立1帳包區首選) / 高架區 (雨棚棧板 4Mx6M)", "view_quality": "1,250m 中高海拔群山環抱，帳前飽覽壯麗雲海與迷人夜景，附活動透明帆布防風擋雨不遮景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 男女衛浴分開，乾淨明亮，提供沐浴乳、洗髮精、吹風機、幼兒澡盆與24小時熱水", "setup_mode": "挑高雨棚營位（自搭或免裝備輕露營），每帳附照明、插座及一桌四椅", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水；仁愛區附專屬獨立水槽與電箱；全區備有【冰溫熱飲水機】、冷藏冷凍、洗衣機脫水機！", "rating": "4.7 (36則好評)", "special_notes": "★ <strong>營位特色筆記：</strong>全區皆為鐵架雨棚，人工感相對比較重；【仁愛區】為純1帳包區獨立位，車停帳邊，步行5-10分鐘即達巴陵商圈與小七！12/11週五正常營業（夜衝700元）。", "attractions": "拉拉山巨木群、巴陵鐵塔夜景（步行10分）、巴陵古道生態館、嘎拉賀溫泉", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/661", "price_range": "約 NT$ 1,400 ~ 1,500 (雨棚營位含桌椅)"}, {"id": 8, "name": "五峰・輪園秘境露營區", "lat": 24.6581, "lng": 121.1612, "region": "新竹縣五峰鄉", "altitude": "1,000m", "corridor": "新竹五峰天湖線 (露營樂社恐獨露精選)", "single_zone_type": "星空B區 (草皮 7.5Mx7.5Mx8M，前名為草皮B區) / 杉林A區 / 杉林D區", "view_quality": "天湖部落高海拔山稜制高點！視野開闊無遮蔽，秋冬壯麗雲海、日落晚霞與滿天星斗璀璨夜景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 集中衛浴配置乾濕分離衛浴且【配備免治馬桶】！單獨浴室極乾淨，熱水電力24小時穩定", "setup_mode": "自搭草皮碎石營位 / 星空B區車停專區近帳邊 / 亦有杉林輕露營", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【RO逆滲透飲用水】、冷凍、冷藏、吹風機、免治馬桶！", "rating": "4.7 (71則好評)", "special_notes": "★ <strong>營位與設施筆記：</strong>衛浴採乾濕分離設計，提供 RO 水！共有 3 個一帳包區的選擇（推薦【星空B區】，前名為草皮B區，空間大視野極佳）。<br>📖 推薦參考開箱：<a href='https://katrina1207.pixnet.net/blog/posts/16141958921' target='_blank'>泰泰小姐部落格開箱文</a>。<br>★ 12/11週五正常營業。", "attractions": "天湖部落、梅后蔓瀑布步道、花園國小、內灣老街風景區", "booking_url": "https://www.easycamp.com.tw/Store_2496.html", "price_range": "約 NT$ 1,500"}, {"id": 9, "name": "復興・嘎色鬧蜻蜓露營區 (原 #11)", "lat": 24.7892, "lng": 121.3148, "region": "桃園市復興區", "altitude": "800m", "corridor": "桃園復興奎輝羅馬公路線", "single_zone_type": "蜻蜓D區-1帳包區 (專屬獨立草皮，整層一帳專用)", "view_quality": "座落復興奎輝部落高處，開闊俯瞰大漢溪谷山嵐，清晨雲霧繚繞", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主夫婦親力親為維持潔淨，公廁衛浴整潔衛生、24小時熱水充足穩定", "setup_mode": "自搭草皮營位 / 裝備好卸、車停專屬位", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時免費熱水供應；蜻蜓D區設有專屬水槽及插座；備有【飲水機】與公用冷藏冰箱", "rating": "4.5 (275則好評)", "special_notes": "★ <strong>營位實況筆記：</strong>【蜻蜓D區】目前還有空位，為真・1帳包區且有飲水機！<br>⚠️ 需注意：營位位於營本部旁邊跟車道旁的小空地，人車經過可能會比較吵，但優點是緊鄰冰箱、飲水機與廁所，生活機能極方便。<br>🎥 營位實況可參考影片：<a href='https://youtu.be/5gzIAi2SG5g?si=n_4yAwt_9ZkMSPoG' target='_blank'>嘎色鬧營位巡禮影片</a>。<br>★ 12/11週五正常營業（夜衝半價）。", "attractions": "嘎色鬧獵人學校、奎輝部落、羅馬公路景觀點、石門水庫阿姆坪", "booking_url": "https://m.icamping.app/store/qtgsn148", "price_range": "約 NT$ 1,000 ~ 1,200"}, {"id": 10, "name": "五峰・九公里森林露營區 (全新新增)", "lat": 24.6275, "lng": 121.1292, "region": "新竹縣五峰鄉", "altitude": "750~800m", "corridor": "新竹五峰羅山道路線", "single_zone_type": "C區 (木棧板，附熱水洗手台) / B區 (廁所旁隱密草地) / A區 (營主小屋屋頂上)", "view_quality": "被高聳柳杉森林與雲霧群山環抱，C區視野開闊，A區位於營主小屋頂樓景觀最棒、居高臨下俯瞰山谷景緻", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 2024~2025新開幕飯店式頂級衛浴！乾濕分離、磁磚明亮極致潔淨，24H恆溫大水量熱水", "setup_mode": "自搭棧板/草地營位 / 亦有全新頂級露營車與小木屋室內房型", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 C區配置專屬獨立【溫熱水洗手台】，冬日洗碗洗菜超溫暖！全區備有【飲水機】與冷藏冷凍冰箱", "rating": "4.9 (121則Google超高好評)", "special_notes": "★ <strong>營位與訂位重點筆記：</strong><br>1. <strong>C區</strong>：木棧板營位，視野開闊且【洗手台有熱水】！超人氣1帳包區首選。<br>2. <strong>B區</strong>：位於廁所旁隱密草地，不被打擾。<br>3. <strong>A區</strong>：位於營主小屋屋頂上，地勢最高、視野景觀最開闊無遮蔽！<br>📲 <strong>訂位方式：需加入官方 LINE 預訂（目前待詢問確認 12/11~12/12 是否有空位）</strong>。", "attractions": "羅山林道杉林步道、油羅山登山步道、五峰和平部落、清泉風景區", "booking_url": "https://www.facebook.com/profile.php?id=61561093324066", "price_range": "約 NT$ 1,200 ~ 1,500 (Line 洽詢)"}];
+
+    // LocalStorage Reviews Management
+    const STORAGE_KEY = 'camping_user_reviews_v1';
+    
+    function getReviews() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : {};
+      } catch (e) {
+        console.error('Failed to parse localStorage', e);
+        return {};
+      }
+    }
+
+    function saveAllReviews(reviews) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+        updateFilterCounts();
+      } catch (e) {
+        console.error('Failed to save to localStorage', e);
+      }
+    }
+
+    function getCampReview(id) {
+      const reviews = getReviews();
+      return reviews[id] || { status: 'none', notes: '', updatedAt: '' };
+    }
+
+    function setCampStatus(id, newStatus) {
+      const reviews = getReviews();
+      if (!reviews[id]) reviews[id] = { status: 'none', notes: '', updatedAt: '' };
+      reviews[id].status = newStatus;
+      reviews[id].updatedAt = getFormattedCurrentTime();
+      saveAllReviews(reviews);
+
+      // Re-render current camp card status visually without losing text focus
+      applyCardVisualState(id, newStatus);
+      showSaveIndicator(id, `已儲存狀態`);
+      showToast(`已更新 #${id < 10 ? '0' + id : id} 評估狀態為：${getStatusLabel(newStatus)}`);
+    }
+
+    function saveCampNote(id, showToastMsg = false) {
+      const textarea = document.getElementById(`note-${id}`);
+      if (!textarea) return;
+
+      const notes = textarea.value;
+      const reviews = getReviews();
+      if (!reviews[id]) reviews[id] = { status: 'none', notes: '', updatedAt: '' };
+      
+      reviews[id].notes = notes;
+      reviews[id].updatedAt = getFormattedCurrentTime();
+      saveAllReviews(reviews);
+
+      showSaveIndicator(id, `已自動儲存 (${reviews[id].updatedAt})`);
+      if (showToastMsg) {
+        showToast(`已儲存 #${id < 10 ? '0' + id : id} 備註！`);
+      }
+    }
+
+    const inputDebounceTimers = {};
+    function onNoteInput(id) {
+      const indicator = document.getElementById(`save-indicator-${id}`);
+      if (indicator) {
+        indicator.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 儲存中...`;
+        indicator.className = 'save-indicator saving';
+      }
+
+      clearTimeout(inputDebounceTimers[id]);
+      inputDebounceTimers[id] = setTimeout(() => {
+        saveCampNote(id);
+      }, 500);
+    }
+
+    function clearCampNote(id) {
+      const textarea = document.getElementById(`note-${id}`);
+      if (!textarea) return;
+      if (textarea.value.trim() && !confirm('確定要清空此露營區的心得備註嗎？')) return;
+
+      textarea.value = '';
+      const reviews = getReviews();
+      if (reviews[id]) {
+        reviews[id].notes = '';
+        reviews[id].updatedAt = getFormattedCurrentTime();
+        saveAllReviews(reviews);
+      }
+      showSaveIndicator(id, `已清空備註`);
+      showToast(`已清空 #${id < 10 ? '0' + id : id} 備註`);
+    }
+
+    function showSaveIndicator(id, text) {
+      const indicator = document.getElementById(`save-indicator-${id}`);
+      if (indicator) {
+        indicator.innerHTML = `<i class="fa-solid fa-check"></i> ${text}`;
+        indicator.className = 'save-indicator';
+      }
+    }
+
+    function applyCardVisualState(id, status) {
+      const card = document.getElementById(`card-${id}`);
+      if (!card) return;
+
+      card.classList.remove('status-favorite', 'status-considering', 'status-rejected');
+      if (status === 'favorite') card.classList.add('status-favorite');
+      else if (status === 'considering') card.classList.add('status-considering');
+      else if (status === 'rejected') card.classList.add('status-rejected');
+
+      // Update active pill button
+      const pills = card.querySelectorAll('.status-pill');
+      pills.forEach(pill => {
+        if (pill.getAttribute('data-status') === status) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      // Update badge in card title
+      const badgeContainer = document.getElementById(`status-badge-${id}`);
+      if (badgeContainer) {
+        if (status === 'favorite') {
+          badgeContainer.innerHTML = `<span class="user-status-badge badge-fav"><i class="fa-solid fa-star"></i> 首選考慮</span>`;
+        } else if (status === 'considering') {
+          badgeContainer.innerHTML = `<span class="user-status-badge badge-consider"><i class="fa-solid fa-clock"></i> 考慮中</span>`;
+        } else if (status === 'rejected') {
+          badgeContainer.innerHTML = `<span class="user-status-badge badge-reject"><i class="fa-solid fa-xmark"></i> 已淘汰</span>`;
+        } else {
+          badgeContainer.innerHTML = ``;
+        }
+      }
+    }
+
+    function getStatusLabel(status) {
+      switch (status) {
+        case 'favorite': return '🌟 首選考慮';
+        case 'considering': return '🤔 考慮中';
+        case 'rejected': return '❌ 淘汰排除';
+        default: return '⚪ 未設定';
+      }
+    }
+
+    function getFormattedCurrentTime() {
+      const now = new Date();
+      return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    }
+
+    function updateFilterCounts() {
+      const reviews = getReviews();
+      let favCount = 0;
+      let notesCount = 0;
+
+      camps.forEach(camp => {
+        const rev = reviews[camp.id];
+        if (rev) {
+          if (rev.status === 'favorite') favCount++;
+          if (rev.notes && rev.notes.trim().length > 0) notesCount++;
+        }
+      });
+
+      const favEl = document.getElementById('count-fav');
+      const notesEl = document.getElementById('count-notes');
+      if (favEl) favEl.textContent = favCount;
+      if (notesEl) notesEl.textContent = notesCount;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Export / Copy All Notes
+    function copyAllReviewSummary() {
+      const reviews = getReviews();
+      const campsWithReview = camps.filter(camp => {
+        const r = reviews[camp.id];
+        return r && (r.status !== 'none' || (r.notes && r.notes.trim().length > 0));
+      });
+
+      if (campsWithReview.length === 0) {
+        showToast('目前尚未填寫筆記或標記狀態！請先在營地卡片內輸入心得。');
+        return;
+      }
+
+      let summary = `🏕️【2026/12/11~12/13 桃竹苗露營評估心得與決選筆記】\n`;
+      summary += `產生時間：${new Date().toLocaleString('zh-TW')}\n`;
+      summary += `--------------------------------------------------\n\n`;
+
+      const favorites = camps.filter(c => reviews[c.id]?.status === 'favorite');
+      const considerings = camps.filter(c => reviews[c.id]?.status === 'considering');
+      const rejecteds = camps.filter(c => reviews[c.id]?.status === 'rejected');
+      const othersWithNotes = camps.filter(c => (reviews[c.id]?.status === 'none' || !reviews[c.id]?.status) && reviews[c.id]?.notes?.trim());
+
+      if (favorites.length > 0) {
+        summary += `🌟【我的首選營地 (${favorites.length}處)】\n`;
+        favorites.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n`;
+          summary += `  - 包區營位：${c.single_zone_type}\n`;
+          summary += `  - 設施特色：${c.sink_hot_water ? '🔥水槽有熱水' : '水槽無熱水'} / ${c.water_dispenser ? '💧有飲水機' : '無飲水機'}\n`;
+          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
+          summary += `  - 訂位連結：${c.booking_url}\n\n`;
+        });
+      }
+
+      if (considerings.length > 0) {
+        summary += `🤔【考慮中營地 (${considerings.length}處)】\n`;
+        considerings.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n`;
+          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
+          summary += `  - 訂位連結：${c.booking_url}\n\n`;
+        });
+      }
+
+      if (rejecteds.length > 0) {
+        summary += `❌【已淘汰/排除營地 (${rejecteds.length}處)】\n`;
+        rejecteds.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}`;
+          if (rev.notes?.trim()) summary += ` (原因：${rev.notes.trim()})`;
+          summary += `\n`;
+        });
+        summary += `\n`;
+      }
+
+      if (othersWithNotes.length > 0) {
+        summary += `📝【其他備註】\n`;
+        othersWithNotes.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}：${rev.notes.trim()}\n`;
+        });
+        summary += `\n`;
+      }
+
+      summary += `--------------------------------------------------\n`;
+      summary += `(可直接貼在對話框分享給 Antigravity 或朋友討論)`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summary).then(() => {
+          showToast('🎉 已複製所有評估備註！可直接貼在對話中！');
+        }).catch(() => {
+          fallbackCopyText(summary);
+        });
+      } else {
+        fallbackCopyText(summary);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast('🎉 已複製所有評估備註！可直接貼在對話中！');
+    }
+
+    // Modal Backup & Restore
+    function toggleBackupModal() {
+      const modal = document.getElementById('backup-modal');
+      const textarea = document.getElementById('backup-json-textarea');
+      if (modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      } else {
+        textarea.value = JSON.stringify(getReviews(), null, 2);
+        modal.classList.add('active');
+      }
+    }
+
+    function restoreFromModalJson() {
+      const textarea = document.getElementById('backup-json-textarea');
+      try {
+        const parsed = JSON.parse(textarea.value);
+        saveAllReviews(parsed);
+        renderCampList(currentFilter);
+        toggleBackupModal();
+        showToast('✅ 筆記資料已成功匯入還原！');
+      } catch (e) {
+        alert('JSON 格式錯誤，請檢查後再試！');
+      }
+    }
 
     // Initialize Map with Google Standard Roadmap
     const googleRoadmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
@@ -339,12 +987,21 @@
     }
 
     const markers = {};
+    let currentFilter = 'all';
 
-        function renderCampList(filter = 'all') {
+    function renderCampList(filter = 'all') {
+      currentFilter = filter;
       const listContainer = document.getElementById('camp-list');
       listContainer.innerHTML = '';
+      const reviews = getReviews();
+
+      let matchedCount = 0;
 
       camps.forEach(camp => {
+        const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
+
+        if (filter === 'favorite' && rev.status !== 'favorite') return;
+        if (filter === 'hasnotes' && (!rev.notes || rev.notes.trim().length === 0)) return;
         if (filter === 'hotwater' && !camp.sink_hot_water) return;
         if (filter === 'dispenser' && !camp.water_dispenser) return;
         if (filter === 'highalt') {
@@ -352,8 +1009,15 @@
           if (altNum < 800) return;
         }
 
+        matchedCount++;
+
         const card = document.createElement('div');
-        card.className = `camp-card ${camp.id === 5 ? 'card-highlight' : ''}`;
+        let statusClass = '';
+        if (rev.status === 'favorite') statusClass = 'status-favorite';
+        else if (rev.status === 'considering') statusClass = 'status-considering';
+        else if (rev.status === 'rejected') statusClass = 'status-rejected';
+
+        card.className = `camp-card ${statusClass}`;
         card.id = `card-${camp.id}`;
         card.onclick = () => focusCamp(camp.id);
 
@@ -364,9 +1028,23 @@
 
         const idFormatted = camp.id < 10 ? '0' + camp.id : camp.id;
 
+        let statusBadgeHtml = '';
+        if (rev.status === 'favorite') {
+          statusBadgeHtml = `<span class="user-status-badge badge-fav"><i class="fa-solid fa-star"></i> 首選考慮</span>`;
+        } else if (rev.status === 'considering') {
+          statusBadgeHtml = `<span class="user-status-badge badge-consider"><i class="fa-solid fa-clock"></i> 考慮中</span>`;
+        } else if (rev.status === 'rejected') {
+          statusBadgeHtml = `<span class="user-status-badge badge-reject"><i class="fa-solid fa-xmark"></i> 已淘汰</span>`;
+        }
+
+        const escapedNotes = rev.notes ? rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+
         card.innerHTML = `
           <div class="card-top">
-            <div class="card-title">#${idFormatted} ${camp.name}</div>
+            <div class="card-title-group">
+              <span class="card-title">#${idFormatted} ${camp.name}</span>
+              <span id="status-badge-${camp.id}">${statusBadgeHtml}</span>
+            </div>
             <span class="badge-alt">${camp.altitude}</span>
           </div>
           <div class="tags">
@@ -384,6 +1062,36 @@
             <div><i class="fa-solid fa-circle-info"></i> <strong>熱水水電：</strong>${camp.hot_water_note}</div>
           </div>
           ${specialNoteHtml}
+
+          <!-- User Interactive Note & Review Box -->
+          <div class="user-review-box" onclick="event.stopPropagation()">
+            <div class="review-header">
+              <span class="review-title"><i class="fa-solid fa-pen-to-square"></i> 我的評估心得備註</span>
+              <div class="status-pills">
+                <button type="button" class="status-pill ${rev.status === 'none' || !rev.status ? 'active' : ''}" data-status="none" onclick="setCampStatus(${camp.id}, 'none')">⚪ 未定</button>
+                <button type="button" class="status-pill ${rev.status === 'favorite' ? 'active' : ''}" data-status="favorite" onclick="setCampStatus(${camp.id}, 'favorite')">🌟 首選</button>
+                <button type="button" class="status-pill ${rev.status === 'considering' ? 'active' : ''}" data-status="considering" onclick="setCampStatus(${camp.id}, 'considering')">🤔 考慮中</button>
+                <button type="button" class="status-pill ${rev.status === 'rejected' ? 'active' : ''}" data-status="rejected" onclick="setCampStatus(${camp.id}, 'rejected')">❌ 淘汰</button>
+              </div>
+            </div>
+            <textarea 
+              class="review-textarea" 
+              id="note-${camp.id}" 
+              placeholder="點此輸入您查看後的優缺點心得、鎖定營位或疑問（會自動即時儲存至瀏覽器）..."
+              oninput="onNoteInput(${camp.id})"
+              onblur="saveCampNote(${camp.id})"
+            >${escapedNotes}</textarea>
+            <div class="review-footer">
+              <span class="save-indicator" id="save-indicator-${camp.id}">
+                ${rev.updatedAt ? `<i class="fa-solid fa-check"></i> 上次更新 ${rev.updatedAt}` : ''}
+              </span>
+              <div class="review-footer-btns">
+                <button type="button" class="btn-note-action btn-save-quick" onclick="saveCampNote(${camp.id}, true)"><i class="fa-solid fa-floppy-disk"></i> 儲存</button>
+                <button type="button" class="btn-note-action btn-clear-quick" onclick="clearCampNote(${camp.id})"><i class="fa-solid fa-trash-can"></i> 清除</button>
+              </div>
+            </div>
+          </div>
+
           <div class="card-actions">
             <a class="btn-action btn-locate" onclick="event.stopPropagation(); focusCamp(${camp.id})"><i class="fa-solid fa-location-crosshairs"></i> 地圖定位</a>
             <a class="btn-action btn-book" href="${camp.booking_url}" target="_blank" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> 線上查位/訂位</a>
@@ -391,6 +1099,18 @@
         `;
         listContainer.appendChild(card);
       });
+
+      if (matchedCount === 0) {
+        listContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+            <div>目前條件下沒有營地</div>
+            <button class="filter-btn" style="margin:12px auto 0; padding:6px 14px;" onclick="filterCamps('all')">顯示全部 10 個營地</button>
+          </div>
+        `;
+      }
+
+      updateFilterCounts();
     }
 
     function createMarkers() {
@@ -455,7 +1175,8 @@
 
     function filterCamps(type) {
       document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      const btn = document.getElementById(`filter-btn-${type}`);
+      if (btn) btn.classList.add('active');
       renderCampList(type);
     }
 
