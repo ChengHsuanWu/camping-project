@@ -601,6 +601,188 @@
       color: white;
     }
 
+
+    .sort-bar {
+      padding: 6px 14px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: #475569;
+      gap: 8px;
+    }
+    .sort-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 0.73rem;
+      color: #1e293b;
+      background: #f8fafc;
+      outline: none;
+      cursor: pointer;
+    }
+    .hide-rejected-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+    }
+    .hide-rejected-label input {
+      accent-color: #1b4d3e;
+      cursor: pointer;
+    }
+
+    .tag-nohot { background: #f1f5f9; color: #64748b; }
+    .tag-nodispenser { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+    .tag-price { background: #ecfdf5; color: #047857; }
+    .tag-rating { background: #fefce8; color: #a16207; }
+
+    .header-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .header-btn.btn-compare {
+      background: #ffffff;
+      color: #1b4d3e;
+      border-color: #ffffff;
+      font-weight: 700;
+    }
+    .header-btn.btn-compare:hover {
+      background: #ecfdf5;
+    }
+
+    /* Marker status overrides */
+    .marker-fav {
+      background-color: #f59e0b !important;
+      border: 2.5px solid #fff !important;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.45), 0 3px 10px rgba(0,0,0,0.4) !important;
+      transform: scale(1.12);
+    }
+    .marker-consider {
+      background-color: #0284c7 !important;
+      border: 2px solid #fff !important;
+    }
+    .marker-reject {
+      background-color: #94a3b8 !important;
+      opacity: 0.45;
+      border: 1.5px solid #e2e8f0 !important;
+    }
+
+    /* Compare Modal */
+    .compare-modal-content {
+      background: white;
+      border-radius: 14px;
+      max-width: 1100px;
+      width: 96vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    .compare-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .compare-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .compare-tab {
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #475569;
+      cursor: pointer;
+    }
+    .compare-tab.active {
+      background: #1b4d3e;
+      color: white;
+      border-color: #1b4d3e;
+    }
+    .compare-table-wrap {
+      flex: 1;
+      overflow: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      text-align: left;
+    }
+    .compare-table th {
+      position: sticky;
+      top: 0;
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 700;
+      padding: 10px 10px;
+      border-bottom: 2px solid #cbd5e1;
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .compare-table td {
+      padding: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+      line-height: 1.45;
+    }
+    .compare-table tr:hover {
+      background: #f8fafc;
+    }
+    .compare-table tr.row-fav {
+      background: #fffdf2;
+    }
+    .compare-table tr.row-reject {
+      opacity: 0.52;
+      background: #fafafa;
+    }
+    .table-status-select {
+      padding: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: white;
+    }
+    .table-camp-link {
+      color: #1b4d3e;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .table-camp-link:hover {
+      color: #2e7d32;
+    }
+    .table-note-preview {
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      padding: 4px 7px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+      font-size: 0.74rem;
+      color: #78350f;
+      white-space: pre-wrap;
+    }
+
     @media (max-width: 860px) {
       body { flex-direction: column-reverse; }
       #sidebar { width: 100%; min-width: 100%; height: 55%; }
@@ -617,25 +799,45 @@
       <h1><i class="fa-solid fa-mountain-sun"></i> 2026/12/11~12/13 露營精選</h1>
       <p>專屬推薦：真・1帳包區 ✕ 開闊山嵐雲海 ✕ 乾淨如飯店衛浴（12/11週五正常營業）</p>
       <div class="header-actions">
+        <button class="header-btn btn-compare" onclick="openCompareModal()" title="並排比較所有營地的海拔、熱水、飲水機、價格與您的筆記">
+          <i class="fa-solid fa-table-columns"></i> 📊 決選比較表
+        </button>
         <button class="header-btn btn-export" onclick="copyAllReviewSummary()" title="將所有已評估營地與心得排版複製到剪貼簿">
-          <i class="fa-solid fa-clipboard-check"></i> 一鍵複製摘要
+          <i class="fa-solid fa-clipboard-check"></i> 📋 複製摘要
         </button>
         <button class="header-btn btn-sync" onclick="openSyncModal()" title="免匯入匯出！掃描 QR Code 或複製網址即可跨手機/平板同步">
           <i class="fa-solid fa-mobile-screen-button"></i> 📱 跨裝置同步
         </button>
         <button class="header-btn" onclick="toggleBackupModal()" title="JSON文字備份">
-          <i class="fa-solid fa-file-export"></i> 備份/還原
+          <i class="fa-solid fa-file-export"></i> 💾 備份/還原
         </button>
       </div>
     </div>
 
     <div class="filter-bar">
-      <button class="filter-btn active" id="filter-btn-all" onclick="filterCamps('all')">全部營地 (10)</button>
+      <button class="filter-btn active" id="filter-btn-all" onclick="filterCamps('all')">全部 (10)</button>
       <button class="filter-btn" id="filter-btn-favorite" onclick="filterCamps('favorite')">🌟 首選 (<span id="count-fav">0</span>)</button>
+      <button class="filter-btn" id="filter-btn-considering" onclick="filterCamps('considering')">🤔 考慮 (<span id="count-consider">0</span>)</button>
+      <button class="filter-btn" id="filter-btn-pending" onclick="filterCamps('pending')">👀 待評估 (<span id="count-pending">10</span>)</button>
       <button class="filter-btn" id="filter-btn-hasnotes" onclick="filterCamps('hasnotes')">📝 有筆記 (<span id="count-notes">0</span>)</button>
-      <button class="filter-btn" id="filter-btn-hotwater" onclick="filterCamps('hotwater')">🔥水槽溫熱水 (2)</button>
-      <button class="filter-btn" id="filter-btn-dispenser" onclick="filterCamps('dispenser')">💧有飲水機 (9)</button>
-      <button class="filter-btn" id="filter-btn-highalt" onclick="filterCamps('highalt')">🏔️800m+大景 (8)</button>
+      <button class="filter-btn" id="filter-btn-hotwater" onclick="filterCamps('hotwater')">🔥 水槽熱水 (2)</button>
+      <button class="filter-btn" id="filter-btn-dispenser" onclick="filterCamps('dispenser')">💧 飲水機 (9)</button>
+      <button class="filter-btn" id="filter-btn-highalt" onclick="filterCamps('highalt')">🏔️ 800m+ (8)</button>
+    </div>
+    <div class="sort-bar">
+      <div>
+        <i class="fa-solid fa-arrow-down-wide-short"></i>
+        <select class="sort-select" id="sort-select" onchange="onSortChange(this.value)">
+          <option value="default">預設順序 (#01~#10)</option>
+          <option value="status">🌟 狀態優先 (首選→考慮→未定→淘汰)</option>
+          <option value="altitude">🏔️ 海拔 (高→低)</option>
+          <option value="amenities">🔥 設施齊全度 (熱水+飲水機)</option>
+        </select>
+      </div>
+      <label class="hide-rejected-label">
+        <input type="checkbox" id="hide-rejected-checkbox" onchange="onHideRejectedChange(this.checked)">
+        <span>🙈 隱藏已淘汰 (<span id="count-reject">0</span>)</span>
+      </label>
     </div>
 
     <div id="camp-list"></div>
@@ -650,6 +852,43 @@
 
   <!-- Toast Notification -->
   <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已自動儲存筆記</span></div>
+
+  <!-- Side-by-Side Compare Modal -->
+  <div class="modal-overlay" id="compare-modal" onclick="if(event.target === this) closeCompareModal()">
+    <div class="compare-modal-content">
+      <div class="modal-title" style="margin-bottom: 10px;">
+        <span><i class="fa-solid fa-table-columns"></i> 📊 露營區決選並排比較表</span>
+        <button onclick="closeCompareModal()" style="border:none; background:none; font-size:1.3rem; cursor:pointer; color:#64748b;">&times;</button>
+      </div>
+      <div class="compare-toolbar">
+        <div class="compare-tabs">
+          <button class="compare-tab active" id="cmp-tab-all" onclick="renderCompareTable('all')">全部營地 (10)</button>
+          <button class="compare-tab" id="cmp-tab-shortlist" onclick="renderCompareTable('shortlist')">🌟 只看首選 & 考慮中</button>
+          <button class="compare-tab" id="cmp-tab-active" onclick="renderCompareTable('active')">🙈 排除已淘汰</button>
+        </div>
+        <div style="font-size: 0.73rem; color: #64748b;">
+          💡 提示：可直接在表格中切換「評估狀態」，點擊營區名稱可跳轉至地圖位置
+        </div>
+      </div>
+      <div class="compare-table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>營區名稱</th>
+              <th>我的評估</th>
+              <th>海拔 / 區域</th>
+              <th>1帳包區營位</th>
+              <th>🔥 水槽熱水</th>
+              <th>💧 飲水機</th>
+              <th>💰 參考價格</th>
+              <th>📝 我的筆記 / 重點備註</th>
+            </tr>
+          </thead>
+          <tbody id="compare-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <!-- Cross Device Sync Modal with QR Code -->
   <div class="modal-overlay" id="sync-modal" onclick="if(event.target === this) closeSyncModal()">
@@ -732,6 +971,7 @@
 
       // Re-render current camp card status visually without losing text focus
       applyCardVisualState(id, newStatus);
+      updateMarkerAppearance(id, newStatus);
       showSaveIndicator(id, `已儲存狀態`);
       showToast(`已更新 #${id < 10 ? '0' + id : id} 評估狀態為：${getStatusLabel(newStatus)}`);
     }
@@ -843,20 +1083,66 @@
     function updateFilterCounts() {
       const reviews = getReviews();
       let favCount = 0;
+      let considerCount = 0;
+      let rejectCount = 0;
+      let pendingCount = 0;
       let notesCount = 0;
 
       camps.forEach(camp => {
         const rev = reviews[camp.id];
-        if (rev) {
-          if (rev.status === 'favorite') favCount++;
-          if (rev.notes && rev.notes.trim().length > 0) notesCount++;
-        }
+        const status = rev ? (rev.status || 'none') : 'none';
+        if (status === 'favorite') favCount++;
+        else if (status === 'considering') considerCount++;
+        else if (status === 'rejected') rejectCount++;
+        else pendingCount++;
+
+        if (rev && rev.notes && rev.notes.trim().length > 0) notesCount++;
       });
 
       const favEl = document.getElementById('count-fav');
+      const considerEl = document.getElementById('count-consider');
+      const pendingEl = document.getElementById('count-pending');
+      const rejectEl = document.getElementById('count-reject');
       const notesEl = document.getElementById('count-notes');
       if (favEl) favEl.textContent = favCount;
+      if (considerEl) considerEl.textContent = considerCount;
+      if (pendingEl) pendingEl.textContent = pendingCount;
+      if (rejectEl) rejectEl.textContent = rejectCount;
       if (notesEl) notesEl.textContent = notesCount;
+    }
+
+    function updateMarkerAppearance(id, status) {
+      const marker = markers[id];
+      const camp = camps.find(c => c.id === id);
+      if (!marker || !camp) return;
+
+      let markerClass = camp.sink_hot_water ? 'marker-hot' : 'marker-std';
+      let label = `#${camp.id}`;
+      if (status === 'favorite') {
+        markerClass += ' marker-fav';
+        label = `★${camp.id}`;
+      } else if (status === 'considering') {
+        markerClass += ' marker-consider';
+      } else if (status === 'rejected') {
+        markerClass += ' marker-reject';
+      }
+
+      const customIcon = L.divIcon({
+        className: '',
+        html: `<div class="custom-marker ${markerClass}">${label}</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -16]
+      });
+      marker.setIcon(customIcon);
+    }
+
+    function refreshAllMarkers() {
+      const reviews = getReviews();
+      camps.forEach(camp => {
+        const status = reviews[camp.id]?.status || 'none';
+        updateMarkerAppearance(camp.id, status);
+      });
     }
 
     function showToast(msg) {
@@ -977,6 +1263,7 @@
         const parsed = JSON.parse(textarea.value);
         saveAllReviews(parsed);
         renderCampList(currentFilter);
+        refreshAllMarkers();
         toggleBackupModal();
         showToast('✅ 筆記資料已成功匯入還原！');
       } catch (e) {
@@ -1015,6 +1302,23 @@
 
     const markers = {};
     let currentFilter = 'all';
+    let currentSort = 'default';
+    let hideRejected = false;
+
+    function onSortChange(val) {
+      currentSort = val;
+      renderCampList(currentFilter);
+    }
+
+    function onHideRejectedChange(checked) {
+      hideRejected = checked;
+      renderCampList(currentFilter);
+    }
+
+    function getAltitudeNum(altStr) {
+      const nums = altStr.replace(/,/g, '').match(/\d+/g);
+      return nums ? Math.max(...nums.map(Number)) : 0;
+    }
 
     function renderCampList(filter = 'all') {
       currentFilter = filter;
@@ -1022,19 +1326,44 @@
       listContainer.innerHTML = '';
       const reviews = getReviews();
 
+      let filteredCamps = camps.filter(camp => {
+        const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
+        const status = rev.status || 'none';
+
+        if (hideRejected && status === 'rejected' && filter !== 'all') return false;
+        if (hideRejected && status === 'rejected' && filter === 'all') return false;
+
+        if (filter === 'favorite' && status !== 'favorite') return false;
+        if (filter === 'considering' && status !== 'considering') return false;
+        if (filter === 'pending' && status !== 'none') return false;
+        if (filter === 'hasnotes' && (!rev.notes || rev.notes.trim().length === 0)) return false;
+        if (filter === 'hotwater' && !camp.sink_hot_water) return false;
+        if (filter === 'dispenser' && !camp.water_dispenser) return false;
+        if (filter === 'highalt' && getAltitudeNum(camp.altitude) < 800) return false;
+        return true;
+      });
+
+      if (currentSort === 'status') {
+        const rank = { favorite: 0, considering: 1, none: 2, rejected: 3 };
+        filteredCamps.sort((a, b) => {
+          const ra = rank[reviews[a.id]?.status || 'none'] ?? 2;
+          const rb = rank[reviews[b.id]?.status || 'none'] ?? 2;
+          return ra !== rb ? ra - rb : a.id - b.id;
+        });
+      } else if (currentSort === 'altitude') {
+        filteredCamps.sort((a, b) => getAltitudeNum(b.altitude) - getAltitudeNum(a.altitude));
+      } else if (currentSort === 'amenities') {
+        filteredCamps.sort((a, b) => {
+          const sa = (a.sink_hot_water ? 2 : 0) + (a.water_dispenser ? 1 : 0);
+          const sb = (b.sink_hot_water ? 2 : 0) + (b.water_dispenser ? 1 : 0);
+          return sb !== sa ? sb - sa : a.id - b.id;
+        });
+      }
+
       let matchedCount = 0;
 
-      camps.forEach(camp => {
+      filteredCamps.forEach(camp => {
         const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
-
-        if (filter === 'favorite' && rev.status !== 'favorite') return;
-        if (filter === 'hasnotes' && (!rev.notes || rev.notes.trim().length === 0)) return;
-        if (filter === 'hotwater' && !camp.sink_hot_water) return;
-        if (filter === 'dispenser' && !camp.water_dispenser) return;
-        if (filter === 'highalt') {
-          const altNum = parseInt(camp.altitude.replace(/[^0-9]/g, ''));
-          if (altNum < 800) return;
-        }
 
         matchedCount++;
 
@@ -1075,11 +1404,14 @@
             <span class="badge-alt">${camp.altitude}</span>
           </div>
           <div class="tags">
-            ${camp.sink_hot_water ? '<span class="tag tag-hotwater"><i class="fa-solid fa-fire"></i> 水槽溫熱水</span>' : ''}
-            ${camp.water_dispenser ? '<span class="tag tag-dispenser"><i class="fa-solid fa-droplet"></i> 飲水機</span>' : ''}
-            <span class="tag tag-easycamp"><i class="fa-solid fa-campground"></i> 真・1帳包區</span>
-            <span class="tag tag-view"><i class="fa-solid fa-mountain"></i> 開闊視野</span>
-            <span class="tag tag-setup"><i class="fa-solid fa-bath"></i> 極淨衛浴</span>
+            ${camp.sink_hot_water
+              ? '<span class="tag tag-hotwater"><i class="fa-solid fa-fire"></i> 水槽有熱水</span>'
+              : '<span class="tag tag-nohot"><i class="fa-solid fa-snowflake"></i> 水槽冷水</span>'}
+            ${camp.water_dispenser
+              ? '<span class="tag tag-dispenser"><i class="fa-solid fa-droplet"></i> 有飲水機</span>'
+              : '<span class="tag tag-nodispenser"><i class="fa-solid fa-triangle-exclamation"></i> 無飲水機</span>'}
+            <span class="tag tag-price"><i class="fa-solid fa-sack-dollar"></i> ${camp.price_range}</span>
+            <span class="tag tag-rating"><i class="fa-solid fa-star"></i> ${camp.rating}</span>
           </div>
           <div class="card-info">
             <div><i class="fa-solid fa-location-dot"></i> <strong>位置：</strong>${camp.region} (${camp.corridor})</div>
@@ -1121,7 +1453,8 @@
 
           <div class="card-actions">
             <a class="btn-action btn-locate" onclick="event.stopPropagation(); focusCamp(${camp.id})"><i class="fa-solid fa-location-crosshairs"></i> 地圖定位</a>
-            <a class="btn-action btn-book" href="${camp.booking_url}" target="_blank" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> 線上查位/訂位</a>
+            <a class="btn-action btn-locate" href="https://www.google.com/maps/search/?api=1&query=${camp.lat},${camp.lng}" target="_blank" onclick="event.stopPropagation()" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;"><i class="fa-solid fa-route"></i> Google路線</a>
+            <a class="btn-action btn-book" href="${camp.booking_url}" target="_blank" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> 查位/訂位</a>
           </div>
         `;
         listContainer.appendChild(card);
@@ -1282,6 +1615,7 @@
             history.replaceState(null, null, window.location.pathname);
             setTimeout(() => {
               renderCampList(currentFilter);
+              refreshAllMarkers();
               showToast('🎉 跨裝置同步成功！已成功載入所有評估心得與狀態！');
             }, 300);
           }
@@ -1291,10 +1625,99 @@
       }
     }
 
+
+    // Compare Modal Logic
+    let currentCompareTab = 'all';
+    function openCompareModal() {
+      renderCompareTable(currentCompareTab);
+      document.getElementById('compare-modal').classList.add('active');
+    }
+
+    function closeCompareModal() {
+      document.getElementById('compare-modal').classList.remove('active');
+    }
+
+    function onTableStatusChange(id, newStatus) {
+      setCampStatus(id, newStatus);
+      renderCompareTable(currentCompareTab);
+    }
+
+    function jumpFromCompare(id) {
+      closeCompareModal();
+      focusCamp(id);
+    }
+
+    function renderCompareTable(tab = 'all') {
+      currentCompareTab = tab;
+      document.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
+      const activeTabEl = document.getElementById(`cmp-tab-${tab}`);
+      if (activeTabEl) activeTabEl.classList.add('active');
+
+      const tbody = document.getElementById('compare-table-body');
+      const reviews = getReviews();
+      tbody.innerHTML = '';
+
+      const list = camps.filter(c => {
+        const status = reviews[c.id]?.status || 'none';
+        if (tab === 'shortlist') return status === 'favorite' || status === 'considering';
+        if (tab === 'active') return status !== 'rejected';
+        return true;
+      });
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 30px; color:#64748b;">目前此分類下沒有營地（可先在左側卡片或切換至「全部營地」標記 🌟首選 或 🤔考慮中）</td></tr>`;
+        return;
+      }
+
+      list.forEach(c => {
+        const rev = reviews[c.id] || { status: 'none', notes: '' };
+        const status = rev.status || 'none';
+        const idFmt = c.id < 10 ? '0' + c.id : c.id;
+        let rowClass = '';
+        if (status === 'favorite') rowClass = 'row-fav';
+        else if (status === 'rejected') rowClass = 'row-reject';
+
+        const userNoteHtml = rev.notes && rev.notes.trim()
+          ? `<div class="table-note-preview">📝 ${rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`
+          : '';
+
+        const tr = document.createElement('tr');
+        tr.className = rowClass;
+        tr.innerHTML = `
+          <td style="min-width:140px;">
+            <span class="table-camp-link" onclick="jumpFromCompare(${c.id})">#${idFmt} ${c.name}</span>
+            <div style="font-size:0.7rem; color:#64748b; margin-top:2px;">⭐ ${c.rating}</div>
+          </td>
+          <td>
+            <select class="table-status-select" onchange="onTableStatusChange(${c.id}, this.value)">
+              <option value="none" ${status === 'none' ? 'selected' : ''}>⚪ 未定</option>
+              <option value="favorite" ${status === 'favorite' ? 'selected' : ''}>🌟 首選</option>
+              <option value="considering" ${status === 'considering' ? 'selected' : ''}>🤔 考慮中</option>
+              <option value="rejected" ${status === 'rejected' ? 'selected' : ''}>❌ 淘汰</option>
+            </select>
+          </td>
+          <td style="white-space:nowrap;">
+            <strong>${c.altitude}</strong>
+            <div style="font-size:0.7rem; color:#64748b;">${c.region}</div>
+          </td>
+          <td style="min-width:160px;">${c.single_zone_type}</td>
+          <td style="white-space:nowrap;">${c.sink_hot_water ? '<span style="color:#c62828;font-weight:700;">🔥 有熱水</span>' : '<span style="color:#64748b;">❄️ 冷水</span>'}</td>
+          <td style="white-space:nowrap;">${c.water_dispenser ? '<span style="color:#1565c0;font-weight:700;">💧 有</span>' : '<span style="color:#c2410c;font-weight:700;">⚠️ 無</span>'}</td>
+          <td style="min-width:110px;">${c.price_range}</td>
+          <td style="min-width:220px;">
+            ${userNoteHtml}
+            <div style="font-size:0.72rem; color:#475569;">${c.special_notes || ''}</div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
     // Init
     checkUrlSync();
     renderCampList('all');
     createMarkers();
+    refreshAllMarkers();
   </script>
 </body>
 </html>
