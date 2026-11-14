@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-type="place" data-radius="soft">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026/12/11~12/13 桃竹苗 1帳包區・開闊景觀✕極淨衛浴露營推薦</title>
+  <meta name="page-type" content="place">
+  <meta name="site-kind" content="other">
+  <meta name="page-kind" content="place">
   <meta name="description" content="2026/12/11~12/13 桃竹苗 1帳包區露營推薦互動地圖：支援即時個人筆記、評估狀態篩選、並排決選比較表與跨裝置 QR Code 同步。">
 
   <!-- Leaflet CSS -->
@@ -11,7 +14,7 @@
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- QRCode.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -19,20 +22,22 @@
   <style>
     :root {
       --pine-deep: #1B4332;
-      --pine-mid: #2D6A4F;
+      --pine-mid: #5C6B54;
       --pine-light: #D8F3DC;
-      --pine-tint: #ECFDF5;
-      --sand-bg: #FAF8F5;
-      --sand-border: #E6E1D6;
+      --pine-tint: #EFF5F1;
+      --sand-bg: #F4F2EE;
+      --sand-surface: #EAE6DF;
+      --sand-border: #E2DDD4;
       --card-bg: #FFFFFF;
-      --amber: #D97706;
+      --amber: #C26D1F;
       --amber-light: #FEF3C7;
-      --sky: #0284C7;
+      --sky: #0369A1;
       --sky-light: #E0F2FE;
-      --red-soft: #DC2626;
+      --red-soft: #B91C1C;
       --red-light: #FEE2E2;
-      --text-main: #1F2937;
-      --text-muted: #6B7280;
+      --text-main: #333231;
+      --text-muted: #625F5B;
+      --font-sans: 'Instrument Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * {
@@ -42,7 +47,9 @@
     }
 
     body {
-      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-sans);
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
       height: 100vh;
       overflow: hidden;
       background-color: var(--sand-bg);
@@ -211,7 +218,7 @@
     .filter-section {
       background: #ffffff;
       border-bottom: 1px solid var(--sand-border);
-      padding: 10px 14px 8px;
+      padding: 12px 16px 10px;
     }
 
     .filter-pills {
@@ -288,7 +295,7 @@
     #camp-list {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 14px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -306,8 +313,24 @@
     }
     .camp-card:hover {
       border-color: var(--pine-mid);
-      box-shadow: 0 6px 16px rgba(27, 67, 50, 0.1);
-      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(27, 67, 50, 0.09);
+      transform: translateY(-2px);
+    }
+    .camp-card:active {
+      transform: translateY(0);
+    }
+    button:active, .drawer-btn:active, .top-btn:active, .filter-btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+    :focus-visible {
+      outline: 2px solid var(--pine-deep);
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
     }
     .camp-card.active {
       border: 2px solid var(--pine-deep);
@@ -1051,6 +1074,7 @@
         z-index: 1200;
       }
       .floating-compare-bar { bottom: 10px; left: 10px; }
+      .filter-btn, .top-btn, .drawer-btn, .status-pill { min-height: 40px; }
     }
   </style>
 </head>
