@@ -4,432 +4,442 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026/12/11~12/13 桃竹苗 1帳包區・開闊景觀✕極淨衛浴露營推薦</title>
-  
+  <meta name="description" content="2026/12/11~12/13 桃竹苗 1帳包區露營推薦互動地圖：支援即時個人筆記、評估狀態篩選、並排決選比較表與跨裝置 QR Code 同步。">
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
+    :root {
+      --pine-deep: #1B4332;
+      --pine-mid: #2D6A4F;
+      --pine-light: #D8F3DC;
+      --pine-tint: #ECFDF5;
+      --sand-bg: #FAF8F5;
+      --sand-border: #E6E1D6;
+      --card-bg: #FFFFFF;
+      --amber: #D97706;
+      --amber-light: #FEF3C7;
+      --sky: #0284C7;
+      --sky-light: #E0F2FE;
+      --red-soft: #DC2626;
+      --red-light: #FEE2E2;
+      --text-main: #1F2937;
+      --text-muted: #6B7280;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
-      font-family: 'Noto Sans TC', sans-serif;
-      display: flex;
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
       height: 100vh;
       overflow: hidden;
-      background-color: #f4f6f8;
-      color: #333;
-    }
-    #sidebar {
-      width: 470px;
-      min-width: 470px;
-      height: 100%;
-      background: #ffffff;
-      box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+      background-color: var(--sand-bg);
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
-      z-index: 1000;
-      transition: transform 0.3s ease;
     }
-    .header {
-      padding: 16px 18px 14px;
-      background: linear-gradient(135deg, #1b4d3e 0%, #2e7d32 100%);
-      color: white;
-    }
-    .header h1 {
-      font-size: 1.15rem;
-      font-weight: 700;
+
+    /* Unified Top Navigation Bar (Option 1 Pine Green + Option 2 Compact Toolbar) */
+    .topbar {
+      height: 56px;
+      min-height: 56px;
+      background: var(--pine-deep);
+      color: #ffffff;
+      padding: 0 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 10px rgba(27, 67, 50, 0.18);
+      z-index: 1100;
     }
-    .header p {
-      font-size: 0.78rem;
-      margin-top: 4px;
-      opacity: 0.92;
-      line-height: 1.4;
-    }
-    .header-actions {
+
+    .brand {
       display: flex;
-      gap: 8px;
-      margin-top: 10px;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
     }
-    .header-btn {
-      flex: 1;
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.14);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 6px 10px;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 6px;
-      color: white;
-      font-size: 0.74rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      font-size: 0.95rem;
+      color: #FCD34D;
+      flex-shrink: 0;
     }
-    .header-btn:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-1px);
-    }
-    .header-btn.btn-export {
-      background: #f59e0b;
-      border-color: #d97706;
-      color: #1a1a1a;
+    .brand-text h1 {
+      font-size: 1rem;
       font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .header-btn.btn-export:hover {
-      background: #fbbf24;
+    .brand-sub {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.78);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .filter-bar {
-      padding: 8px 14px;
-      background: #f8fafc;
-      border-bottom: 1px solid #e2e8f0;
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 4px 9px;
-      border-radius: 14px;
-      font-size: 0.72rem;
-      font-weight: 500;
-      border: 1px solid #cbd5e1;
-      background: white;
-      cursor: pointer;
-      transition: all 0.2s;
+    .topbar-actions {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
+      flex-shrink: 0;
     }
-    .filter-btn:hover {
-      background: #e2e8f0;
+    .top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      transition: all 0.2s ease;
+      font-family: inherit;
     }
-    .filter-btn.active {
-      background: #1b4d3e;
-      color: white;
-      border-color: #1b4d3e;
+    .top-btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+      transform: translateY(-1px);
+    }
+    .top-btn-compare {
+      background: #ffffff;
+      color: var(--pine-deep);
+      border-color: #ffffff;
+    }
+    .top-btn-compare:hover {
+      background: var(--pine-tint);
+    }
+    .top-btn-copy {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #ffffff;
+    }
+    .top-btn-copy:hover {
+      background: #B45309;
     }
 
+    /* Dropdown Menu for Sync & Backup */
+    .tools-dropdown-wrap {
+      position: relative;
+    }
+    .tools-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 210px;
+      background: #ffffff;
+      border: 1px solid var(--sand-border);
+      border-radius: 10px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+      padding: 6px;
+      display: none;
+      z-index: 2000;
+    }
+    .tools-dropdown.open {
+      display: block;
+    }
+    .dropdown-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 10px;
+      border: none;
+      background: transparent;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+    .dropdown-item:hover {
+      background: var(--sand-bg);
+      color: var(--pine-deep);
+    }
+    .dropdown-item i {
+      width: 16px;
+      color: var(--pine-mid);
+    }
+
+    /* Main Split Workspace */
+    .workspace {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 56px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Left List Panel */
+    #sidebar {
+      width: 450px;
+      min-width: 450px;
+      height: 100%;
+      background: var(--sand-bg);
+      border-right: 1px solid var(--sand-border);
+      display: flex;
+      flex-direction: column;
+      z-index: 900;
+    }
+
+    .filter-section {
+      background: #ffffff;
+      border-bottom: 1px solid var(--sand-border);
+      padding: 10px 14px 8px;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scrollbar-width: none;
+    }
+    .filter-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      border: 1px solid var(--sand-border);
+      background: var(--sand-bg);
+      color: var(--text-main);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+    }
+    .filter-btn:hover {
+      border-color: var(--pine-mid);
+      background: var(--pine-tint);
+    }
+    .filter-btn.active {
+      background: var(--pine-deep);
+      color: #ffffff;
+      border-color: var(--pine-deep);
+    }
+
+    .sort-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 6px;
+      border-top: 1px solid #F3F0EA;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+    .sort-select {
+      border: 1px solid var(--sand-border);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 0.73rem;
+      color: var(--text-main);
+      background: var(--sand-bg);
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .hide-rejected-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+    }
+    .hide-rejected-label input {
+      accent-color: var(--pine-deep);
+      cursor: pointer;
+    }
+
+    /* Scannable Compact Cards (Option 2 Structure + Option 1 Colors) */
     #camp-list {
       flex: 1;
       overflow-y: auto;
       padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      color: #64748b;
-      font-size: 0.85rem;
-    }
-    .empty-state i {
-      font-size: 2rem;
-      color: #94a3b8;
-      margin-bottom: 10px;
-      display: block;
+      gap: 10px;
     }
 
     .camp-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 13px;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      background: var(--card-bg);
+      border: 1px solid var(--sand-border);
+      border-radius: 12px;
+      padding: 13px 14px;
+      box-shadow: 0 2px 6px rgba(27, 67, 50, 0.04);
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       position: relative;
     }
     .camp-card:hover {
-      border-color: #2e7d32;
-      box-shadow: 0 4px 14px rgba(46,125,50,0.14);
-      transform: translateY(-2px);
+      border-color: var(--pine-mid);
+      box-shadow: 0 6px 16px rgba(27, 67, 50, 0.1);
+      transform: translateY(-1px);
     }
     .camp-card.active {
-      border-color: #2e7d32;
-      border-left: 5px solid #2e7d32;
-      background: #fbfdfb;
+      border: 2px solid var(--pine-deep);
+      background: #FCFDFC;
+      box-shadow: 0 6px 18px rgba(27, 67, 50, 0.12);
     }
-
-    /* Card Status Styles */
     .camp-card.status-favorite {
-      border: 2px solid #f59e0b;
-      background: #fffdf5;
+      border-left: 4px solid var(--amber);
     }
     .camp-card.status-considering {
-      border: 2px solid #38bdf8;
-      background: #f8fafc;
+      border-left: 4px solid var(--sky);
     }
     .camp-card.status-rejected {
       opacity: 0.55;
-      background: #f9f9f9;
-      border-color: #cbd5e1;
+      background: #F9F8F6;
     }
     .camp-card.status-rejected:hover {
-      opacity: 0.92;
+      opacity: 0.9;
     }
 
-    .card-top {
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
-    .card-title-group {
+    .card-title-wrap {
+      min-width: 0;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--pine-deep);
+      line-height: 1.35;
+    }
+    .card-sub {
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-rating {
+      color: #B45309;
+      font-weight: 600;
+    }
+
+    .status-chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .chip-none { background: var(--sand-bg); color: var(--text-muted); border: 1px solid var(--sand-border); }
+    .chip-fav { background: var(--amber-light); color: #B45309; border: 1px solid #FCD34D; }
+    .chip-consider { background: var(--sky-light); color: #0369A1; border: 1px solid #BAE6FD; }
+    .chip-reject { background: var(--red-light); color: var(--red-soft); border: 1px solid #FECACA; }
+
+    /* Option 2: 2x2 Structured Spec Grid */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 10px;
+      padding: 8px 0;
+      border-top: 1px solid #F3F0EA;
+      border-bottom: 1px solid #F3F0EA;
+      font-size: 0.76rem;
+    }
+    .spec-item {
       display: flex;
       align-items: center;
       gap: 6px;
-      flex-wrap: wrap;
+      color: var(--text-main);
+      min-width: 0;
     }
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1b4d3e;
-    }
-    .user-status-badge {
-      font-size: 0.68rem;
-      padding: 2px 7px;
-      border-radius: 10px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-    }
-    .badge-fav { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
-    .badge-consider { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
-    .badge-reject { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-
-    .badge-alt {
-      background: #e8f5e9;
-      color: #1b4d3e;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .tags {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .tag {
-      font-size: 0.68rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 500;
-    }
-    .tag-hotwater { background: #ffebee; color: #c62828; }
-    .tag-dispenser { background: #e3f2fd; color: #1565c0; }
-    .tag-setup { background: #ede7f6; color: #4527a0; }
-    .tag-view { background: #fff8e1; color: #f57f17; }
-    .tag-easycamp { background: #e0f2f1; color: #00695c; }
-
-    .card-info {
-      font-size: 0.8rem;
-      color: #555;
-      line-height: 1.45;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .card-info i {
-      width: 16px;
-      color: #2e7d32;
-    }
-    .callout-box {
-      margin-top: 8px;
-      padding: 8px 10px;
-      background: #fffde7;
-      border-left: 3px solid #fbc02d;
-      border-radius: 4px;
-      font-size: 0.73rem;
-      color: #614a00;
-      line-height: 1.4;
-    }
-
-    /* User Review Box */
-    .user-review-box {
-      margin-top: 10px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 9px 10px;
-      transition: all 0.2s;
-    }
-    .user-review-box:focus-within {
-      border-color: #2e7d32;
-      background: #ffffff;
-      box-shadow: 0 0 0 2px rgba(46,125,50,0.12);
-    }
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-    .review-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .status-pills {
-      display: flex;
-      gap: 3px;
-    }
-    .status-pill {
-      border: 1px solid #cbd5e1;
-      background: white;
-      border-radius: 12px;
-      padding: 2px 6px;
-      font-size: 0.68rem;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: #475569;
-    }
-    .status-pill:hover {
-      background: #f1f5f9;
-    }
-    .status-pill.active[data-status="none"] {
-      background: #f1f5f9;
-      border-color: #94a3b8;
-      font-weight: bold;
-    }
-    .status-pill.active[data-status="favorite"] {
-      background: #fef3c7;
-      border-color: #f59e0b;
-      color: #b45309;
-      font-weight: bold;
-    }
-    .status-pill.active[data-status="considering"] {
-      background: #e0f2fe;
-      border-color: #0284c7;
-      color: #0369a1;
-      font-weight: bold;
-    }
-    .status-pill.active[data-status="rejected"] {
-      background: #fee2e2;
-      border-color: #ef4444;
-      color: #b91c1c;
-      font-weight: bold;
-    }
-
-    .review-textarea {
-      width: 100%;
-      min-height: 58px;
-      max-height: 180px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 6px 8px;
-      font-size: 0.76rem;
-      line-height: 1.45;
-      font-family: inherit;
-      resize: vertical;
-      outline: none;
-      background: white;
-      color: #1e293b;
-      transition: border-color 0.2s;
-    }
-    .review-textarea:focus {
-      border-color: #2e7d32;
-    }
-
-    .review-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 5px;
-    }
-    .save-indicator {
-      font-size: 0.68rem;
-      color: #16a34a;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      font-weight: 500;
-    }
-    .save-indicator.saving {
-      color: #d97706;
-    }
-    .review-footer-btns {
-      display: flex;
-      gap: 5px;
-    }
-    .btn-note-action {
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid #cbd5e1;
-      background: white;
-      transition: all 0.2s;
-    }
-    .btn-save-quick {
-      background: #f0fdf4;
-      color: #166534;
-      border-color: #bbf7d0;
-    }
-    .btn-save-quick:hover {
-      background: #dcfce7;
-    }
-    .btn-clear-quick {
-      color: #94a3b8;
-    }
-    .btn-clear-quick:hover {
-      color: #ef4444;
-      background: #fef2f2;
-      border-color: #fecaca;
-    }
-
-    .card-actions {
-      margin-top: 10px;
-      display: flex;
-      gap: 8px;
-    }
-    .btn-action {
-      flex: 1;
+    .spec-item i {
+      width: 14px;
       text-align: center;
-      padding: 6px 0;
-      border-radius: 6px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--pine-mid);
+      flex-shrink: 0;
     }
-    .btn-locate {
-      background: #e8f5e9;
-      color: #1b4d3e;
-      border: 1px solid #c8e6c9;
+    .spec-item.spec-hot i, .spec-item.spec-hot span { color: #B91C1C; font-weight: 600; }
+    .spec-item.spec-warn i, .spec-item.spec-warn span { color: #C2410C; font-weight: 600; }
+    .spec-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .btn-locate:hover { background: #c8e6c9; }
-    .btn-book {
-      background: #1b4d3e;
-      color: white;
-      border: 1px solid #1b4d3e;
-    }
-    .btn-book:hover { background: #2e7d32; }
 
+    .card-footer-preview {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.74rem;
+    }
+    .note-snippet {
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #92400E;
+      background: #FFFBEB;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border-left: 3px solid var(--amber);
+    }
+    .note-empty-hint {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+    }
+    .btn-open-detail {
+      color: var(--pine-deep);
+      font-weight: 600;
+      font-size: 0.73rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Right Map Panel */
     #map-container {
       flex: 1;
       height: 100%;
@@ -442,21 +452,325 @@
     .map-toggle-btn {
       position: absolute;
       top: 14px;
-      left: 14px;
-      z-index: 1000;
-      background: white;
-      border: 1px solid #cbd5e1;
-      padding: 7px 12px;
+      left: 54px;
+      z-index: 800;
+      background: #ffffff;
+      border: 1px solid var(--sand-border);
+      padding: 7px 13px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
       cursor: pointer;
       font-size: 0.78rem;
       font-weight: 600;
+      color: var(--pine-deep);
       display: flex;
       align-items: center;
       gap: 6px;
+      font-family: inherit;
     }
-    .map-toggle-btn:hover { background: #f8fafc; }
+    .map-toggle-btn:hover {
+      background: var(--sand-bg);
+    }
+
+    /* Option 1 Touch: Floating Glassmorphic Bottom Compare Bar */
+    .floating-compare-bar {
+      position: absolute;
+      bottom: 22px;
+      left: 20px;
+      z-index: 850;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--sand-border);
+      border-radius: 999px;
+      padding: 7px 10px 7px 16px;
+      box-shadow: 0 8px 24px rgba(27, 67, 50, 0.16);
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--pine-deep);
+      font-weight: 600;
+    }
+    .floating-compare-bar.visible {
+      display: flex;
+    }
+    .floating-compare-btn {
+      background: var(--pine-deep);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .floating-compare-btn:hover {
+      background: var(--pine-mid);
+    }
+
+    /* Option 2: Floating Detail & Notes Drawer on Right Side of Map */
+    #detail-drawer {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      bottom: 14px;
+      width: 400px;
+      max-width: calc(100% - 28px);
+      background: #ffffff;
+      border: 1px solid var(--sand-border);
+      border-radius: 14px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16);
+      z-index: 950;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(440px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #detail-drawer.open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-header {
+      padding: 15px 18px 12px;
+      border-bottom: 1px solid var(--sand-border);
+      background: var(--sand-bg);
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .drawer-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--pine-deep);
+      line-height: 1.35;
+    }
+    .drawer-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .drawer-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--sand-border);
+      background: #ffffff;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .drawer-close:hover {
+      background: var(--red-light);
+      color: var(--red-soft);
+      border-color: #FECACA;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Status & Notes inside Drawer */
+    .drawer-review-section {
+      background: var(--sand-bg);
+      border: 1px solid var(--sand-border);
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .review-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--pine-deep);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .status-pills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .status-pill {
+      border: 1px solid var(--sand-border);
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 6px 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      color: var(--text-muted);
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .status-pill:hover {
+      border-color: var(--pine-mid);
+    }
+    .status-pill.active[data-status="none"] {
+      background: #E5E7EB;
+      border-color: #9CA3AF;
+      color: var(--text-main);
+    }
+    .status-pill.active[data-status="favorite"] {
+      background: var(--amber-light);
+      border-color: var(--amber);
+      color: #B45309;
+    }
+    .status-pill.active[data-status="considering"] {
+      background: var(--sky-light);
+      border-color: var(--sky);
+      color: #0369A1;
+    }
+    .status-pill.active[data-status="rejected"] {
+      background: var(--red-light);
+      border-color: var(--red-soft);
+      color: var(--red-soft);
+    }
+
+    .review-textarea {
+      width: 100%;
+      min-height: 76px;
+      max-height: 180px;
+      border: 1px solid var(--sand-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      line-height: 1.5;
+      font-family: inherit;
+      resize: vertical;
+      outline: none;
+      background: #ffffff;
+      color: var(--text-main);
+    }
+    .review-textarea:focus {
+      border-color: var(--pine-deep);
+      box-shadow: 0 0 0 2px rgba(27, 67, 50, 0.1);
+    }
+    .review-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+    .save-indicator {
+      font-size: 0.7rem;
+      color: var(--pine-mid);
+      font-weight: 500;
+    }
+    .save-indicator.saving {
+      color: var(--amber);
+    }
+    .btn-note-mini {
+      padding: 4px 9px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--sand-border);
+      background: #ffffff;
+      color: var(--text-main);
+      font-family: inherit;
+    }
+    .btn-note-mini.save {
+      background: var(--pine-tint);
+      color: var(--pine-deep);
+      border-color: var(--pine-light);
+    }
+    .btn-note-mini.clear:hover {
+      background: var(--red-light);
+      color: var(--red-soft);
+      border-color: #FECACA;
+    }
+
+    /* Drawer Specs */
+    .drawer-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .drawer-spec-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .drawer-spec-row i {
+      width: 18px;
+      margin-top: 3px;
+      color: var(--pine-mid);
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .drawer-callout {
+      padding: 10px 12px;
+      background: #FFFBEB;
+      border-left: 3px solid var(--amber);
+      border-radius: 6px;
+      font-size: 0.76rem;
+      color: #78350F;
+      line-height: 1.5;
+    }
+    .drawer-callout a {
+      color: #B45309;
+      font-weight: 600;
+    }
+
+    .drawer-footer {
+      padding: 12px 18px;
+      border-top: 1px solid var(--sand-border);
+      background: #ffffff;
+      border-radius: 0 0 14px 14px;
+      display: flex;
+      gap: 8px;
+    }
+    .drawer-btn {
+      flex: 1;
+      text-align: center;
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .drawer-btn-map {
+      background: var(--sand-bg);
+      color: var(--pine-deep);
+      border: 1px solid var(--sand-border);
+    }
+    .drawer-btn-map:hover {
+      background: var(--pine-tint);
+    }
+    .drawer-btn-book {
+      background: var(--pine-deep);
+      color: #ffffff;
+      border: 1px solid var(--pine-deep);
+    }
+    .drawer-btn-book:hover {
+      background: var(--pine-mid);
+    }
 
     /* Custom Leaflet Marker Pins */
     .custom-marker {
@@ -467,13 +781,21 @@
       height: 32px;
       border-radius: 50%;
       color: white;
-      font-weight: bold;
-      font-size: 13px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
       border: 2px solid white;
+      transition: transform 0.2s;
     }
-    .marker-hot { background-color: #d32f2f; }
-    .marker-std { background-color: #2e7d32; }
+    .marker-hot { background-color: #C2410C; }
+    .marker-std { background-color: #1B4332; }
+    .marker-fav {
+      background-color: #D97706 !important;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.4), 0 3px 10px rgba(0,0,0,0.35) !important;
+      transform: scale(1.12);
+    }
+    .marker-consider { background-color: #0284C7 !important; }
+    .marker-reject { background-color: #9CA3AF !important; opacity: 0.48; }
 
     /* Custom Popup Style */
     .leaflet-popup-content-wrapper {
@@ -483,38 +805,33 @@
     }
     .popup-container {
       padding: 6px 4px;
-      min-width: 260px;
+      min-width: 220px;
       font-family: 'Noto Sans TC', sans-serif;
     }
     .popup-title {
-      font-size: 0.98rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      color: #1b4d3e;
-      margin-bottom: 6px;
+      color: var(--pine-deep);
+      margin-bottom: 4px;
     }
     .popup-row {
-      font-size: 0.78rem;
-      margin-bottom: 4px;
-      color: #444;
-      line-height: 1.4;
-    }
-    .popup-row i {
-      width: 16px;
-      color: #2e7d32;
+      font-size: 0.75rem;
+      margin-bottom: 3px;
+      color: var(--text-main);
     }
 
-    /* Toast Notification */
+    /* Toast */
     #toast {
       position: fixed;
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: rgba(20, 48, 38, 0.95);
+      background: var(--pine-deep);
       color: #ffffff;
       padding: 10px 20px;
       border-radius: 24px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 500;
       z-index: 99999;
       opacity: 0;
@@ -529,12 +846,12 @@
       opacity: 1;
     }
 
-    /* Modal for Backup / Restore */
+    /* Modals */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(2px);
+      background: rgba(15, 23, 20, 0.5);
+      backdrop-filter: blur(3px);
       z-index: 10000;
       display: none;
       align-items: center;
@@ -545,35 +862,46 @@
       display: flex;
     }
     .modal-content {
-      background: white;
-      border-radius: 12px;
+      background: #ffffff;
+      border-radius: 14px;
       max-width: 480px;
       width: 100%;
       padding: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+    .compare-modal-content {
+      background: #ffffff;
+      border-radius: 14px;
+      max-width: 1120px;
+      width: 96vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.28);
     }
     .modal-title {
       font-size: 1.05rem;
       font-weight: 700;
-      color: #1b4d3e;
-      margin-bottom: 8px;
+      color: var(--pine-deep);
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
     .modal-desc {
       font-size: 0.78rem;
-      color: #64748b;
+      color: var(--text-muted);
       margin-bottom: 12px;
-      line-height: 1.45;
+      line-height: 1.5;
     }
     .modal-textarea {
       width: 100%;
       height: 130px;
       font-family: monospace;
       font-size: 0.75rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
+      border: 1px solid var(--sand-border);
+      border-radius: 8px;
       padding: 8px;
       outline: none;
       margin-bottom: 12px;
@@ -584,108 +912,24 @@
       gap: 8px;
     }
     .modal-btn {
-      padding: 6px 14px;
-      border-radius: 6px;
+      padding: 7px 15px;
+      border-radius: 8px;
       font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
+      font-family: inherit;
     }
     .modal-btn-cancel {
-      border: 1px solid #cbd5e1;
-      background: white;
-      color: #475569;
+      border: 1px solid var(--sand-border);
+      background: #ffffff;
+      color: var(--text-main);
     }
     .modal-btn-primary {
       border: none;
-      background: #1b4d3e;
-      color: white;
+      background: var(--pine-deep);
+      color: #ffffff;
     }
 
-
-    .sort-bar {
-      padding: 6px 14px;
-      background: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.74rem;
-      color: #475569;
-      gap: 8px;
-    }
-    .sort-select {
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 3px 8px;
-      font-size: 0.73rem;
-      color: #1e293b;
-      background: #f8fafc;
-      outline: none;
-      cursor: pointer;
-    }
-    .hide-rejected-label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      cursor: pointer;
-      user-select: none;
-      font-weight: 500;
-    }
-    .hide-rejected-label input {
-      accent-color: #1b4d3e;
-      cursor: pointer;
-    }
-
-    .tag-nohot { background: #f1f5f9; color: #64748b; }
-    .tag-nodispenser { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
-    .tag-price { background: #ecfdf5; color: #047857; }
-    .tag-rating { background: #fefce8; color: #a16207; }
-
-    .header-actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      margin-top: 10px;
-    }
-    .header-btn.btn-compare {
-      background: #ffffff;
-      color: #1b4d3e;
-      border-color: #ffffff;
-      font-weight: 700;
-    }
-    .header-btn.btn-compare:hover {
-      background: #ecfdf5;
-    }
-
-    /* Marker status overrides */
-    .marker-fav {
-      background-color: #f59e0b !important;
-      border: 2.5px solid #fff !important;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.45), 0 3px 10px rgba(0,0,0,0.4) !important;
-      transform: scale(1.12);
-    }
-    .marker-consider {
-      background-color: #0284c7 !important;
-      border: 2px solid #fff !important;
-    }
-    .marker-reject {
-      background-color: #94a3b8 !important;
-      opacity: 0.45;
-      border: 1.5px solid #e2e8f0 !important;
-    }
-
-    /* Compare Modal */
-    .compare-modal-content {
-      background: white;
-      border-radius: 14px;
-      max-width: 1100px;
-      width: 96vw;
-      max-height: 88vh;
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    }
     .compare-toolbar {
       display: flex;
       justify-content: space-between;
@@ -701,24 +945,25 @@
     }
     .compare-tab {
       padding: 5px 12px;
-      border-radius: 16px;
+      border-radius: 20px;
       font-size: 0.76rem;
       font-weight: 600;
-      border: 1px solid #cbd5e1;
-      background: #f8fafc;
-      color: #475569;
+      border: 1px solid var(--sand-border);
+      background: var(--sand-bg);
+      color: var(--text-muted);
       cursor: pointer;
+      font-family: inherit;
     }
     .compare-tab.active {
-      background: #1b4d3e;
-      color: white;
-      border-color: #1b4d3e;
+      background: var(--pine-deep);
+      color: #ffffff;
+      border-color: var(--pine-deep);
     }
     .compare-table-wrap {
       flex: 1;
       overflow: auto;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+      border: 1px solid var(--sand-border);
+      border-radius: 10px;
     }
     .compare-table {
       width: 100%;
@@ -729,145 +974,201 @@
     .compare-table th {
       position: sticky;
       top: 0;
-      background: #f1f5f9;
-      color: #1e293b;
+      background: var(--sand-bg);
+      color: var(--pine-deep);
       font-weight: 700;
-      padding: 10px 10px;
-      border-bottom: 2px solid #cbd5e1;
+      padding: 10px;
+      border-bottom: 2px solid var(--sand-border);
       white-space: nowrap;
       z-index: 2;
     }
     .compare-table td {
       padding: 10px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #F3F0EA;
       vertical-align: top;
       line-height: 1.45;
     }
-    .compare-table tr:hover {
-      background: #f8fafc;
-    }
-    .compare-table tr.row-fav {
-      background: #fffdf2;
-    }
-    .compare-table tr.row-reject {
-      opacity: 0.52;
-      background: #fafafa;
-    }
+    .compare-table tr:hover { background: #FAF8F5; }
+    .compare-table tr.row-fav { background: #FFFDF5; }
+    .compare-table tr.row-reject { opacity: 0.52; background: #FAFAFA; }
     .table-status-select {
       padding: 4px 6px;
       border-radius: 6px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--sand-border);
       font-size: 0.74rem;
       font-weight: 600;
       cursor: pointer;
-      background: white;
+      background: #ffffff;
+      font-family: inherit;
     }
     .table-camp-link {
-      color: #1b4d3e;
+      color: var(--pine-deep);
       font-weight: 700;
       cursor: pointer;
       text-decoration: underline;
       text-underline-offset: 2px;
     }
-    .table-camp-link:hover {
-      color: #2e7d32;
-    }
     .table-note-preview {
-      background: #fffbeb;
-      border-left: 3px solid #f59e0b;
+      background: #FFFBEB;
+      border-left: 3px solid var(--amber);
       padding: 4px 7px;
       border-radius: 4px;
       margin-bottom: 4px;
       font-size: 0.74rem;
-      color: #78350f;
+      color: #78350F;
       white-space: pre-wrap;
     }
 
-    @media (max-width: 860px) {
-      body { flex-direction: column-reverse; }
-      #sidebar { width: 100%; min-width: 100%; height: 55%; }
-      #map-container { height: 45%; }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .empty-state i {
+      font-size: 2rem;
+      color: #9CA3AF;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .topbar { padding: 0 12px; }
+      .brand-sub { display: none; }
+      .top-btn span { display: none; }
+      .workspace { flex-direction: column-reverse; }
+      #sidebar { width: 100%; min-width: 100%; height: 58%; border-right: none; border-top: 1px solid var(--sand-border); }
+      #map-container { height: 42%; }
+      #detail-drawer {
+        position: fixed;
+        top: 56px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        z-index: 1200;
+      }
+      .floating-compare-bar { bottom: 10px; left: 10px; }
     }
   </style>
-  <!-- QRCode.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
-  <div id="sidebar">
-    <div class="header">
-      <h1><i class="fa-solid fa-mountain-sun"></i> 2026/12/11~12/13 露營精選</h1>
-      <p>專屬推薦：真・1帳包區 ✕ 開闊山嵐雲海 ✕ 乾淨如飯店衛浴（12/11週五正常營業）</p>
-      <div class="header-actions">
-        <button class="header-btn btn-compare" onclick="openCompareModal()" title="並排比較所有營地的海拔、熱水、飲水機、價格與您的筆記">
-          <i class="fa-solid fa-table-columns"></i> 📊 決選比較表
-        </button>
-        <button class="header-btn btn-export" onclick="copyAllReviewSummary()" title="將所有已評估營地與心得排版複製到剪貼簿">
-          <i class="fa-solid fa-clipboard-check"></i> 📋 複製摘要
-        </button>
-        <button class="header-btn btn-sync" onclick="openSyncModal()" title="免匯入匯出！掃描 QR Code 或複製網址即可跨手機/平板同步">
-          <i class="fa-solid fa-mobile-screen-button"></i> 📱 跨裝置同步
-        </button>
-        <button class="header-btn" onclick="toggleBackupModal()" title="JSON文字備份">
-          <i class="fa-solid fa-file-export"></i> 💾 備份/還原
-        </button>
+  <!-- Unified Top Navigation Bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon"><i class="fa-solid fa-campground"></i></div>
+      <div class="brand-text">
+        <h1>2026/12/11~12/13 桃竹苗 1帳包區露營選物</h1>
+        <div class="brand-sub">開闊山嵐雲海 ✕ 極淨衛浴 ✕ 12/11 週五正常營業</div>
       </div>
     </div>
-
-    <div class="filter-bar">
-      <button class="filter-btn active" id="filter-btn-all" onclick="filterCamps('all')">全部 (10)</button>
-      <button class="filter-btn" id="filter-btn-favorite" onclick="filterCamps('favorite')">🌟 首選 (<span id="count-fav">0</span>)</button>
-      <button class="filter-btn" id="filter-btn-considering" onclick="filterCamps('considering')">🤔 考慮 (<span id="count-consider">0</span>)</button>
-      <button class="filter-btn" id="filter-btn-pending" onclick="filterCamps('pending')">👀 待評估 (<span id="count-pending">10</span>)</button>
-      <button class="filter-btn" id="filter-btn-hasnotes" onclick="filterCamps('hasnotes')">📝 有筆記 (<span id="count-notes">0</span>)</button>
-      <button class="filter-btn" id="filter-btn-hotwater" onclick="filterCamps('hotwater')">🔥 水槽熱水 (2)</button>
-      <button class="filter-btn" id="filter-btn-dispenser" onclick="filterCamps('dispenser')">💧 飲水機 (9)</button>
-      <button class="filter-btn" id="filter-btn-highalt" onclick="filterCamps('highalt')">🏔️ 800m+ (8)</button>
-    </div>
-    <div class="sort-bar">
-      <div>
-        <i class="fa-solid fa-arrow-down-wide-short"></i>
-        <select class="sort-select" id="sort-select" onchange="onSortChange(this.value)">
-          <option value="default">預設順序 (#01~#10)</option>
-          <option value="status">🌟 狀態優先 (首選→考慮→未定→淘汰)</option>
-          <option value="altitude">🏔️ 海拔 (高→低)</option>
-          <option value="amenities">🔥 設施齊全度 (熱水+飲水機)</option>
-        </select>
+    <div class="topbar-actions">
+      <button class="top-btn top-btn-compare" onclick="openCompareModal()" title="並排比較所有營區規格與筆記">
+        <i class="fa-solid fa-table-columns"></i> <span>決選比較表</span>
+      </button>
+      <button class="top-btn top-btn-copy" onclick="copyAllReviewSummary()" title="一鍵複製所有評估筆記摘要">
+        <i class="fa-solid fa-clipboard-check"></i> <span>複製摘要</span>
+      </button>
+      <div class="tools-dropdown-wrap">
+        <button class="top-btn" onclick="toggleToolsMenu(event)" title="同步與備份工具">
+          <i class="fa-solid fa-sliders"></i> <span>同步 / 備份</span>
+        </button>
+        <div class="tools-dropdown" id="tools-dropdown">
+          <button class="dropdown-item" onclick="openSyncModal(); closeToolsMenu();">
+            <i class="fa-solid fa-qrcode"></i> 跨裝置 QR Code 同步
+          </button>
+          <button class="dropdown-item" onclick="toggleBackupModal(); closeToolsMenu();">
+            <i class="fa-solid fa-floppy-disk"></i> 筆記 JSON 備份 / 還原
+          </button>
+        </div>
       </div>
-      <label class="hide-rejected-label">
-        <input type="checkbox" id="hide-rejected-checkbox" onchange="onHideRejectedChange(this.checked)">
-        <span>🙈 隱藏已淘汰 (<span id="count-reject">0</span>)</span>
-      </label>
     </div>
+  </header>
 
-    <div id="camp-list"></div>
-  </div>
+  <!-- Split Workspace -->
+  <main class="workspace">
+    <!-- Left Panel: Filters + Compact Scannable Cards -->
+    <aside id="sidebar">
+      <div class="filter-section">
+        <div class="filter-pills">
+          <button class="filter-btn active" id="filter-btn-all" onclick="filterCamps('all')">全部 (10)</button>
+          <button class="filter-btn" id="filter-btn-favorite" onclick="filterCamps('favorite')"><i class="fa-solid fa-star" style="color:#D97706;"></i> 首選 (<span id="count-fav">0</span>)</button>
+          <button class="filter-btn" id="filter-btn-considering" onclick="filterCamps('considering')"><i class="fa-solid fa-clock" style="color:#0284C7;"></i> 考慮 (<span id="count-consider">0</span>)</button>
+          <button class="filter-btn" id="filter-btn-pending" onclick="filterCamps('pending')"><i class="fa-regular fa-eye"></i> 待評估 (<span id="count-pending">10</span>)</button>
+          <button class="filter-btn" id="filter-btn-hasnotes" onclick="filterCamps('hasnotes')"><i class="fa-solid fa-pen"></i> 有筆記 (<span id="count-notes">0</span>)</button>
+          <button class="filter-btn" id="filter-btn-hotwater" onclick="filterCamps('hotwater')"><i class="fa-solid fa-fire" style="color:#DC2626;"></i> 水槽熱水 (2)</button>
+          <button class="filter-btn" id="filter-btn-dispenser" onclick="filterCamps('dispenser')"><i class="fa-solid fa-droplet" style="color:#0284C7;"></i> 飲水機 (9)</button>
+          <button class="filter-btn" id="filter-btn-highalt" onclick="filterCamps('highalt')"><i class="fa-solid fa-mountain"></i> 800m+ (8)</button>
+        </div>
+        <div class="sort-row">
+          <div>
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
+            <select class="sort-select" id="sort-select" onchange="onSortChange(this.value)">
+              <option value="default">預設順序 (#01~#10)</option>
+              <option value="status">狀態優先 (首選→考慮→未定→淘汰)</option>
+              <option value="altitude">海拔由高到低</option>
+              <option value="amenities">設施齊全度 (熱水＋飲水機)</option>
+            </select>
+          </div>
+          <label class="hide-rejected-label">
+            <input type="checkbox" id="hide-rejected-checkbox" onchange="onHideRejectedChange(this.checked)">
+            <span>隱藏已淘汰 (<span id="count-reject">0</span>)</span>
+          </label>
+        </div>
+      </div>
 
-  <div id="map-container">
-    <button class="map-toggle-btn" onclick="toggleLayer()">
-      <i class="fa-solid fa-layer-group"></i> 切換衛星空照圖
-    </button>
-    <div id="map"></div>
-  </div>
+      <div id="camp-list"></div>
+    </aside>
 
-  <!-- Toast Notification -->
-  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已自動儲存筆記</span></div>
+    <!-- Right Panel: Map + Floating Detail Drawer + Floating Compare Bar -->
+    <section id="map-container">
+      <button class="map-toggle-btn" onclick="toggleLayer()">
+        <i class="fa-solid fa-layer-group"></i> <span id="layer-btn-label">切換衛星空照圖</span>
+      </button>
+      <div id="map"></div>
+
+      <!-- Floating Bottom Compare Pill (Option 1 Touch) -->
+      <div class="floating-compare-bar" id="floating-compare-bar">
+        <span id="floating-compare-text">已標記 0 家首選 / 考慮中</span>
+        <button class="floating-compare-btn" onclick="openCompareModal('shortlist')">並排比較 →</button>
+      </div>
+
+      <!-- Floating Detail & Notes Drawer (Option 2 Architecture) -->
+      <div id="detail-drawer">
+        <div class="drawer-header">
+          <div>
+            <div class="drawer-title" id="drawer-title">營區名稱</div>
+            <div class="drawer-meta" id="drawer-meta">區域・海拔・評分</div>
+          </div>
+          <button class="drawer-close" onclick="closeDetailDrawer()" title="關閉詳情">&times;</button>
+        </div>
+        <div class="drawer-body" id="drawer-body"></div>
+        <div class="drawer-footer" id="drawer-footer"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toast-text">已儲存</span></div>
 
   <!-- Side-by-Side Compare Modal -->
   <div class="modal-overlay" id="compare-modal" onclick="if(event.target === this) closeCompareModal()">
     <div class="compare-modal-content">
-      <div class="modal-title" style="margin-bottom: 10px;">
-        <span><i class="fa-solid fa-table-columns"></i> 📊 露營區決選並排比較表</span>
-        <button onclick="closeCompareModal()" style="border:none; background:none; font-size:1.3rem; cursor:pointer; color:#64748b;">&times;</button>
+      <div class="modal-title">
+        <span><i class="fa-solid fa-table-columns"></i> 露營區決選並排比較表</span>
+        <button onclick="closeCompareModal()" style="border:none; background:none; font-size:1.3rem; cursor:pointer; color:var(--text-muted);">&times;</button>
       </div>
       <div class="compare-toolbar">
         <div class="compare-tabs">
           <button class="compare-tab active" id="cmp-tab-all" onclick="renderCompareTable('all')">全部營地 (10)</button>
-          <button class="compare-tab" id="cmp-tab-shortlist" onclick="renderCompareTable('shortlist')">🌟 只看首選 & 考慮中</button>
-          <button class="compare-tab" id="cmp-tab-active" onclick="renderCompareTable('active')">🙈 排除已淘汰</button>
+          <button class="compare-tab" id="cmp-tab-shortlist" onclick="renderCompareTable('shortlist')">只看首選 & 考慮中</button>
+          <button class="compare-tab" id="cmp-tab-active" onclick="renderCompareTable('active')">排除已淘汰</button>
         </div>
-        <div style="font-size: 0.73rem; color: #64748b;">
-          💡 提示：可直接在表格中切換「評估狀態」，點擊營區名稱可跳轉至地圖位置
+        <div style="font-size: 0.73rem; color: var(--text-muted);">
+          可直接在表格中切換評估狀態，點擊營區名稱可跳轉至地圖與詳情
         </div>
       </div>
       <div class="compare-table-wrap">
@@ -878,10 +1179,10 @@
               <th>我的評估</th>
               <th>海拔 / 區域</th>
               <th>1帳包區營位</th>
-              <th>🔥 水槽熱水</th>
-              <th>💧 飲水機</th>
-              <th>💰 參考價格</th>
-              <th>📝 我的筆記 / 重點備註</th>
+              <th>水槽熱水</th>
+              <th>飲水機</th>
+              <th>參考價格</th>
+              <th>我的筆記 / 重點備註</th>
             </tr>
           </thead>
           <tbody id="compare-table-body"></tbody>
@@ -890,24 +1191,23 @@
     </div>
   </div>
 
-  <!-- Cross Device Sync Modal with QR Code -->
+  <!-- Cross Device Sync Modal -->
   <div class="modal-overlay" id="sync-modal" onclick="if(event.target === this) closeSyncModal()">
     <div class="modal-content" style="max-width: 420px; text-align: center;">
       <div class="modal-title">
-        <span><i class="fa-solid fa-mobile-screen-button"></i> 📱 跨裝置無縫同步 (傳至手機/平板)</span>
-        <button onclick="closeSyncModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer; color:#64748b;">&times;</button>
+        <span><i class="fa-solid fa-qrcode"></i> 跨裝置無縫同步</span>
+        <button onclick="closeSyncModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--text-muted);">&times;</button>
       </div>
-      <div class="modal-desc" style="text-align: left; margin-bottom: 14px;">
-        <strong>完全不用手動匯出匯入！</strong><br>
-        用手機相機掃描下方 QR Code，或複製連結傳到 LINE 打開，手機就會<strong>自動載入所有評估心得、備註與首選狀態</strong>：
+      <div class="modal-desc" style="text-align: left;">
+        用手機相機掃描下方 QR Code，或複製專屬連結傳到 LINE 打開，即可自動載入您目前的評估心得與首選狀態：
       </div>
-      <div id="qrcode-container" style="display: inline-flex; justify-content: center; align-items: center; background: #fff; padding: 14px; border: 2px dashed #cbd5e1; border-radius: 12px; margin-bottom: 14px; min-width: 180px; min-height: 180px;"></div>
+      <div id="qrcode-container" style="display: inline-flex; justify-content: center; align-items: center; background: #fff; padding: 14px; border: 2px dashed var(--sand-border); border-radius: 12px; margin-bottom: 14px; min-width: 180px; min-height: 180px;"></div>
       <div style="margin-bottom: 14px;">
-        <input type="text" id="sync-url-input" readonly style="width: 100%; font-size: 0.72rem; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; color: #334155; font-family: monospace; outline: none; cursor: pointer;" onclick="this.select()">
+        <input type="text" id="sync-url-input" readonly style="width: 100%; font-size: 0.72rem; padding: 8px 10px; border: 1px solid var(--sand-border); border-radius: 6px; background: var(--sand-bg); color: var(--text-main); font-family: monospace; outline: none; cursor: pointer;" onclick="this.select()">
       </div>
-      <div class="modal-btns" style="justify-content: center; gap: 10px;">
-        <button class="modal-btn modal-btn-cancel" onclick="closeSyncModal()">完成關閉</button>
-        <button class="modal-btn modal-btn-primary" onclick="copySyncUrl()" style="background: #1b4d3e;"><i class="fa-solid fa-copy"></i> 複製同步網址</button>
+      <div class="modal-btns" style="justify-content: center;">
+        <button class="modal-btn modal-btn-cancel" onclick="closeSyncModal()">關閉</button>
+        <button class="modal-btn modal-btn-primary" onclick="copySyncUrl()"><i class="fa-solid fa-copy"></i> 複製同步網址</button>
       </div>
     </div>
   </div>
@@ -916,11 +1216,11 @@
   <div class="modal-overlay" id="backup-modal" onclick="if(event.target === this) toggleBackupModal()">
     <div class="modal-content">
       <div class="modal-title">
-        <span><i class="fa-solid fa-floppy-disk"></i> 評估筆記資料備份與還原</span>
-        <button onclick="toggleBackupModal()" style="border:none; background:none; font-size:1.1rem; cursor:pointer;">&times;</button>
+        <span><i class="fa-solid fa-floppy-disk"></i> 筆記資料備份與還原</span>
+        <button onclick="toggleBackupModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer; color:var(--text-muted);">&times;</button>
       </div>
       <div class="modal-desc">
-        您輸入的所有心得備註與評估狀態均儲存在您的瀏覽器本機端中（重整或關閉分頁不遺失）。您也可以在此複製 JSON 備份或貼上還原：
+        您的評估心得皆自動儲存於瀏覽器本機中。您可在此複製 JSON 備份或貼上還原：
       </div>
       <textarea class="modal-textarea" id="backup-json-textarea"></textarea>
       <div class="modal-btns">
@@ -934,16 +1234,32 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     const camps = [{"id": 1, "name": "尖石・怡然自德露營區", "lat": 24.668466, "lng": 121.17331, "region": "新竹縣尖石鄉", "altitude": "1,050m", "corridor": "新竹尖石五峰線", "single_zone_type": "梯田獨立小包區 (專屬獨立分層，隱私度極高)", "view_quality": "高海拔開闊視野，坐擁新竹夜景與翻騰山嵐雲海", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主每日定時清潔消毒，衛浴空間明亮潔淨無異味", "setup_mode": "專人代搭帳＋乳膠床墊 (星火充氣帳/噴火龍帳代搭服務)", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 各分區皆配置專屬獨立溫熱水水槽，冬日洗碗洗菜不凍手", "rating": "4.8", "special_notes": "★ 梯田分層隱密獨立，專人代搭收省時省力；12/11週五正常營業。", "attractions": "內灣老街、青蛙石天空步道、宇老觀景台、錦屏美人湯", "booking_url": "https://www.easycamp.com.tw/Store_2499.html", "price_range": "約 NT$ 2,500 ~ 3,600 (含代搭免搭服務)"}, {"id": 2, "name": "南庄・慢生活露營區", "lat": 24.616477, "lng": 121.018915, "region": "苗栗縣南庄鄉", "altitude": "300m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "D區獨立大雨棚雙人專屬營位 (全區最獨立私密空間)", "view_quality": "清澈野溪流淌環抱、天然森林環繞，遠離塵囂綠意盎然", "bathroom": "⭐️⭐️⭐️⭐️ 衛浴明亮乾淨，熱水穩定充足", "setup_mode": "現場已搭設好頂級 Coody 8.0 科技棉充氣雙人帳，免搭收超輕鬆", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴區設有專用溫水龍頭可盛裝取用", "rating": "4.7", "special_notes": "★ D區獨立大雨棚專用，Coody 科技棉充氣帳免搭收超省心；12/11週五正常營業。", "attractions": "南庄老街桂花巷、康濟吊橋、蓬萊溪自然生態園區、向天湖", "booking_url": "https://slowlifecamp2016.com/", "price_range": "約 NT$ 2,800 ~ 3,800 (免裝備充氣帳方案)"}, {"id": 3, "name": "五峰・鹿林道露營樂園", "lat": 24.56069, "lng": 121.10186, "region": "新竹縣五峰鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "杉木森林系獨立少帳木棧板位 (森林包圍獨享清幽)", "view_quality": "高聳柳杉人造林沉浸體驗，清晨霧氣飄渺宛若精靈國度", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主隨時巡視維持五星級潔淨水準，浴室乾爽無水漬", "setup_mode": "全套露營設備出租＋專人代搭收服務，完全不沾手", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "衛浴室內洗臉台配有溫熱水", "rating": "4.8", "special_notes": "★ 森林芬多精包覆，少帳木棧板極度幽靜；12/11週五正常營業。", "attractions": "清泉溫泉、張學良故居、三毛夢屋、霞喀羅古道", "booking_url": "https://www.lulin.com.tw/", "price_range": "約 NT$ 2,500 ~ 3,500 (全套出租代搭)"}, {"id": 4, "name": "南庄・喝納灣人文咖啡露營區 (Hnwan)", "lat": 24.5367, "lng": 121.0361, "region": "苗栗縣南庄鄉", "altitude": "1,000m", "corridor": "苗栗南庄鹿場線", "single_zone_type": "真・一帳包區森林神仙秘境 (森林1~3區/D區獨立位)", "view_quality": "加里山鹿場深谷山嵐，原始松針林靜謐幽美，天然芬多精充盈", "bathroom": "⭐️⭐️⭐️⭐️ 原木乾淨衛浴，24小時充足熱水、乾淨整潔無異味", "setup_mode": "營區備有帳篷充氣床墊出租，可提前預約營主代搭收", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時供應熱水；洗臉台有溫水龍頭", "rating": "4.8", "special_notes": "★ 真正的森林一帳包區神仙位，帳棚可租借代搭；12/11週五正常營業。", "attractions": "加里山登山步道、鹿場部落、神仙谷瀑布、向天湖", "booking_url": "https://m.icamping.app/store/hnw713", "price_range": "約 NT$ 1,300 ~ 2,800"}, {"id": 5, "name": "尖石・六號花園露營區 (花現營地)", "lat": 24.7186, "lng": 121.2542, "region": "新竹縣尖石鄉", "altitude": "800m", "corridor": "新竹尖石五峰線", "single_zone_type": "VIP獨立1帳包區 / O1~O3單帳景觀位 (居高臨下視野極佳)", "view_quality": "群山環繞開闊山谷雲海、原始山林綠意，山嵐繚繞美不勝收", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 露營界精品衛浴，採乾濕分離設計、磁磚貼面極致乾淨", "setup_mode": "森林免搭帳輕裝小木屋／可租借裝備代搭", "water_dispenser": false, "sink_hot_water": true, "hot_water_note": "🔥 洗手台冬天專門供應溫熱水龍頭洗碗！", "rating": "4.8", "special_notes": "★ 營位動態：目前 O1~O3 尚有位！居高臨下風景視野極好。<br>⚠️ 注意事項：無獨立洗手台（共用水槽），但洗手台有熱水洗碗；營區無飲水機，請務必自備足量飲用水。", "attractions": "園區絕美玻璃屋景觀咖啡館、內灣老街、北得拉曼巨木群", "booking_url": "https://garden6th.pixnet.net/blog", "price_range": "約 NT$ 1,200 ~ 3,500"}, {"id": 6, "name": "復興・拉拉山木村的家露營區", "lat": 24.688407, "lng": 121.4091326, "region": "桃園市復興區", "altitude": "1,400m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "木屋前景觀區 (棧板 6.5Mx4.5M) / B1 (草皮碎石 5Mx8M) / B2 (木棧板 3.8Mx5M)", "view_quality": "1,400m 超高海拔無遮蔽大景！坐擁拉拉山群山雲海、日落晚霞、無光害百萬星空銀河", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 分區衛浴，24小時熱水穩定，附吹風機與衛生紙，露友評為小而美超乾淨", "setup_mode": "自備帳篷 / 現場裝備出租 / 可車露，營主熱心親切", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【冰溫熱飲水機】、冷藏冷凍、脫水機、洗衣機、電動車充電樁！", "rating": "4.4 (75則好評)", "special_notes": "★ <strong>營友實測筆記：</strong>B1區蠻大的（空間寬敞好搭），B2木棧板較小但上面有樹遮蔭。<br>🎥 推薦參考影片：<a href='https://youtu.be/zakIQvSODB8?si=lFvAfMDHLZLmOmqa' target='_blank'>開箱影片1</a> 及 <a href='https://youtu.be/T3mbiY3Qtu8?si=Loja-BFD71eykLso' target='_blank'>開箱影片2 (7:07特別清楚)</a>。<br>★ 12/11週五正常營業（支援夜衝半價）。", "attractions": "拉拉山巨木群神木步道、巴陵古道、上巴陵觀景台、北橫公路景點", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/674", "price_range": "約 NT$ 1,100 ~ 1,300"}, {"id": 7, "name": "復興・拉拉山夢想家園露營區", "lat": 24.685639, "lng": 121.39725, "region": "桃園市復興區", "altitude": "1,250m", "corridor": "桃園復興拉拉山線 (露營樂社恐獨露精選)", "single_zone_type": "仁愛區 (雨棚棧板 3.5Mx7M，獨立1帳包區首選) / 高架區 (雨棚棧板 4Mx6M)", "view_quality": "1,250m 中高海拔群山環抱，帳前飽覽壯麗雲海與迷人夜景，附活動透明帆布防風擋雨不遮景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 男女衛浴分開，乾淨明亮，提供沐浴乳、洗髮精、吹風機、幼兒澡盆與24小時熱水", "setup_mode": "挑高雨棚營位（自搭或免裝備輕露營），每帳附照明、插座及一桌四椅", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水；仁愛區附專屬獨立水槽與電箱；全區備有【冰溫熱飲水機】、冷藏冷凍、洗衣機脫水機！", "rating": "4.7 (36則好評)", "special_notes": "★ <strong>營位特色筆記：</strong>全區皆為鐵架雨棚，人工感相對比較重；【仁愛區】為純1帳包區獨立位，車停帳邊，步行5-10分鐘即達巴陵商圈與小七！12/11週五正常營業（夜衝700元）。", "attractions": "拉拉山巨木群、巴陵鐵塔夜景（步行10分）、巴陵古道生態館、嘎拉賀溫泉", "booking_url": "https://www.easycamp.com.tw/store/camp_stock/661", "price_range": "約 NT$ 1,400 ~ 1,500 (雨棚營位含桌椅)"}, {"id": 8, "name": "五峰・輪園秘境露營區", "lat": 24.6581, "lng": 121.1612, "region": "新竹縣五峰鄉", "altitude": "1,000m", "corridor": "新竹五峰天湖線 (露營樂社恐獨露精選)", "single_zone_type": "星空B區 (草皮 7.5Mx7.5Mx8M，前名為草皮B區) / 杉林A區 / 杉林D區", "view_quality": "天湖部落高海拔山稜制高點！視野開闊無遮蔽，秋冬壯麗雲海、日落晚霞與滿天星斗璀璨夜景", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 集中衛浴配置乾濕分離衛浴且【配備免治馬桶】！單獨浴室極乾淨，熱水電力24小時穩定", "setup_mode": "自搭草皮碎石營位 / 星空B區車停專區近帳邊 / 亦有杉林輕露營", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時熱水供應；提供【RO逆滲透飲用水】、冷凍、冷藏、吹風機、免治馬桶！", "rating": "4.7 (71則好評)", "special_notes": "★ <strong>營位與設施筆記：</strong>衛浴採乾濕分離設計，提供 RO 水！共有 3 個一帳包區的選擇（推薦【星空B區】，前名為草皮B區，空間大視野極佳）。<br>📖 推薦參考開箱：<a href='https://katrina1207.pixnet.net/blog/posts/16141958921' target='_blank'>泰泰小姐部落格開箱文</a>。<br>★ 12/11週五正常營業。", "attractions": "天湖部落、梅后蔓瀑布步道、花園國小、內灣老街風景區", "booking_url": "https://www.easycamp.com.tw/Store_2496.html", "price_range": "約 NT$ 1,500"}, {"id": 9, "name": "復興・嘎色鬧蜻蜓露營區 (原 #11)", "lat": 24.7892, "lng": 121.3148, "region": "桃園市復興區", "altitude": "800m", "corridor": "桃園復興奎輝羅馬公路線", "single_zone_type": "蜻蜓D區-1帳包區 (專屬獨立草皮，整層一帳專用)", "view_quality": "座落復興奎輝部落高處，開闊俯瞰大漢溪谷山嵐，清晨雲霧繚繞", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 營主夫婦親力親為維持潔淨，公廁衛浴整潔衛生、24小時熱水充足穩定", "setup_mode": "自搭草皮營位 / 裝備好卸、車停專屬位", "water_dispenser": true, "sink_hot_water": false, "hot_water_note": "24小時免費熱水供應；蜻蜓D區設有專屬水槽及插座；備有【飲水機】與公用冷藏冰箱", "rating": "4.5 (275則好評)", "special_notes": "★ <strong>營位實況筆記：</strong>【蜻蜓D區】目前還有空位，為真・1帳包區且有飲水機！<br>⚠️ 需注意：營位位於營本部旁邊跟車道旁的小空地，人車經過可能會比較吵，但優點是緊鄰冰箱、飲水機與廁所，生活機能極方便。<br>🎥 營位實況可參考影片：<a href='https://youtu.be/5gzIAi2SG5g?si=n_4yAwt_9ZkMSPoG' target='_blank'>嘎色鬧營位巡禮影片</a>。<br>★ 12/11週五正常營業（夜衝半價）。", "attractions": "嘎色鬧獵人學校、奎輝部落、羅馬公路景觀點、石門水庫阿姆坪", "booking_url": "https://m.icamping.app/store/qtgsn148", "price_range": "約 NT$ 1,000 ~ 1,200"}, {"id": 10, "name": "五峰・九公里森林露營區 (全新新增)", "lat": 24.6275, "lng": 121.1292, "region": "新竹縣五峰鄉", "altitude": "750~800m", "corridor": "新竹五峰羅山道路線", "single_zone_type": "C區 (木棧板，附熱水洗手台) / B區 (廁所旁隱密草地) / A區 (營主小屋屋頂上)", "view_quality": "被高聳柳杉森林與雲霧群山環抱，C區視野開闊，A區位於營主小屋頂樓景觀最棒、居高臨下俯瞰山谷景緻", "bathroom": "⭐️⭐️⭐️⭐️⭐️ 2024~2025新開幕飯店式頂級衛浴！乾濕分離、磁磚明亮極致潔淨，24H恆溫大水量熱水", "setup_mode": "自搭棧板/草地營位 / 亦有全新頂級露營車與小木屋室內房型", "water_dispenser": true, "sink_hot_water": true, "hot_water_note": "🔥 C區配置專屬獨立【溫熱水洗手台】，冬日洗碗洗菜超溫暖！全區備有【飲水機】與冷藏冷凍冰箱", "rating": "4.9 (121則Google超高好評)", "special_notes": "★ <strong>營位與訂位重點筆記：</strong><br>1. <strong>C區</strong>：木棧板營位，視野開闊且【洗手台有熱水】！超人氣1帳包區首選。<br>2. <strong>B區</strong>：位於廁所旁隱密草地，不被打擾。<br>3. <strong>A區</strong>：位於營主小屋屋頂上，地勢最高、視野景觀最開闊無遮蔽！<br>📲 <strong>訂位方式：需加入官方 LINE 預訂（目前待詢問確認 12/11~12/12 是否有空位）</strong>。", "attractions": "羅山林道杉林步道、油羅山登山步道、五峰和平部落、清泉風景區", "booking_url": "https://www.facebook.com/profile.php?id=61561093324066", "price_range": "約 NT$ 1,200 ~ 1,500 (Line 洽詢)"}];
-
-    // LocalStorage Reviews Management
     const STORAGE_KEY = 'camping_user_reviews_v1';
-    
+
+    let activeCampId = null;
+    let currentFilter = 'all';
+    let currentSort = 'default';
+    let hideRejected = false;
+    let currentCompareTab = 'all';
+    const markers = {};
+    const inputDebounceTimers = {};
+
+    // Topbar Tools Dropdown
+    function toggleToolsMenu(e) {
+      e.stopPropagation();
+      document.getElementById('tools-dropdown').classList.toggle('open');
+    }
+    function closeToolsMenu() {
+      document.getElementById('tools-dropdown').classList.remove('open');
+    }
+    document.addEventListener('click', () => closeToolsMenu());
+
+    // LocalStorage Helpers
     function getReviews() {
       try {
         const data = localStorage.getItem(STORAGE_KEY);
         return data ? JSON.parse(data) : {};
       } catch (e) {
-        console.error('Failed to parse localStorage', e);
         return {};
       }
     }
@@ -953,13 +1269,29 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
         updateFilterCounts();
       } catch (e) {
-        console.error('Failed to save to localStorage', e);
+        console.error('Failed to save', e);
       }
     }
 
-    function getCampReview(id) {
-      const reviews = getReviews();
-      return reviews[id] || { status: 'none', notes: '', updatedAt: '' };
+    function getFormattedCurrentTime() {
+      const now = new Date();
+      return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    }
+
+    function getStatusChipHtml(status) {
+      if (status === 'favorite') return `<span class="status-chip chip-fav"><i class="fa-solid fa-star"></i> 首選</span>`;
+      if (status === 'considering') return `<span class="status-chip chip-consider"><i class="fa-solid fa-clock"></i> 考慮中</span>`;
+      if (status === 'rejected') return `<span class="status-chip chip-reject"><i class="fa-solid fa-xmark"></i> 已淘汰</span>`;
+      return `<span class="status-chip chip-none">未評估</span>`;
+    }
+
+    function getStatusLabel(status) {
+      switch (status) {
+        case 'favorite': return '首選';
+        case 'considering': return '考慮中';
+        case 'rejected': return '已淘汰';
+        default: return '未評估';
+      }
     }
 
     function setCampStatus(id, newStatus) {
@@ -969,50 +1301,56 @@
       reviews[id].updatedAt = getFormattedCurrentTime();
       saveAllReviews(reviews);
 
-      // Re-render current camp card status visually without losing text focus
-      applyCardVisualState(id, newStatus);
       updateMarkerAppearance(id, newStatus);
-      showSaveIndicator(id, `已儲存狀態`);
-      showToast(`已更新 #${id < 10 ? '0' + id : id} 評估狀態為：${getStatusLabel(newStatus)}`);
+      renderCampList(currentFilter);
+
+      // Update drawer pills if currently open for this camp
+      if (activeCampId === id) {
+        document.querySelectorAll('#detail-drawer .status-pill').forEach(p => {
+          p.classList.toggle('active', p.getAttribute('data-status') === newStatus);
+        });
+        const ind = document.getElementById(`drawer-save-ind-${id}`);
+        if (ind) {
+          ind.innerHTML = `<i class="fa-solid fa-check"></i> 已儲存狀態 (${reviews[id].updatedAt})`;
+          ind.className = 'save-indicator';
+        }
+      }
+      showToast(`已將 #${id < 10 ? '0' + id : id} 設為「${getStatusLabel(newStatus)}」`);
     }
 
     function saveCampNote(id, showToastMsg = false) {
-      const textarea = document.getElementById(`note-${id}`);
+      const textarea = document.getElementById(`drawer-note-${id}`);
       if (!textarea) return;
-
       const notes = textarea.value;
       const reviews = getReviews();
       if (!reviews[id]) reviews[id] = { status: 'none', notes: '', updatedAt: '' };
-      
       reviews[id].notes = notes;
       reviews[id].updatedAt = getFormattedCurrentTime();
       saveAllReviews(reviews);
 
-      showSaveIndicator(id, `已自動儲存 (${reviews[id].updatedAt})`);
-      if (showToastMsg) {
-        showToast(`已儲存 #${id < 10 ? '0' + id : id} 備註！`);
+      const ind = document.getElementById(`drawer-save-ind-${id}`);
+      if (ind) {
+        ind.innerHTML = `<i class="fa-solid fa-check"></i> 已自動儲存 (${reviews[id].updatedAt})`;
+        ind.className = 'save-indicator';
       }
+      renderCampList(currentFilter);
+      if (showToastMsg) showToast(`已儲存 #${id < 10 ? '0' + id : id} 筆記！`);
     }
 
-    const inputDebounceTimers = {};
-    function onNoteInput(id) {
-      const indicator = document.getElementById(`save-indicator-${id}`);
-      if (indicator) {
-        indicator.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 儲存中...`;
-        indicator.className = 'save-indicator saving';
+    function onDrawerNoteInput(id) {
+      const ind = document.getElementById(`drawer-save-ind-${id}`);
+      if (ind) {
+        ind.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 儲存中...`;
+        ind.className = 'save-indicator saving';
       }
-
       clearTimeout(inputDebounceTimers[id]);
-      inputDebounceTimers[id] = setTimeout(() => {
-        saveCampNote(id);
-      }, 500);
+      inputDebounceTimers[id] = setTimeout(() => saveCampNote(id), 450);
     }
 
     function clearCampNote(id) {
-      const textarea = document.getElementById(`note-${id}`);
+      const textarea = document.getElementById(`drawer-note-${id}`);
       if (!textarea) return;
       if (textarea.value.trim() && !confirm('確定要清空此露營區的心得備註嗎？')) return;
-
       textarea.value = '';
       const reviews = getReviews();
       if (reviews[id]) {
@@ -1020,95 +1358,74 @@
         reviews[id].updatedAt = getFormattedCurrentTime();
         saveAllReviews(reviews);
       }
-      showSaveIndicator(id, `已清空備註`);
+      const ind = document.getElementById(`drawer-save-ind-${id}`);
+      if (ind) ind.innerHTML = `<i class="fa-solid fa-check"></i> 已清空備註`;
+      renderCampList(currentFilter);
       showToast(`已清空 #${id < 10 ? '0' + id : id} 備註`);
-    }
-
-    function showSaveIndicator(id, text) {
-      const indicator = document.getElementById(`save-indicator-${id}`);
-      if (indicator) {
-        indicator.innerHTML = `<i class="fa-solid fa-check"></i> ${text}`;
-        indicator.className = 'save-indicator';
-      }
-    }
-
-    function applyCardVisualState(id, status) {
-      const card = document.getElementById(`card-${id}`);
-      if (!card) return;
-
-      card.classList.remove('status-favorite', 'status-considering', 'status-rejected');
-      if (status === 'favorite') card.classList.add('status-favorite');
-      else if (status === 'considering') card.classList.add('status-considering');
-      else if (status === 'rejected') card.classList.add('status-rejected');
-
-      // Update active pill button
-      const pills = card.querySelectorAll('.status-pill');
-      pills.forEach(pill => {
-        if (pill.getAttribute('data-status') === status) {
-          pill.classList.add('active');
-        } else {
-          pill.classList.remove('active');
-        }
-      });
-
-      // Update badge in card title
-      const badgeContainer = document.getElementById(`status-badge-${id}`);
-      if (badgeContainer) {
-        if (status === 'favorite') {
-          badgeContainer.innerHTML = `<span class="user-status-badge badge-fav"><i class="fa-solid fa-star"></i> 首選考慮</span>`;
-        } else if (status === 'considering') {
-          badgeContainer.innerHTML = `<span class="user-status-badge badge-consider"><i class="fa-solid fa-clock"></i> 考慮中</span>`;
-        } else if (status === 'rejected') {
-          badgeContainer.innerHTML = `<span class="user-status-badge badge-reject"><i class="fa-solid fa-xmark"></i> 已淘汰</span>`;
-        } else {
-          badgeContainer.innerHTML = ``;
-        }
-      }
-    }
-
-    function getStatusLabel(status) {
-      switch (status) {
-        case 'favorite': return '🌟 首選考慮';
-        case 'considering': return '🤔 考慮中';
-        case 'rejected': return '❌ 淘汰排除';
-        default: return '⚪ 未設定';
-      }
-    }
-
-    function getFormattedCurrentTime() {
-      const now = new Date();
-      return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
     }
 
     function updateFilterCounts() {
       const reviews = getReviews();
-      let favCount = 0;
-      let considerCount = 0;
-      let rejectCount = 0;
-      let pendingCount = 0;
-      let notesCount = 0;
+      let favCount = 0, considerCount = 0, rejectCount = 0, pendingCount = 0, notesCount = 0;
 
-      camps.forEach(camp => {
-        const rev = reviews[camp.id];
+      camps.forEach(c => {
+        const rev = reviews[c.id];
         const status = rev ? (rev.status || 'none') : 'none';
         if (status === 'favorite') favCount++;
         else if (status === 'considering') considerCount++;
         else if (status === 'rejected') rejectCount++;
         else pendingCount++;
-
         if (rev && rev.notes && rev.notes.trim().length > 0) notesCount++;
       });
 
-      const favEl = document.getElementById('count-fav');
-      const considerEl = document.getElementById('count-consider');
-      const pendingEl = document.getElementById('count-pending');
-      const rejectEl = document.getElementById('count-reject');
-      const notesEl = document.getElementById('count-notes');
-      if (favEl) favEl.textContent = favCount;
-      if (considerEl) considerEl.textContent = considerCount;
-      if (pendingEl) pendingEl.textContent = pendingCount;
-      if (rejectEl) rejectEl.textContent = rejectCount;
-      if (notesEl) notesEl.textContent = notesCount;
+      document.getElementById('count-fav').textContent = favCount;
+      document.getElementById('count-consider').textContent = considerCount;
+      document.getElementById('count-pending').textContent = pendingCount;
+      document.getElementById('count-reject').textContent = rejectCount;
+      document.getElementById('count-notes').textContent = notesCount;
+
+      const shortlistCount = favCount + considerCount;
+      const bar = document.getElementById('floating-compare-bar');
+      const txt = document.getElementById('floating-compare-text');
+      if (shortlistCount > 0) {
+        txt.textContent = `已標記 ${favCount} 家首選・${considerCount} 家考慮中`;
+        bar.classList.add('visible');
+      } else {
+        bar.classList.remove('visible');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    // Map Setup
+    const googleRoadmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      maxZoom: 20, attribution: '&copy; Google Maps'
+    });
+    const googleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+      maxZoom: 20, attribution: '&copy; Google Maps Satellite'
+    });
+    const map = L.map('map', { center: [24.64, 121.18], zoom: 10, layers: [googleRoadmap] });
+
+    let currentLayer = 'roadmap';
+    function toggleLayer() {
+      const label = document.getElementById('layer-btn-label');
+      if (currentLayer === 'roadmap') {
+        map.removeLayer(googleRoadmap);
+        map.addLayer(googleSatellite);
+        currentLayer = 'satellite';
+        label.textContent = '切換標準地圖';
+      } else {
+        map.removeLayer(googleSatellite);
+        map.addLayer(googleRoadmap);
+        currentLayer = 'roadmap';
+        label.textContent = '切換衛星空照圖';
+      }
     }
 
     function updateMarkerAppearance(id, status) {
@@ -1127,183 +1444,50 @@
         markerClass += ' marker-reject';
       }
 
-      const customIcon = L.divIcon({
+      const icon = L.divIcon({
         className: '',
         html: `<div class="custom-marker ${markerClass}">${label}</div>`,
         iconSize: [32, 32],
         iconAnchor: [16, 16],
         popupAnchor: [0, -16]
       });
-      marker.setIcon(customIcon);
+      marker.setIcon(icon);
     }
 
     function refreshAllMarkers() {
       const reviews = getReviews();
+      camps.forEach(c => updateMarkerAppearance(c.id, reviews[c.id]?.status || 'none'));
+    }
+
+    function createMarkers() {
       camps.forEach(camp => {
-        const status = reviews[camp.id]?.status || 'none';
-        updateMarkerAppearance(camp.id, status);
+        const marker = L.marker([camp.lat, camp.lng]).addTo(map);
+        const popupHtml = `
+          <div class="popup-container">
+            <div class="popup-title">#${camp.id < 10 ? '0' + camp.id : camp.id} ${camp.name}</div>
+            <div class="popup-row">海拔 ${camp.altitude} ・ ${camp.price_range}</div>
+            <div class="popup-row">${camp.sink_hot_water ? '水槽有熱水' : '水槽冷水'} / ${camp.water_dispenser ? '有飲水機' : '無飲水機'}</div>
+          </div>
+        `;
+        marker.bindPopup(popupHtml);
+        marker.on('click', () => focusCamp(camp.id));
+        markers[camp.id] = marker;
       });
+      refreshAllMarkers();
     }
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const text = document.getElementById('toast-text');
-      if (!toast || !text) return;
-      text.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+    // List Rendering & Filtering
+    function getAltitudeNum(altStr) {
+      const nums = altStr.replace(/,/g, '').match(/\d+/g);
+      return nums ? Math.max(...nums.map(Number)) : 0;
     }
 
-    // Export / Copy All Notes
-    function copyAllReviewSummary() {
-      const reviews = getReviews();
-      const campsWithReview = camps.filter(camp => {
-        const r = reviews[camp.id];
-        return r && (r.status !== 'none' || (r.notes && r.notes.trim().length > 0));
-      });
-
-      if (campsWithReview.length === 0) {
-        showToast('目前尚未填寫筆記或標記狀態！請先在營地卡片內輸入心得。');
-        return;
-      }
-
-      let summary = `🏕️【2026/12/11~12/13 桃竹苗露營評估心得與決選筆記】\n`;
-      summary += `產生時間：${new Date().toLocaleString('zh-TW')}\n`;
-      summary += `--------------------------------------------------\n\n`;
-
-      const favorites = camps.filter(c => reviews[c.id]?.status === 'favorite');
-      const considerings = camps.filter(c => reviews[c.id]?.status === 'considering');
-      const rejecteds = camps.filter(c => reviews[c.id]?.status === 'rejected');
-      const othersWithNotes = camps.filter(c => (reviews[c.id]?.status === 'none' || !reviews[c.id]?.status) && reviews[c.id]?.notes?.trim());
-
-      if (favorites.length > 0) {
-        summary += `🌟【我的首選營地 (${favorites.length}處)】\n`;
-        favorites.forEach(c => {
-          const rev = reviews[c.id];
-          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n`;
-          summary += `  - 包區營位：${c.single_zone_type}\n`;
-          summary += `  - 設施特色：${c.sink_hot_water ? '🔥水槽有熱水' : '水槽無熱水'} / ${c.water_dispenser ? '💧有飲水機' : '無飲水機'}\n`;
-          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
-          summary += `  - 訂位連結：${c.booking_url}\n\n`;
-        });
-      }
-
-      if (considerings.length > 0) {
-        summary += `🤔【考慮中營地 (${considerings.length}處)】\n`;
-        considerings.forEach(c => {
-          const rev = reviews[c.id];
-          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n`;
-          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
-          summary += `  - 訂位連結：${c.booking_url}\n\n`;
-        });
-      }
-
-      if (rejecteds.length > 0) {
-        summary += `❌【已淘汰/排除營地 (${rejecteds.length}處)】\n`;
-        rejecteds.forEach(c => {
-          const rev = reviews[c.id];
-          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}`;
-          if (rev.notes?.trim()) summary += ` (原因：${rev.notes.trim()})`;
-          summary += `\n`;
-        });
-        summary += `\n`;
-      }
-
-      if (othersWithNotes.length > 0) {
-        summary += `📝【其他備註】\n`;
-        othersWithNotes.forEach(c => {
-          const rev = reviews[c.id];
-          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}：${rev.notes.trim()}\n`;
-        });
-        summary += `\n`;
-      }
-
-      summary += `--------------------------------------------------\n`;
-      summary += `(可直接貼在對話框分享給 Antigravity 或朋友討論)`;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(summary).then(() => {
-          showToast('🎉 已複製所有評估備註！可直接貼在對話中！');
-        }).catch(() => {
-          fallbackCopyText(summary);
-        });
-      } else {
-        fallbackCopyText(summary);
-      }
+    function filterCamps(type) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(`filter-btn-${type}`);
+      if (btn) btn.classList.add('active');
+      renderCampList(type);
     }
-
-    function fallbackCopyText(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      showToast('🎉 已複製所有評估備註！可直接貼在對話中！');
-    }
-
-    // Modal Backup & Restore
-    function toggleBackupModal() {
-      const modal = document.getElementById('backup-modal');
-      const textarea = document.getElementById('backup-json-textarea');
-      if (modal.classList.contains('active')) {
-        modal.classList.remove('active');
-      } else {
-        textarea.value = JSON.stringify(getReviews(), null, 2);
-        modal.classList.add('active');
-      }
-    }
-
-    function restoreFromModalJson() {
-      const textarea = document.getElementById('backup-json-textarea');
-      try {
-        const parsed = JSON.parse(textarea.value);
-        saveAllReviews(parsed);
-        renderCampList(currentFilter);
-        refreshAllMarkers();
-        toggleBackupModal();
-        showToast('✅ 筆記資料已成功匯入還原！');
-      } catch (e) {
-        alert('JSON 格式錯誤，請檢查後再試！');
-      }
-    }
-
-    // Initialize Map with Google Standard Roadmap
-    const googleRoadmap = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      attribution: '&copy; Google Maps'
-    });
-
-    const googleSatellite = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-      maxZoom: 20,
-      attribution: '&copy; Google Maps Satellite'
-    });
-
-    const map = L.map('map', {
-      center: [24.58, 121.16], zoom: 10,
-      layers: [googleRoadmap]
-    });
-
-    let currentLayer = 'roadmap';
-    function toggleLayer() {
-      if (currentLayer === 'roadmap') {
-        map.removeLayer(googleRoadmap);
-        map.addLayer(googleSatellite);
-        currentLayer = 'satellite';
-      } else {
-        map.removeLayer(googleSatellite);
-        map.addLayer(googleRoadmap);
-        currentLayer = 'roadmap';
-      }
-    }
-
-    const markers = {};
-    let currentFilter = 'all';
-    let currentSort = 'default';
-    let hideRejected = false;
 
     function onSortChange(val) {
       currentSort = val;
@@ -1315,338 +1499,226 @@
       renderCampList(currentFilter);
     }
 
-    function getAltitudeNum(altStr) {
-      const nums = altStr.replace(/,/g, '').match(/\d+/g);
-      return nums ? Math.max(...nums.map(Number)) : 0;
-    }
-
     function renderCampList(filter = 'all') {
       currentFilter = filter;
       const listContainer = document.getElementById('camp-list');
       listContainer.innerHTML = '';
       const reviews = getReviews();
 
-      let filteredCamps = camps.filter(camp => {
-        const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
+      let filtered = camps.filter(c => {
+        const rev = reviews[c.id] || { status: 'none', notes: '' };
         const status = rev.status || 'none';
-
-        if (hideRejected && status === 'rejected' && filter !== 'all') return false;
-        if (hideRejected && status === 'rejected' && filter === 'all') return false;
-
+        if (hideRejected && status === 'rejected') return false;
         if (filter === 'favorite' && status !== 'favorite') return false;
         if (filter === 'considering' && status !== 'considering') return false;
         if (filter === 'pending' && status !== 'none') return false;
         if (filter === 'hasnotes' && (!rev.notes || rev.notes.trim().length === 0)) return false;
-        if (filter === 'hotwater' && !camp.sink_hot_water) return false;
-        if (filter === 'dispenser' && !camp.water_dispenser) return false;
-        if (filter === 'highalt' && getAltitudeNum(camp.altitude) < 800) return false;
+        if (filter === 'hotwater' && !c.sink_hot_water) return false;
+        if (filter === 'dispenser' && !c.water_dispenser) return false;
+        if (filter === 'highalt' && getAltitudeNum(c.altitude) < 800) return false;
         return true;
       });
 
       if (currentSort === 'status') {
         const rank = { favorite: 0, considering: 1, none: 2, rejected: 3 };
-        filteredCamps.sort((a, b) => {
+        filtered.sort((a, b) => {
           const ra = rank[reviews[a.id]?.status || 'none'] ?? 2;
           const rb = rank[reviews[b.id]?.status || 'none'] ?? 2;
           return ra !== rb ? ra - rb : a.id - b.id;
         });
       } else if (currentSort === 'altitude') {
-        filteredCamps.sort((a, b) => getAltitudeNum(b.altitude) - getAltitudeNum(a.altitude));
+        filtered.sort((a, b) => getAltitudeNum(b.altitude) - getAltitudeNum(a.altitude));
       } else if (currentSort === 'amenities') {
-        filteredCamps.sort((a, b) => {
+        filtered.sort((a, b) => {
           const sa = (a.sink_hot_water ? 2 : 0) + (a.water_dispenser ? 1 : 0);
           const sb = (b.sink_hot_water ? 2 : 0) + (b.water_dispenser ? 1 : 0);
           return sb !== sa ? sb - sa : a.id - b.id;
         });
       }
 
-      let matchedCount = 0;
+      if (filtered.length === 0) {
+        listContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-filter-circle-xmark"></i>
+            <div>目前條件下沒有符合的營區</div>
+            <button class="filter-btn" style="margin:12px auto 0;" onclick="filterCamps('all')">顯示全部 10 個營區</button>
+          </div>
+        `;
+        updateFilterCounts();
+        return;
+      }
 
-      filteredCamps.forEach(camp => {
-        const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
-
-        matchedCount++;
+      filtered.forEach(camp => {
+        const rev = reviews[camp.id] || { status: 'none', notes: '' };
+        const status = rev.status || 'none';
+        const idFmt = camp.id < 10 ? '0' + camp.id : camp.id;
 
         const card = document.createElement('div');
-        let statusClass = '';
-        if (rev.status === 'favorite') statusClass = 'status-favorite';
-        else if (rev.status === 'considering') statusClass = 'status-considering';
-        else if (rev.status === 'rejected') statusClass = 'status-rejected';
-
-        card.className = `camp-card ${statusClass}`;
+        let classes = ['camp-card'];
+        if (activeCampId === camp.id) classes.push('active');
+        if (status === 'favorite') classes.push('status-favorite');
+        else if (status === 'considering') classes.push('status-considering');
+        else if (status === 'rejected') classes.push('status-rejected');
+        card.className = classes.join(' ');
         card.id = `card-${camp.id}`;
         card.onclick = () => focusCamp(camp.id);
 
-        let specialNoteHtml = '';
-        if (camp.special_notes) {
-          specialNoteHtml = `<div class="callout-box"><i class="fa-solid fa-circle-exclamation"></i> ${camp.special_notes}</div>`;
-        }
-
-        const idFormatted = camp.id < 10 ? '0' + camp.id : camp.id;
-
-        let statusBadgeHtml = '';
-        if (rev.status === 'favorite') {
-          statusBadgeHtml = `<span class="user-status-badge badge-fav"><i class="fa-solid fa-star"></i> 首選考慮</span>`;
-        } else if (rev.status === 'considering') {
-          statusBadgeHtml = `<span class="user-status-badge badge-consider"><i class="fa-solid fa-clock"></i> 考慮中</span>`;
-        } else if (rev.status === 'rejected') {
-          statusBadgeHtml = `<span class="user-status-badge badge-reject"><i class="fa-solid fa-xmark"></i> 已淘汰</span>`;
-        }
-
-        const escapedNotes = rev.notes ? rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+        const notePreview = rev.notes && rev.notes.trim()
+          ? `<div class="note-snippet"><i class="fa-solid fa-pen"></i> ${rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`
+          : `<span class="note-empty-hint"><i class="fa-regular fa-note-sticky"></i> 點擊查看詳情與寫筆記</span>`;
 
         card.innerHTML = `
-          <div class="card-top">
-            <div class="card-title-group">
-              <span class="card-title">#${idFormatted} ${camp.name}</span>
-              <span id="status-badge-${camp.id}">${statusBadgeHtml}</span>
-            </div>
-            <span class="badge-alt">${camp.altitude}</span>
-          </div>
-          <div class="tags">
-            ${camp.sink_hot_water
-              ? '<span class="tag tag-hotwater"><i class="fa-solid fa-fire"></i> 水槽有熱水</span>'
-              : '<span class="tag tag-nohot"><i class="fa-solid fa-snowflake"></i> 水槽冷水</span>'}
-            ${camp.water_dispenser
-              ? '<span class="tag tag-dispenser"><i class="fa-solid fa-droplet"></i> 有飲水機</span>'
-              : '<span class="tag tag-nodispenser"><i class="fa-solid fa-triangle-exclamation"></i> 無飲水機</span>'}
-            <span class="tag tag-price"><i class="fa-solid fa-sack-dollar"></i> ${camp.price_range}</span>
-            <span class="tag tag-rating"><i class="fa-solid fa-star"></i> ${camp.rating}</span>
-          </div>
-          <div class="card-info">
-            <div><i class="fa-solid fa-location-dot"></i> <strong>位置：</strong>${camp.region} (${camp.corridor})</div>
-            <div><i class="fa-solid fa-campground"></i> <strong>包區特性：</strong>${camp.single_zone_type}</div>
-            <div><i class="fa-solid fa-mountain"></i> <strong>視野景觀：</strong>${camp.view_quality}</div>
-            <div><i class="fa-solid fa-bath"></i> <strong>衛浴設施：</strong>${camp.bathroom}</div>
-            <div><i class="fa-solid fa-circle-info"></i> <strong>熱水水電：</strong>${camp.hot_water_note}</div>
-          </div>
-          ${specialNoteHtml}
-
-          <!-- User Interactive Note & Review Box -->
-          <div class="user-review-box" onclick="event.stopPropagation()">
-            <div class="review-header">
-              <span class="review-title"><i class="fa-solid fa-pen-to-square"></i> 我的評估心得備註</span>
-              <div class="status-pills">
-                <button type="button" class="status-pill ${rev.status === 'none' || !rev.status ? 'active' : ''}" data-status="none" onclick="setCampStatus(${camp.id}, 'none')">⚪ 未定</button>
-                <button type="button" class="status-pill ${rev.status === 'favorite' ? 'active' : ''}" data-status="favorite" onclick="setCampStatus(${camp.id}, 'favorite')">🌟 首選</button>
-                <button type="button" class="status-pill ${rev.status === 'considering' ? 'active' : ''}" data-status="considering" onclick="setCampStatus(${camp.id}, 'considering')">🤔 考慮中</button>
-                <button type="button" class="status-pill ${rev.status === 'rejected' ? 'active' : ''}" data-status="rejected" onclick="setCampStatus(${camp.id}, 'rejected')">❌ 淘汰</button>
+          <div class="card-header">
+            <div class="card-title-wrap">
+              <div class="card-title">#${idFmt} ${camp.name}</div>
+              <div class="card-sub">
+                <span>${camp.region}</span>
+                <span class="card-rating"><i class="fa-solid fa-star"></i> ${camp.rating}</span>
               </div>
             </div>
-            <textarea 
-              class="review-textarea" 
-              id="note-${camp.id}" 
-              placeholder="點此輸入您查看後的優缺點心得、鎖定營位或疑問（會自動即時儲存至瀏覽器）..."
-              oninput="onNoteInput(${camp.id})"
-              onblur="saveCampNote(${camp.id})"
-            >${escapedNotes}</textarea>
-            <div class="review-footer">
-              <span class="save-indicator" id="save-indicator-${camp.id}">
-                ${rev.updatedAt ? `<i class="fa-solid fa-check"></i> 上次更新 ${rev.updatedAt}` : ''}
-              </span>
-              <div class="review-footer-btns">
-                <button type="button" class="btn-note-action btn-save-quick" onclick="saveCampNote(${camp.id}, true)"><i class="fa-solid fa-floppy-disk"></i> 儲存</button>
-                <button type="button" class="btn-note-action btn-clear-quick" onclick="clearCampNote(${camp.id})"><i class="fa-solid fa-trash-can"></i> 清除</button>
-              </div>
-            </div>
+            ${getStatusChipHtml(status)}
           </div>
-
-          <div class="card-actions">
-            <a class="btn-action btn-locate" onclick="event.stopPropagation(); focusCamp(${camp.id})"><i class="fa-solid fa-location-crosshairs"></i> 地圖定位</a>
-            <a class="btn-action btn-locate" href="https://www.google.com/maps/search/?api=1&query=${camp.lat},${camp.lng}" target="_blank" onclick="event.stopPropagation()" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;"><i class="fa-solid fa-route"></i> Google路線</a>
-            <a class="btn-action btn-book" href="${camp.booking_url}" target="_blank" onclick="event.stopPropagation()"><i class="fa-solid fa-arrow-up-right-from-square"></i> 查位/訂位</a>
+          <div class="spec-grid">
+            <div class="spec-item"><i class="fa-solid fa-mountain"></i><span class="spec-text">海拔 ${camp.altitude}</span></div>
+            <div class="spec-item ${camp.sink_hot_water ? 'spec-hot' : ''}"><i class="fa-solid fa-fire-burner"></i><span class="spec-text">${camp.sink_hot_water ? '水槽有溫熱水' : '水槽冷水'}</span></div>
+            <div class="spec-item ${!camp.water_dispenser ? 'spec-warn' : ''}"><i class="fa-solid fa-droplet"></i><span class="spec-text">${camp.water_dispenser ? '有飲水機' : '無飲水機'}</span></div>
+            <div class="spec-item"><i class="fa-solid fa-tag"></i><span class="spec-text">${camp.price_range.replace('約 ', '')}</span></div>
+          </div>
+          <div class="card-footer-preview">
+            ${notePreview}
+            <span class="btn-open-detail">詳情 <i class="fa-solid fa-chevron-right"></i></span>
           </div>
         `;
         listContainer.appendChild(card);
       });
 
-      if (matchedCount === 0) {
-        listContainer.innerHTML = `
-          <div class="empty-state">
-            <i class="fa-solid fa-filter-circle-xmark"></i>
-            <div>目前條件下沒有營地</div>
-            <button class="filter-btn" style="margin:12px auto 0; padding:6px 14px;" onclick="filterCamps('all')">顯示全部 10 個營地</button>
-          </div>
-        `;
-      }
-
       updateFilterCounts();
     }
 
-    function createMarkers() {
-      camps.forEach(camp => {
-        const markerClass = camp.sink_hot_water ? 'marker-hot' : 'marker-std';
-        const customIcon = L.divIcon({
-          className: '',
-          html: `<div class="custom-marker ${markerClass}">#${camp.id}</div>`,
-          iconSize: [32, 32],
-          iconAnchor: [16, 16],
-          popupAnchor: [0, -16]
-        });
-
-        const marker = L.marker([camp.lat, camp.lng], { icon: customIcon }).addTo(map);
-
-        let popupNote = '';
-        if (camp.special_notes) {
-          popupNote = `<div style="margin-top:6px; font-size:0.75rem; background:#fffde7; padding:4px 6px; border-left:3px solid #fbc02d;">${camp.special_notes}</div>`;
-        }
-
-        const popupHtml = `
-          <div class="popup-container">
-            <div class="popup-title">#${camp.id < 10 ? "0" + camp.id : camp.id} ${camp.name}</div>
-            <div class="popup-row"><i class="fa-solid fa-mountain"></i> <strong>海拔：</strong>${camp.altitude}</div>
-            <div class="popup-row"><i class="fa-solid fa-campground"></i> <strong>包區：</strong>${camp.single_zone_type}</div>
-            <div class="popup-row"><i class="fa-solid fa-bath"></i> <strong>衛浴：</strong>${camp.bathroom}</div>
-            <div class="popup-row"><i class="fa-solid fa-sink"></i> <strong>水槽熱水：</strong>${camp.sink_hot_water ? '🔥 有溫熱水' : '無 (衛浴有熱水)'}</div>
-            <div class="popup-row"><i class="fa-solid fa-droplet"></i> <strong>飲水機：</strong>${camp.water_dispenser ? '有' : '無 (需自備水)'}</div>
-            ${popupNote}
-            <div style="margin-top:8px;">
-              <a href="${camp.booking_url}" target="_blank" style="display:block; text-align:center; background:#1b4d3e; color:white; padding:5px 0; border-radius:4px; font-size:0.78rem; text-decoration:none;">前往官網 / 訂位連結</a>
-            </div>
-          </div>
-        `;
-
-        marker.bindPopup(popupHtml);
-        marker.on('click', () => {
-          highlightCard(camp.id);
-        });
-
-        markers[camp.id] = marker;
-      });
-    }
-
+    // Focus Camp + Open Floating Detail Drawer (Option 2)
     function focusCamp(id) {
       const camp = camps.find(c => c.id === id);
-      if (camp && markers[id]) {
-        map.flyTo([camp.lat, camp.lng], 14, { duration: 1.2 });
-        markers[id].openPopup();
-        highlightCard(id);
-      }
-    }
+      if (!camp) return;
+      activeCampId = id;
 
-    function highlightCard(id) {
       document.querySelectorAll('.camp-card').forEach(c => c.classList.remove('active'));
       const activeCard = document.getElementById(`card-${id}`);
       if (activeCard) {
         activeCard.classList.add('active');
         activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
+
+      if (markers[id]) {
+        map.flyTo([camp.lat, camp.lng], 13, { duration: 1.0 });
+        markers[id].openPopup();
+      }
+
+      openDetailDrawer(camp);
     }
 
-    function filterCamps(type) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      const btn = document.getElementById(`filter-btn-${type}`);
-      if (btn) btn.classList.add('active');
-      renderCampList(type);
-    }
-
-
-    // Cross Device Sync Helpers
-    function utf8ToBase64(str) {
-      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
-        return String.fromCharCode('0x' + p1);
-      }));
-    }
-
-    function base64ToUtf8(str) {
-      return decodeURIComponent(atob(str).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-    }
-
-    function generateSyncUrl() {
+    function openDetailDrawer(camp) {
       const reviews = getReviews();
-      const jsonStr = JSON.stringify(reviews);
-      const b64Data = utf8ToBase64(jsonStr);
-      return window.location.origin + window.location.pathname + '#sync=' + b64Data;
+      const rev = reviews[camp.id] || { status: 'none', notes: '', updatedAt: '' };
+      const status = rev.status || 'none';
+      const idFmt = camp.id < 10 ? '0' + camp.id : camp.id;
+      const escapedNotes = rev.notes ? rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+
+      document.getElementById('drawer-title').textContent = `#${idFmt} ${camp.name}`;
+      document.getElementById('drawer-meta').textContent = `${camp.region} ・ 海拔 ${camp.altitude} ・ ⭐ ${camp.rating} ・ ${camp.price_range}`;
+
+      document.getElementById('drawer-body').innerHTML = `
+        <div class="drawer-review-section">
+          <div class="review-section-title">
+            <span><i class="fa-solid fa-pen-to-square"></i> 我的評估狀態與筆記</span>
+          </div>
+          <div class="status-pills">
+            <button type="button" class="status-pill ${status === 'none' ? 'active' : ''}" data-status="none" onclick="setCampStatus(${camp.id}, 'none')">未定</button>
+            <button type="button" class="status-pill ${status === 'favorite' ? 'active' : ''}" data-status="favorite" onclick="setCampStatus(${camp.id}, 'favorite')">★ 首選</button>
+            <button type="button" class="status-pill ${status === 'considering' ? 'active' : ''}" data-status="considering" onclick="setCampStatus(${camp.id}, 'considering')">考慮中</button>
+            <button type="button" class="status-pill ${status === 'rejected' ? 'active' : ''}" data-status="rejected" onclick="setCampStatus(${camp.id}, 'rejected')">淘汰</button>
+          </div>
+          <textarea
+            class="review-textarea"
+            id="drawer-note-${camp.id}"
+            placeholder="在此輸入優缺點心得、想預訂的營位或待確認事項（輸入即自動儲存）..."
+            oninput="onDrawerNoteInput(${camp.id})"
+            onblur="saveCampNote(${camp.id})"
+          >${escapedNotes}</textarea>
+          <div class="review-footer">
+            <span class="save-indicator" id="drawer-save-ind-${camp.id}">
+              ${rev.updatedAt ? `<i class="fa-solid fa-check"></i> 上次更新 ${rev.updatedAt}` : '自動儲存至瀏覽器'}
+            </span>
+            <div style="display:flex; gap:5px;">
+              <button type="button" class="btn-note-mini save" onclick="saveCampNote(${camp.id}, true)"><i class="fa-solid fa-floppy-disk"></i> 儲存</button>
+              <button type="button" class="btn-note-mini clear" onclick="clearCampNote(${camp.id})"><i class="fa-solid fa-trash-can"></i> 清除</button>
+            </div>
+          </div>
+        </div>
+
+        ${camp.special_notes ? `<div class="drawer-callout">${camp.special_notes}</div>` : ''}
+
+        <div class="drawer-specs">
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-campground"></i>
+            <div><strong>包區營位：</strong>${camp.single_zone_type}</div>
+          </div>
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-mountain-sun"></i>
+            <div><strong>視野景觀：</strong>${camp.view_quality}</div>
+          </div>
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-bath"></i>
+            <div><strong>衛浴設施：</strong>${camp.bathroom}</div>
+          </div>
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-faucet-drip"></i>
+            <div><strong>水電熱水：</strong>${camp.hot_water_note}</div>
+          </div>
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-tents"></i>
+            <div><strong>搭帳方式：</strong>${camp.setup_mode}</div>
+          </div>
+          <div class="drawer-spec-row">
+            <i class="fa-solid fa-map-signs"></i>
+            <div><strong>周邊景點：</strong>${camp.attractions}</div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('drawer-footer').innerHTML = `
+        <a class="drawer-btn drawer-btn-map" href="https://www.google.com/maps/search/?api=1&query=${camp.lat},${camp.lng}" target="_blank">
+          <i class="fa-solid fa-route"></i> Google 路線
+        </a>
+        <a class="drawer-btn drawer-btn-book" href="${camp.booking_url}" target="_blank">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> 線上查位 / 訂位
+        </a>
+      `;
+
+      document.getElementById('detail-drawer').classList.add('open');
     }
 
-    let qrcodeInstance = null;
-    function openSyncModal() {
-      const modal = document.getElementById('sync-modal');
-      const qrContainer = document.getElementById('qrcode-container');
-      const input = document.getElementById('sync-url-input');
-      const syncUrl = generateSyncUrl();
-
-      input.value = syncUrl;
-      qrContainer.innerHTML = '';
-      qrcodeInstance = new QRCode(qrContainer, {
-        text: syncUrl,
-        width: 180,
-        height: 180,
-        colorDark: "#1b4d3e",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.M
-      });
-
-      modal.classList.add('active');
+    function closeDetailDrawer() {
+      document.getElementById('detail-drawer').classList.remove('open');
+      activeCampId = null;
+      document.querySelectorAll('.camp-card').forEach(c => c.classList.remove('active'));
     }
 
-    function closeSyncModal() {
-      const modal = document.getElementById('sync-modal');
-      if (modal) modal.classList.remove('active');
-    }
-
-    function copySyncUrl() {
-      const input = document.getElementById('sync-url-input');
-      input.select();
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(input.value).then(() => {
-          showToast('🎉 已複製同步專屬網址！可貼到 LINE 傳給自己手機打開！');
-        }).catch(() => {
-          fallbackCopyText(input.value);
-        });
-      } else {
-        fallbackCopyText(input.value);
-      }
-    }
-
-    function checkUrlSync() {
-      if (window.location.hash && window.location.hash.startsWith('#sync=')) {
-        try {
-          const rawBase64 = window.location.hash.substring(6);
-          const jsonStr = base64ToUtf8(rawBase64);
-          const incomingReviews = JSON.parse(jsonStr);
-          if (incomingReviews && typeof incomingReviews === 'object') {
-            const existing = getReviews();
-            const merged = { ...existing, ...incomingReviews };
-            saveAllReviews(merged);
-            // Clean up hash without reloading page
-            history.replaceState(null, null, window.location.pathname);
-            setTimeout(() => {
-              renderCampList(currentFilter);
-              refreshAllMarkers();
-              showToast('🎉 跨裝置同步成功！已成功載入所有評估心得與狀態！');
-            }, 300);
-          }
-        } catch (e) {
-          console.error('Failed to parse sync data from URL hash', e);
-        }
-      }
-    }
-
-
-    // Compare Modal Logic
-    let currentCompareTab = 'all';
-    function openCompareModal() {
-      renderCompareTable(currentCompareTab);
+    // Compare Modal
+    function openCompareModal(tab = 'all') {
+      renderCompareTable(tab);
       document.getElementById('compare-modal').classList.add('active');
     }
-
     function closeCompareModal() {
       document.getElementById('compare-modal').classList.remove('active');
     }
-
     function onTableStatusChange(id, newStatus) {
       setCampStatus(id, newStatus);
       renderCompareTable(currentCompareTab);
     }
-
     function jumpFromCompare(id) {
       closeCompareModal();
       focusCamp(id);
     }
-
     function renderCompareTable(tab = 'all') {
       currentCompareTab = tab;
       document.querySelectorAll('.compare-tab').forEach(t => t.classList.remove('active'));
@@ -1665,7 +1737,7 @@
       });
 
       if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 30px; color:#64748b;">目前此分類下沒有營地（可先在左側卡片或切換至「全部營地」標記 🌟首選 或 🤔考慮中）</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 30px; color:var(--text-muted);">目前此分類下沒有營區</td></tr>`;
         return;
       }
 
@@ -1673,12 +1745,9 @@
         const rev = reviews[c.id] || { status: 'none', notes: '' };
         const status = rev.status || 'none';
         const idFmt = c.id < 10 ? '0' + c.id : c.id;
-        let rowClass = '';
-        if (status === 'favorite') rowClass = 'row-fav';
-        else if (status === 'rejected') rowClass = 'row-reject';
-
+        let rowClass = status === 'favorite' ? 'row-fav' : (status === 'rejected' ? 'row-reject' : '');
         const userNoteHtml = rev.notes && rev.notes.trim()
-          ? `<div class="table-note-preview">📝 ${rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`
+          ? `<div class="table-note-preview">${rev.notes.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`
           : '';
 
         const tr = document.createElement('tr');
@@ -1686,38 +1755,168 @@
         tr.innerHTML = `
           <td style="min-width:140px;">
             <span class="table-camp-link" onclick="jumpFromCompare(${c.id})">#${idFmt} ${c.name}</span>
-            <div style="font-size:0.7rem; color:#64748b; margin-top:2px;">⭐ ${c.rating}</div>
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-top:2px;">⭐ ${c.rating}</div>
           </td>
           <td>
             <select class="table-status-select" onchange="onTableStatusChange(${c.id}, this.value)">
-              <option value="none" ${status === 'none' ? 'selected' : ''}>⚪ 未定</option>
-              <option value="favorite" ${status === 'favorite' ? 'selected' : ''}>🌟 首選</option>
-              <option value="considering" ${status === 'considering' ? 'selected' : ''}>🤔 考慮中</option>
-              <option value="rejected" ${status === 'rejected' ? 'selected' : ''}>❌ 淘汰</option>
+              <option value="none" ${status === 'none' ? 'selected' : ''}>未定</option>
+              <option value="favorite" ${status === 'favorite' ? 'selected' : ''}>★ 首選</option>
+              <option value="considering" ${status === 'considering' ? 'selected' : ''}>考慮中</option>
+              <option value="rejected" ${status === 'rejected' ? 'selected' : ''}>淘汰</option>
             </select>
           </td>
-          <td style="white-space:nowrap;">
-            <strong>${c.altitude}</strong>
-            <div style="font-size:0.7rem; color:#64748b;">${c.region}</div>
-          </td>
+          <td style="white-space:nowrap;"><strong>${c.altitude}</strong><div style="font-size:0.7rem; color:var(--text-muted);">${c.region}</div></td>
           <td style="min-width:160px;">${c.single_zone_type}</td>
-          <td style="white-space:nowrap;">${c.sink_hot_water ? '<span style="color:#c62828;font-weight:700;">🔥 有熱水</span>' : '<span style="color:#64748b;">❄️ 冷水</span>'}</td>
-          <td style="white-space:nowrap;">${c.water_dispenser ? '<span style="color:#1565c0;font-weight:700;">💧 有</span>' : '<span style="color:#c2410c;font-weight:700;">⚠️ 無</span>'}</td>
+          <td style="white-space:nowrap;">${c.sink_hot_water ? '<span style="color:#B91C1C;font-weight:700;">有溫熱水</span>' : '<span style="color:#6B7280;">冷水</span>'}</td>
+          <td style="white-space:nowrap;">${c.water_dispenser ? '<span style="color:#0369A1;font-weight:700;">有</span>' : '<span style="color:#C2410C;font-weight:700;">無</span>'}</td>
           <td style="min-width:110px;">${c.price_range}</td>
-          <td style="min-width:220px;">
-            ${userNoteHtml}
-            <div style="font-size:0.72rem; color:#475569;">${c.special_notes || ''}</div>
-          </td>
+          <td style="min-width:220px;">${userNoteHtml}<div style="font-size:0.72rem; color:var(--text-muted);">${c.special_notes || ''}</div></td>
         `;
         tbody.appendChild(tr);
       });
+    }
+
+    // Export Summary
+    function copyAllReviewSummary() {
+      const reviews = getReviews();
+      const campsWithReview = camps.filter(c => {
+        const r = reviews[c.id];
+        return r && (r.status !== 'none' || (r.notes && r.notes.trim().length > 0));
+      });
+      if (campsWithReview.length === 0) {
+        showToast('目前尚未填寫筆記或標記狀態！');
+        return;
+      }
+
+      let summary = `🏕️【2026/12/11~12/13 桃竹苗露營評估心得與決選筆記】\n`;
+      summary += `產生時間：${new Date().toLocaleString('zh-TW')}\n--------------------------------------------------\n\n`;
+
+      const favorites = camps.filter(c => reviews[c.id]?.status === 'favorite');
+      const considerings = camps.filter(c => reviews[c.id]?.status === 'considering');
+      const rejecteds = camps.filter(c => reviews[c.id]?.status === 'rejected');
+      const others = camps.filter(c => (!reviews[c.id]?.status || reviews[c.id]?.status === 'none') && reviews[c.id]?.notes?.trim());
+
+      if (favorites.length > 0) {
+        summary += `🌟【我的首選營地 (${favorites.length}處)】\n`;
+        favorites.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n  - 包區：${c.single_zone_type}\n`;
+          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
+          summary += `  - 訂位：${c.booking_url}\n\n`;
+        });
+      }
+      if (considerings.length > 0) {
+        summary += `🤔【考慮中營地 (${considerings.length}處)】\n`;
+        considerings.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name} (${c.altitude})\n`;
+          if (rev.notes?.trim()) summary += `  - 我的筆記：${rev.notes.trim()}\n`;
+          summary += `  - 訂位：${c.booking_url}\n\n`;
+        });
+      }
+      if (rejecteds.length > 0) {
+        summary += `❌【已淘汰營地 (${rejecteds.length}處)】\n`;
+        rejecteds.forEach(c => {
+          const rev = reviews[c.id];
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}${rev.notes?.trim() ? ` (${rev.notes.trim()})` : ''}\n`;
+        });
+        summary += `\n`;
+      }
+      if (others.length > 0) {
+        summary += `📝【其他備註】\n`;
+        others.forEach(c => {
+          summary += `• #${c.id < 10 ? '0' + c.id : c.id} ${c.name}：${reviews[c.id].notes.trim()}\n`;
+        });
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summary).then(() => showToast('已複製所有評估筆記摘要！')).catch(() => fallbackCopyText(summary));
+      } else {
+        fallbackCopyText(summary);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('已複製到剪貼簿！');
+    }
+
+    // Cross-Device Sync & Backup
+    function utf8ToBase64(str) {
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m, p1) => String.fromCharCode('0x' + p1)));
+    }
+    function base64ToUtf8(str) {
+      return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    }
+    function openSyncModal() {
+      const syncUrl = window.location.origin + window.location.pathname + '#sync=' + utf8ToBase64(JSON.stringify(getReviews()));
+      document.getElementById('sync-url-input').value = syncUrl;
+      const qr = document.getElementById('qrcode-container');
+      qr.innerHTML = '';
+      new QRCode(qr, { text: syncUrl, width: 180, height: 180, colorDark: '#1B4332', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      document.getElementById('sync-modal').classList.add('active');
+    }
+    function closeSyncModal() {
+      document.getElementById('sync-modal').classList.remove('active');
+    }
+    function copySyncUrl() {
+      const input = document.getElementById('sync-url-input');
+      input.select();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(input.value).then(() => showToast('已複製同步網址！')).catch(() => fallbackCopyText(input.value));
+      } else {
+        fallbackCopyText(input.value);
+      }
+    }
+    function checkUrlSync() {
+      if (window.location.hash && window.location.hash.startsWith('#sync=')) {
+        try {
+          const incoming = JSON.parse(base64ToUtf8(window.location.hash.substring(6)));
+          if (incoming && typeof incoming === 'object') {
+            saveAllReviews({ ...getReviews(), ...incoming });
+            history.replaceState(null, null, window.location.pathname);
+            setTimeout(() => {
+              renderCampList(currentFilter);
+              refreshAllMarkers();
+              showToast('跨裝置同步成功！已載入所有筆記與狀態！');
+            }, 250);
+          }
+        } catch (e) {
+          console.error('Sync parse error', e);
+        }
+      }
+    }
+    function toggleBackupModal() {
+      const modal = document.getElementById('backup-modal');
+      if (modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      } else {
+        document.getElementById('backup-json-textarea').value = JSON.stringify(getReviews(), null, 2);
+        modal.classList.add('active');
+      }
+    }
+    function restoreFromModalJson() {
+      try {
+        const parsed = JSON.parse(document.getElementById('backup-json-textarea').value);
+        saveAllReviews(parsed);
+        renderCampList(currentFilter);
+        refreshAllMarkers();
+        toggleBackupModal();
+        showToast('筆記資料已成功匯入還原！');
+      } catch (e) {
+        alert('JSON 格式錯誤，請檢查後再試！');
+      }
     }
 
     // Init
     checkUrlSync();
     renderCampList('all');
     createMarkers();
-    refreshAllMarkers();
   </script>
 </body>
 </html>
